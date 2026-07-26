@@ -46,6 +46,7 @@
     font-family: var(--font-ui);
     overflow-x: hidden;
     min-height: 100dvh;
+    zoom: 1.1; /* +10% em todo o projeto pra leitura */
   }
   ::selection { background: var(--c-accent); color: var(--c-deep); }
   ::-webkit-scrollbar { width: 10px; }
@@ -181,20 +182,6 @@
     height: 88vh;
     display: flex; align-items: flex-end; justify-content: center;
     will-change: transform;
-    pointer-events: none;
-  }
-  /* aura na forma do próprio personagem: a arte vira máscara de um bloco na cor da
-     paleta. É o que faz o recorte emitir luz pro fundo em vez de parecer colado. */
-  .portrait-aura {
-    position: absolute; inset: 0;
-    z-index: -2;
-    background: var(--c-accent);
-    -webkit-mask-image: var(--portrait); mask-image: var(--portrait);
-    -webkit-mask-size: contain; mask-size: contain;
-    -webkit-mask-position: bottom center; mask-position: bottom center;
-    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
-    filter: blur(34px);
-    opacity: .34;
     pointer-events: none;
   }
   /* elipse de contato no chão */
@@ -505,57 +492,70 @@
   /* ================= INVENTÁRIO ================= */
   .inv-frame {
     max-width: 1080px; margin: 0 auto;
-    border: 6px solid var(--c-surface);
-    outline: 2px solid var(--c-deep);
-    background:
-      linear-gradient(color-mix(in srgb, var(--c-deep) 60%, transparent), color-mix(in srgb, var(--c-deep) 60%, transparent)),
-      repeating-linear-gradient(45deg, color-mix(in srgb, var(--c-surface) 22%, transparent) 0 2px, transparent 2px 8px);
-    box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--c-accent) 20%, transparent), 0 30px 60px -30px rgba(0,0,0,.7);
-    padding: 18px;
+    background: color-mix(in srgb, var(--c-bg) 50%, #000 20%);
+    border: 1px solid color-mix(in srgb, var(--c-surface) 70%, transparent);
+    border-top: 3px solid var(--c-accent);
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,.7);
+    padding: 20px;
   }
   .inv-bar {
     display: flex; align-items: center; justify-content: space-between;
-    gap: 12px; margin-bottom: 16px;
+    gap: 12px; margin-bottom: 18px;
   }
   .inv-bar .inv-title {
     font-family: var(--font-display);
-    font-size: clamp(24px, 4vw, 40px);
-    letter-spacing: .06em; text-transform: uppercase;
+    font-size: clamp(22px, 3.4vw, 34px);
+    letter-spacing: .08em; text-transform: uppercase;
     color: var(--c-light);
-    background: var(--c-surface);
-    border: 2px solid var(--c-deep);
-    padding: 4px 22px;
   }
   .inv-bar .inv-count {
     font-family: var(--font-ui); font-weight: 700;
-    font-size: 13px; letter-spacing: .12em;
+    font-size: 14px; letter-spacing: .14em;
     color: var(--c-deep);
     background: var(--c-accent);
-    padding: 8px 12px; white-space: nowrap;
+    padding: 8px 13px; white-space: nowrap;
   }
-  .inv-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .inv-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
   .inv-slot {
     position: relative;
     aspect-ratio: 1;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 8px; padding: 10px 8px;
-    background: color-mix(in srgb, var(--c-bg) 55%, #000 20%);
-    border: 1px solid color-mix(in srgb, var(--c-surface) 60%, transparent);
-    box-shadow: inset 0 0 22px rgba(0,0,0,.5);
-    text-align: center;
+    display: flex; align-items: center; justify-content: center;
+    background: color-mix(in srgb, #000 45%, var(--c-deep));
+    border: 1px solid color-mix(in srgb, var(--c-surface) 55%, transparent);
+    box-shadow: inset 0 0 26px rgba(0,0,0,.55);
+    overflow: hidden;
     transition: transform .15s ease, border-color .15s ease;
   }
   .inv-slot:hover { transform: translateY(-3px); border-color: var(--c-accent); }
-  .inv-slot.empty { opacity: .35; }
-  .inv-slot svg { width: 42px; height: 42px; stroke: var(--c-accent); fill: none; stroke-width: 1.6; }
-  .inv-slot .inv-name {
-    font-family: var(--font-ui); font-size: 10px; font-weight: 600;
-    letter-spacing: .04em; line-height: 1.3; color: var(--c-light);
+  .inv-slot.empty { opacity: .3; }
+  /* área da arte: ícone hoje, <img>/objeto 3D quando o usuário subir (it.img) */
+  .inv-art {
+    width: 78%; height: 78%;
+    display: flex; align-items: center; justify-content: center;
   }
-  .inv-slot .inv-qty {
-    position: absolute; right: 5px; bottom: 4px;
-    font-family: var(--font-ui); font-size: 11px; font-weight: 700;
-    color: var(--c-accent); font-variant-numeric: tabular-nums;
+  .inv-art img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .inv-art svg { width: 100%; height: 100%; stroke: var(--c-accent); fill: none; stroke-width: 1.5; }
+  /* prova do crime: destaque — anel accent */
+  .inv-slot.prova { border-color: var(--c-accent); box-shadow: inset 0 0 0 1px var(--c-accent), inset 0 0 26px rgba(0,0,0,.55); }
+  .inv-slot.prova::after {
+    content: "PROVA"; position: absolute; top: 6px; left: 6px;
+    font-family: var(--font-ui); font-size: 8px; font-weight: 700; letter-spacing: .16em;
+    color: var(--c-deep); background: var(--c-accent); padding: 2px 5px;
+  }
+  .inv-name {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    padding: 6px 8px;
+    background: linear-gradient(to top, color-mix(in srgb, var(--c-deep) 92%, transparent), transparent);
+    font-family: var(--font-ui); font-size: 11px; font-weight: 600;
+    letter-spacing: .03em; line-height: 1.25; color: var(--c-light);
+    text-align: left;
+  }
+  .inv-qty {
+    position: absolute; right: 6px; top: 6px;
+    font-family: var(--font-ui); font-size: 13px; font-weight: 700;
+    color: var(--c-deep); background: var(--c-accent);
+    padding: 1px 6px;
+    font-variant-numeric: tabular-nums;
   }
 
   /* ================= RESPONSIVO ================= */
@@ -628,7 +628,6 @@
         <div class="name-rule" id="name-rule">Nível 1</div>
         <h1 class="hero-name" id="char-player-name"><span class="line">—</span></h1>
         <div class="hero-img" id="hero-img">
-          <div class="portrait-aura" id="hero-aura" aria-hidden="true"></div>
           <img id="hero-portrait" alt="" hidden>
           <div class="char-silhouette" id="hero-fallback" aria-hidden="true">
             <svg viewBox="0 0 190 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
@@ -675,7 +674,7 @@
       </div>
       <div class="inv-frame">
         <div class="inv-bar">
-          <span class="inv-title">Inventário</span>
+          <span class="inv-title" id="inv-title">—</span>
           <span class="inv-count" id="inv-count">0/0</span>
         </div>
         <div class="inv-grid" id="inv-grid"></div>
@@ -1182,17 +1181,13 @@
 
       var img = document.getElementById('hero-portrait');
       var fallback = document.getElementById('hero-fallback');
-      var aura = document.getElementById('hero-aura');
       if (c.img) {
         img.src = c.img;
         img.alt = (s.name || c.nome) + ' — arte do personagem';
         img.hidden = false;
         fallback.style.display = 'none';
-        aura.style.setProperty('--portrait', 'url("' + c.img + '")');
-        aura.hidden = false;
         img.onerror = function () {
           img.hidden = true;
-          aura.hidden = true;
           fallback.style.display = '';
         };
         img.onload = function () {
@@ -1201,7 +1196,6 @@
         };
       } else {
         img.hidden = true;
-        aura.hidden = true;
         fallback.style.display = '';
       }
     }
@@ -1277,7 +1271,8 @@
       municao: '<svg viewBox="0 0 24 24"><path d="M8 3h3l1 5v10H7V8z"/><path d="M14 6h3v9h-3z"/></svg>',
       racao: '<svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="14" rx="1"/><path d="M6 9h12"/></svg>',
       agua: '<svg viewBox="0 0 24 24"><path d="M10 2h4v3l2 3v12H8V8l2-3z"/><path d="M8 13h8"/></svg>',
-      medico: '<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M12 8v8M8 12h8"/></svg>'
+      medico: '<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M12 8v8M8 12h8"/></svg>',
+      prova: '<svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 15h6M9 18h4"/></svg>'
     };
     // itens de sobrevivência compartilhados + equipamento por classe (nome, tipo, qtd)
     var INV_BASE = [
@@ -1289,11 +1284,13 @@
     var INV_EXTRA = {
       federal: [
         { n: 'Pistola "Distintivo"', t: 'arma' }, { n: 'Algemas de choque', t: 'gadget' },
-        { n: 'SMG Compacta', t: 'arma' }, { n: 'Faca de Combate', t: 'arma' }
+        { n: 'SMG Compacta', t: 'arma' }, { n: 'Faca de Combate', t: 'arma' },
+        { n: 'Foto da incisão', t: 'prova', p: true }
       ],
       narcoticos: [
         { n: 'Faca "Sombra das Docas"', t: 'arma' }, { n: 'Dardo rastreador', t: 'gadget' },
-        { n: 'Pistola Padrão', t: 'arma' }, { n: 'Lâmina Monofilamento', t: 'arma' }
+        { n: 'Pistola Padrão', t: 'arma' }, { n: 'Lâmina Monofilamento', t: 'arma' },
+        { n: 'Celular descartável', t: 'prova', p: true }
       ],
       cia: [
         { n: 'Rifle "Silêncio"', t: 'arma' }, { n: 'Micro-drone', t: 'gadget' },
@@ -1301,7 +1298,8 @@
       ],
       netrunner: [
         { n: 'Deck "Fantasma"', t: 'gadget' }, { n: 'Drone "Rato"', t: 'gadget' },
-        { n: 'Pistola Padrão', t: 'arma' }, { n: 'Faca de Combate', t: 'arma' }
+        { n: 'Pistola Padrão', t: 'arma' }, { n: 'Faca de Combate', t: 'arma' },
+        { n: 'Código financeiro', t: 'prova', p: true }
       ],
       'corp-security': [
         { n: 'Braço "Sentinela"', t: 'arma' }, { n: 'Espuma de contenção', t: 'gadget' },
@@ -1311,12 +1309,17 @@
 
     function renderInventario() {
       var items = INV_BASE.concat(INV_EXTRA[activeId] || []);
+      document.getElementById('inv-title').textContent = (st().name || cls().nome);
       var grid = document.getElementById('inv-grid');
       grid.innerHTML = '';
       items.forEach(function (it) {
         var slot = document.createElement('div');
-        slot.className = 'inv-slot';
-        slot.innerHTML = (INV_ICONS[it.t] || '') +
+        slot.className = 'inv-slot' + (it.p ? ' prova' : '');
+        // it.img: quando o usuário subir arte/objeto 3D, cai aqui em vez do ícone
+        var art = it.img
+          ? '<img src="' + it.img + '" alt="">'
+          : (INV_ICONS[it.t] || '');
+        slot.innerHTML = '<div class="inv-art">' + art + '</div>' +
           '<span class="inv-name"></span>' +
           (it.q ? '<span class="inv-qty"></span>' : '');
         slot.querySelector('.inv-name').textContent = it.n;

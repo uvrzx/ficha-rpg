@@ -28,5 +28,4 @@ test('portrait has an alpha cutout slot plus a silhouette fallback', () => {
   const html = readHtml();
   assert.match(html, /id="hero-portrait"/);
   assert.match(html, /class="char-silhouette"/);
-  assert.match(html, /class="portrait-aura"/);
 });
