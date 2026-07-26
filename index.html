@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FICHA_RPG — Nível 1</title>
+<style>
+  @font-face {
+    font-family: 'Anton';
+    src: url('fonts/anton-400.woff2') format('woff2');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Chakra Petch';
+    src: url('fonts/chakrapetch-400.woff2') format('woff2');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Chakra Petch';
+    src: url('fonts/chakrapetch-600.woff2') format('woff2');
+    font-weight: 600; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Chakra Petch';
+    src: url('fonts/chakrapetch-700.woff2') format('woff2');
+    font-weight: 700; font-style: normal; font-display: swap;
+  }
+
+  :root {
+    /* paleta ativa — trocada via JS por classe */
+    --c-bg: #1A130B;
+    --c-deep: #0F0B06;
+    --c-surface: #4A3420;
+    --c-accent: #C98A3D;
+    --c-accent2: #8A5A26;
+    --c-light: #F2E9DC;
+    --c-muted: #9C8C77;
+    --font-display: 'Anton', 'Arial Narrow Bold', sans-serif;
+    --font-ui: 'Chakra Petch', 'Segoe UI', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--c-bg);
+    color: var(--c-light);
+    font-family: var(--font-ui);
+    overflow-x: hidden;
+    min-height: 100dvh;
+  }
+  ::selection { background: var(--c-accent); color: var(--c-deep); }
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--c-deep); }
+  ::-webkit-scrollbar-thumb { background: var(--c-surface); }
+  button { cursor: pointer; font-family: inherit; }
+  button:active { transform: translateY(1px); }
+  :focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+
+  /* ================= TOPBAR ================= */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 40;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px;
+    padding: 0 32px;
+    height: 64px;
+    background: color-mix(in srgb, var(--c-deep) 88%, transparent);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    border-bottom: 1px solid color-mix(in srgb, var(--c-surface) 55%, transparent);
+  }
+  .wordmark {
+    font-weight: 700; font-size: 13px; letter-spacing: .3em;
+    color: var(--c-light); white-space: nowrap;
+  }
+  .wordmark em { font-style: normal; color: var(--c-accent); }
+  .class-select { display: flex; gap: 4px; overflow-x: auto; }
+  .class-select button {
+    position: relative;
+    background: none; border: none;
+    color: var(--c-muted);
+    font-size: 11px; font-weight: 600; letter-spacing: .14em;
+    text-transform: uppercase;
+    padding: 22px 14px;
+    white-space: nowrap;
+    transition: color .2s ease;
+    min-height: 44px;
+  }
+  .class-select button .idx {
+    color: var(--c-accent); font-size: 9px; margin-right: 6px;
+    opacity: .6; transition: opacity .2s ease;
+  }
+  .class-select button::after {
+    content: "";
+    position: absolute; left: 14px; right: 14px; bottom: 0;
+    height: 2px; background: var(--c-accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .25s ease;
+  }
+  .class-select button:hover { color: var(--c-light); }
+  .class-select button.active { color: var(--c-light); }
+  .class-select button.active .idx { opacity: 1; }
+  .class-select button.active::after { transform: scaleX(1); }
+
+  /* ================= HERO ================= */
+  .hero { position: relative; }
+  .hero-inner {
+    position: relative;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: minmax(340px, 400px) 1fr;
+    max-width: 1680px;
+    margin: 0 auto;
+    padding: 64px 32px 0;
+    overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(54% 46% at 66% 80%, color-mix(in srgb, var(--c-accent) 15%, transparent), transparent 72%),
+      linear-gradient(180deg, var(--c-bg) 0%, var(--c-deep) 100%);
+    pointer-events: none;
+  }
+
+  .stage { position: relative; grid-column: 2; grid-row: 1; }
+
+  /* nome da classe em contorno — camada de profundidade atrás do personagem */
+  .word-back {
+    position: absolute;
+    top: 6vh; left: 0; right: 0;
+    z-index: 1;
+    font-family: var(--font-display);
+    font-size: clamp(72px, 11.5vw, 184px);
+    line-height: 1;
+    text-transform: uppercase;
+    text-align: right;
+    color: transparent;
+    -webkit-text-stroke: 1px color-mix(in srgb, var(--c-muted) 40%, transparent);
+    letter-spacing: .02em;
+    white-space: nowrap;
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+  .hero-name {
+    position: absolute;
+    top: 13vh; left: 4%;
+    z-index: 2;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(64px, 9.5vw, 168px);
+    line-height: .88;
+    letter-spacing: .01em;
+    text-transform: uppercase;
+    color: var(--c-light);
+    will-change: transform, opacity;
+    pointer-events: none;
+  }
+  /* nowrap + auto-ajuste em JS: sem isso um nome longo (HASSELHOFF) quebra a
+     última letra pra linha de baixo quando o SplitText separa os caracteres */
+  .hero-name .line {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-bottom: .06em;
+  }
+  .hero-name .line:nth-child(2) { padding-left: .8em; }
+  .name-rule {
+    position: absolute;
+    top: calc(13vh - 18px); left: 4.2%;
+    z-index: 2;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 10px; font-weight: 700; letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+  }
+  .name-rule::before { content: ""; width: 42px; height: 2px; background: var(--c-accent); }
+
+  .hero-img {
+    position: absolute;
+    left: 50%; bottom: 0;
+    transform: translateX(-50%);
+    z-index: 3;
+    width: min(460px, 46vw);
+    height: 88vh;
+    display: flex; align-items: flex-end; justify-content: center;
+    will-change: transform;
+    pointer-events: none;
+  }
+  /* aura na forma do próprio personagem: a arte vira máscara de um bloco na cor da
+     paleta. É o que faz o recorte emitir luz pro fundo em vez de parecer colado. */
+  .portrait-aura {
+    position: absolute; inset: 0;
+    z-index: -2;
+    background: var(--c-accent);
+    -webkit-mask-image: var(--portrait); mask-image: var(--portrait);
+    -webkit-mask-size: contain; mask-size: contain;
+    -webkit-mask-position: bottom center; mask-position: bottom center;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    filter: blur(34px);
+    opacity: .34;
+    pointer-events: none;
+  }
+  /* elipse de contato no chão */
+  .hero-img::before {
+    content: "";
+    position: absolute;
+    left: 50%; bottom: 3%;
+    transform: translateX(-50%);
+    width: 58%; height: 26px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(0,0,0,.5), transparent 78%);
+    z-index: -1;
+  }
+  .hero-img img {
+    position: relative;
+    max-width: 100%; max-height: 100%;
+    object-fit: contain;
+    /* recortes com alfa (tools/cutout.py) — a base dissolve no piso da cena */
+    -webkit-mask-image: linear-gradient(to top, transparent 0%, black 7%);
+            mask-image: linear-gradient(to top, transparent 0%, black 7%);
+    filter: drop-shadow(0 16px 30px rgba(0, 0, 0, .5));
+  }
+  .hero-img img[hidden] { display: none; }
+  .char-silhouette { position: relative; width: 230px; height: 64vh; opacity: .9; }
+  .char-silhouette svg { width: 100%; height: 100%; }
+  .char-silhouette .sil-fill { fill: var(--c-surface); }
+  .char-silhouette .sil-rim { stroke: var(--c-accent); stroke-width: 2; fill: none; opacity: .7; }
+
+  .hero-meta {
+    position: absolute;
+    right: 0; bottom: 40px;
+    z-index: 4;
+    text-align: right;
+    display: flex; flex-direction: column; gap: 6px; align-items: flex-end;
+  }
+  .hero-meta .meta-k {
+    font-size: 9px; font-weight: 700; letter-spacing: .3em;
+    color: var(--c-muted); text-transform: uppercase;
+  }
+  .hero-meta .meta-v {
+    font-size: 13px; font-weight: 600; letter-spacing: .18em;
+    color: var(--c-light); text-transform: uppercase;
+    border-right: 3px solid var(--c-accent);
+    padding-right: 10px;
+  }
+
+  /* ================= PAINEL DE PONTOS ================= */
+  /* bloco sólido na cor primária — contraste vem de inversão, não de escurecer */
+  .rail { grid-column: 1; grid-row: 1; z-index: 5; align-self: center; will-change: transform, opacity; }
+  .builder-card {
+    background: var(--c-accent);
+    color: var(--c-deep);
+    padding: 26px 24px 24px;
+    max-height: 82vh;
+    overflow-y: auto;
+    box-shadow: 0 34px 70px -24px rgba(0, 0, 0, .7);
+  }
+  .builder-card h2 {
+    font-size: 12px; font-weight: 700;
+    letter-spacing: .26em; text-transform: uppercase;
+    color: var(--c-deep);
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 12px; margin-bottom: 20px;
+  }
+  .builder-card h2 .lvl {
+    background: var(--c-deep); color: var(--c-accent);
+    font-size: 10px; letter-spacing: .18em;
+    padding: 5px 9px; white-space: nowrap;
+  }
+  .builder-card label {
+    display: block;
+    font-size: 9px; font-weight: 700; letter-spacing: .26em;
+    color: color-mix(in srgb, var(--c-deep) 72%, var(--c-accent));
+    text-transform: uppercase; margin-bottom: 7px;
+  }
+  #char-name-input {
+    width: 100%;
+    background: var(--c-deep);
+    border: 1px solid var(--c-deep);
+    color: var(--c-light);
+    padding: 12px;
+    font-size: 14px; font-family: var(--font-ui); letter-spacing: .04em;
+    margin-bottom: 18px;
+    transition: box-shadow .2s ease;
+  }
+  #char-name-input::placeholder { color: color-mix(in srgb, var(--c-light) 45%, transparent); }
+  #char-name-input:focus {
+    outline: none;
+    box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--c-accent) 65%, transparent);
+  }
+  .attr-row {
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid color-mix(in srgb, var(--c-deep) 22%, transparent);
+    padding: 7px 8px;
+    transition: background .18s ease;
+  }
+  .attr-row:hover { background: color-mix(in srgb, var(--c-deep) 12%, transparent); }
+  /* primários: bloco invertido. secundário: só um traço. */
+  .attr-row.is-primary {
+    background: var(--c-deep);
+    color: var(--c-accent);
+    border-bottom-color: var(--c-deep);
+  }
+  .attr-row.is-primary:hover { background: var(--c-deep); }
+  .attr-row.is-secondary { box-shadow: inset 3px 0 0 color-mix(in srgb, var(--c-deep) 55%, transparent); }
+  .attr-row .attr-label { font-size: 12px; font-weight: 700; letter-spacing: .16em; }
+  .attr-controls { display: flex; align-items: baseline; gap: 10px; }
+  .attr-score-value {
+    font-weight: 700; min-width: 24px; text-align: right;
+    font-variant-numeric: tabular-nums; font-size: 17px;
+  }
+  .attr-mod-value {
+    font-size: 11px; min-width: 30px; text-align: right;
+    font-variant-numeric: tabular-nums;
+    color: color-mix(in srgb, var(--c-deep) 62%, var(--c-accent));
+  }
+  .attr-row.is-primary .attr-mod-value { color: color-mix(in srgb, var(--c-accent) 65%, var(--c-deep)); }
+  /* pontos travados na ficha: liberam quando o mestre subir o nível */
+  #points-locked-note {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--c-deep);
+    color: color-mix(in srgb, var(--c-light) 72%, transparent);
+    font-size: 9px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+    line-height: 1.7;
+    padding: 12px 14px;
+    margin-top: 14px;
+  }
+  #points-locked-note::before {
+    content: "";
+    flex: none;
+    width: 10px; height: 10px;
+    border: 2px solid var(--c-accent);
+    border-radius: 2px;
+    box-shadow: inset 0 0 0 2px var(--c-deep), inset 0 0 0 10px var(--c-accent);
+  }
+  .builder-actions { display: flex; gap: 8px; margin-top: 14px; }
+  .statline {
+    display: flex; align-items: stretch;
+    border: 1px solid var(--c-deep);
+    margin: 14px 0 0;
+  }
+  .statline > span {
+    flex: 1;
+    padding: 9px 8px;
+    font-size: 10px; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; text-align: center;
+    color: var(--c-deep);
+    border-right: 1px solid var(--c-deep);
+    font-variant-numeric: tabular-nums;
+  }
+  .statline > span:last-child { border-right: none; }
+  #print-btn {
+    flex: 1;
+    background: var(--c-deep); color: var(--c-accent);
+    border: 1px solid var(--c-deep);
+    padding: 13px 8px; font-size: 10px; font-weight: 700; letter-spacing: .26em;
+    text-transform: uppercase;
+    transition: background .2s ease, color .2s ease;
+  }
+  #print-btn:hover { background: transparent; color: var(--c-deep); }
+
+  .scroll-hint {
+    position: absolute;
+    left: 50%; bottom: 22px; transform: translateX(-50%);
+    z-index: 6;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    font-size: 9px; font-weight: 700; letter-spacing: .34em;
+    color: var(--c-muted); text-transform: uppercase;
+    pointer-events: none;
+  }
+  .scroll-hint::after {
+    content: "";
+    width: 1px; height: 34px;
+    background: linear-gradient(to bottom, var(--c-accent), transparent);
+  }
+
+  /* ================= SEÇÕES ================= */
+  .sections-wrap { position: relative; background: var(--c-deep); }
+  .sec { max-width: 1080px; margin: 0 auto; padding: 110px 32px 40px; }
+  .sec .sec-head {
+    display: flex; align-items: baseline; gap: 18px;
+    border-bottom: 1px solid color-mix(in srgb, var(--c-surface) 60%, transparent);
+    padding-bottom: 18px; margin-bottom: 34px;
+  }
+  .sec .sec-head .num {
+    font-size: 12px; font-weight: 700; letter-spacing: .2em; color: var(--c-accent);
+  }
+  .sec h2 {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: clamp(38px, 5.4vw, 64px);
+    letter-spacing: .015em; text-transform: uppercase; line-height: 1;
+  }
+  .sec p.lead {
+    font-size: 15px; line-height: 1.85; color: var(--c-muted);
+    max-width: 62ch; margin-bottom: 26px;
+  }
+
+  /* perfil físico como faixa de dados */
+  .profile-strip {
+    display: flex; flex-wrap: wrap; gap: 0;
+    border: 1px solid color-mix(in srgb, var(--c-surface) 60%, transparent);
+    margin-bottom: 30px;
+  }
+  .profile-strip .cell {
+    flex: 1 1 120px;
+    padding: 14px 16px;
+    border-right: 1px solid color-mix(in srgb, var(--c-surface) 60%, transparent);
+  }
+  .profile-strip .cell:last-child { border-right: none; }
+  .profile-strip .cell.wide { flex: 3 1 320px; }
+  .profile-strip dt {
+    font-size: 9px; font-weight: 700; letter-spacing: .26em;
+    color: var(--c-accent); text-transform: uppercase; margin-bottom: 6px;
+  }
+  .profile-strip dd { font-size: 13px; line-height: 1.7; font-variant-numeric: tabular-nums; }
+
+  .duo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 48px; }
+  .duo-grid .field {
+    padding: 14px 0;
+    border-bottom: 1px dashed color-mix(in srgb, var(--c-surface) 50%, transparent);
+  }
+  .duo-grid dt {
+    font-size: 10px; font-weight: 700; letter-spacing: .26em;
+    color: var(--c-accent); text-transform: uppercase; margin-bottom: 7px;
+  }
+  .duo-grid dd { font-size: 14px; line-height: 1.75; }
+
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; }
+  .card {
+    border: 1px solid color-mix(in srgb, var(--c-surface) 70%, transparent);
+    border-top: 3px solid var(--c-accent);
+    background: color-mix(in srgb, var(--c-bg) 45%, transparent);
+    padding: 20px 18px;
+  }
+  .card h3 {
+    font-size: 10px; font-weight: 700; letter-spacing: .26em;
+    color: var(--c-accent); text-transform: uppercase; margin-bottom: 10px;
+  }
+  .card p { font-size: 13px; line-height: 1.75; }
+  .card p + p { margin-top: 10px; }
+  .card .hint {
+    color: var(--c-muted); font-size: 12px;
+  }
+
+  .equip-dl { margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 32px; }
+  .equip-dl > div {
+    border-top: 1px solid color-mix(in srgb, var(--c-surface) 60%, transparent);
+    padding-top: 14px;
+  }
+  .equip-dl dt {
+    font-size: 10px; font-weight: 700; letter-spacing: .26em;
+    color: var(--c-accent); text-transform: uppercase; margin-bottom: 8px;
+  }
+  .equip-dl dd { font-size: 13px; line-height: 1.75; }
+
+  .resource-note {
+    margin-top: 26px;
+    border-left: 3px solid var(--c-accent);
+    background: color-mix(in srgb, var(--c-bg) 55%, transparent);
+    padding: 16px 18px;
+  }
+  .resource-note dt {
+    font-size: 10px; font-weight: 700; letter-spacing: .26em;
+    color: var(--c-accent); text-transform: uppercase; margin-bottom: 8px;
+  }
+  .resource-note dd { font-size: 13px; line-height: 1.75; }
+  .resource-note[hidden] { display: none; }
+
+  /* progressão */
+  .prog-table { width: 100%; border-collapse: collapse; }
+  .prog-table tr {
+    border-bottom: 1px solid color-mix(in srgb, var(--c-surface) 45%, transparent);
+  }
+  .prog-table tr.is-current { background: color-mix(in srgb, var(--c-accent) 10%, transparent); }
+  .prog-table td { padding: 12px 10px; font-size: 13px; line-height: 1.6; vertical-align: baseline; }
+  .prog-table .lvl {
+    width: 78px;
+    font-family: var(--font-display);
+    font-size: 22px; line-height: 1;
+    color: var(--c-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .prog-table tr.is-current .lvl { color: var(--c-accent); }
+  .prog-table .tag {
+    width: 92px; text-align: right;
+    font-size: 9px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--c-accent);
+  }
+
+  .placeholder-note {
+    margin-top: 30px;
+    font-size: 10px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--c-muted);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .placeholder-note::before { content: ">"; color: var(--c-accent); font-weight: 700; }
+
+  footer {
+    padding: 70px 32px 40px; text-align: center;
+    font-size: 9px; font-weight: 600; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--c-muted);
+    background: var(--c-deep);
+  }
+
+  /* ================= IMPRESSÃO ================= */
+  #print-sheet { display: none; }
+
+  /* ================= INVENTÁRIO ================= */
+  .inv-frame {
+    max-width: 1080px; margin: 0 auto;
+    border: 6px solid var(--c-surface);
+    outline: 2px solid var(--c-deep);
+    background:
+      linear-gradient(color-mix(in srgb, var(--c-deep) 60%, transparent), color-mix(in srgb, var(--c-deep) 60%, transparent)),
+      repeating-linear-gradient(45deg, color-mix(in srgb, var(--c-surface) 22%, transparent) 0 2px, transparent 2px 8px);
+    box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--c-accent) 20%, transparent), 0 30px 60px -30px rgba(0,0,0,.7);
+    padding: 18px;
+  }
+  .inv-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; margin-bottom: 16px;
+  }
+  .inv-bar .inv-title {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 4vw, 40px);
+    letter-spacing: .06em; text-transform: uppercase;
+    color: var(--c-light);
+    background: var(--c-surface);
+    border: 2px solid var(--c-deep);
+    padding: 4px 22px;
+  }
+  .inv-bar .inv-count {
+    font-family: var(--font-ui); font-weight: 700;
+    font-size: 13px; letter-spacing: .12em;
+    color: var(--c-deep);
+    background: var(--c-accent);
+    padding: 8px 12px; white-space: nowrap;
+  }
+  .inv-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .inv-slot {
+    position: relative;
+    aspect-ratio: 1;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 8px; padding: 10px 8px;
+    background: color-mix(in srgb, var(--c-bg) 55%, #000 20%);
+    border: 1px solid color-mix(in srgb, var(--c-surface) 60%, transparent);
+    box-shadow: inset 0 0 22px rgba(0,0,0,.5);
+    text-align: center;
+    transition: transform .15s ease, border-color .15s ease;
+  }
+  .inv-slot:hover { transform: translateY(-3px); border-color: var(--c-accent); }
+  .inv-slot.empty { opacity: .35; }
+  .inv-slot svg { width: 42px; height: 42px; stroke: var(--c-accent); fill: none; stroke-width: 1.6; }
+  .inv-slot .inv-name {
+    font-family: var(--font-ui); font-size: 10px; font-weight: 600;
+    letter-spacing: .04em; line-height: 1.3; color: var(--c-light);
+  }
+  .inv-slot .inv-qty {
+    position: absolute; right: 5px; bottom: 4px;
+    font-family: var(--font-ui); font-size: 11px; font-weight: 700;
+    color: var(--c-accent); font-variant-numeric: tabular-nums;
+  }
+
+  /* ================= RESPONSIVO ================= */
+  @media (max-width: 900px) {
+    .topbar { padding: 0 14px; height: 56px; }
+    .wordmark { font-size: 11px; letter-spacing: .2em; }
+    .class-select button { padding: 18px 9px; font-size: 10px; }
+    .hero-inner {
+      display: flex; flex-direction: column;
+      height: auto; min-height: 100vh;
+      padding: 76px 16px 0;
+    }
+    .stage { position: relative; min-height: 74vh; }
+    .word-back { top: 0; font-size: clamp(60px, 19vw, 118px); }
+    .hero-name { top: 6vh; left: 0; font-size: clamp(42px, 12vw, 78px); }
+    .name-rule { top: calc(6vh - 16px); left: 0; }
+    .hero-img { width: min(340px, 82vw); height: 62vh; }
+    .hero-meta { right: 0; bottom: 8px; }
+    .rail { align-self: stretch; margin: 18px 0 26px; }
+    .builder-card { max-height: none; }
+    .scroll-hint { display: none; }
+    .sec { padding: 70px 18px 26px; }
+    .duo-grid { grid-template-columns: 1fr; }
+    .equip-dl { grid-template-columns: 1fr; gap: 18px; }
+    .profile-strip .cell { flex: 1 1 100%; border-right: none; border-bottom: 1px solid color-mix(in srgb, var(--c-surface) 60%, transparent); }
+    .profile-strip .cell:last-child { border-bottom: none; }
+    .prog-table .tag { display: none; }
+    .inv-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media print {
+    #print-btn,
+    #points-locked-note,
+    .topbar, .hero, .sec, .sections-wrap, footer {
+      display: none !important;
+    }
+    body { background: #fff; color: #000; }
+    #print-sheet {
+      display: block !important;
+      color: #000; font-family: Arial, sans-serif; font-size: 11px; line-height: 1.55;
+      padding: 8px;
+    }
+    #print-sheet h1 { font-size: 24px; margin-bottom: 2px; }
+    #print-sheet .ps-class { font-size: 12px; margin-bottom: 12px; }
+    #print-sheet h2 {
+      font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+      margin: 14px 0 4px; border-bottom: 1px solid #000; padding-bottom: 2px;
+    }
+    #print-sheet dt { font-weight: 700; margin-top: 7px; }
+    #print-sheet dd { margin: 1px 0 0; }
+    #print-sheet table { border-collapse: collapse; margin-top: 6px; width: 100%; }
+    #print-sheet td, #print-sheet th { border: 1px solid #999; padding: 3px 8px; font-size: 10px; text-align: left; }
+  }
+</style>
+</head>
+<body>
+<section id="calculator-section">
+
+  <header class="topbar">
+    <div class="wordmark">FICHA<em>_</em>RPG</div>
+    <nav class="class-select" id="class-select" aria-label="Classes"></nav>
+  </header>
+
+  <div class="hero" id="hero">
+    <div class="hero-inner" id="hero-inner">
+      <div class="hero-glow" aria-hidden="true"></div>
+
+      <div class="stage" id="character-panel">
+        <div class="word-back" id="char-cursive-name" aria-hidden="true">—</div>
+        <div class="name-rule" id="name-rule">Nível 1</div>
+        <h1 class="hero-name" id="char-player-name"><span class="line">—</span></h1>
+        <div class="hero-img" id="hero-img">
+          <div class="portrait-aura" id="hero-aura" aria-hidden="true"></div>
+          <img id="hero-portrait" alt="" hidden>
+          <div class="char-silhouette" id="hero-fallback" aria-hidden="true">
+            <svg viewBox="0 0 190 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
+              <circle class="sil-fill" cx="95" cy="58" r="34"/>
+              <path class="sil-fill" d="M95 100c-38 0-58 26-60 62l-6 92h24l8 130h24l5-96h10l5 96h24l8-130h24l-6-92c-2-36-22-62-60-62z"/>
+              <circle class="sil-rim" cx="95" cy="58" r="37"/>
+              <path class="sil-rim" d="M95 100c-38 0-58 26-60 62l-6 92h24l8 130h24l5-96h10l5 96h24l8-130h24l-6-92c-2-36-22-62-60-62z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="hero-meta">
+          <span class="meta-k">Classe</span>
+          <span class="meta-v" id="char-class-tag">—</span>
+        </div>
+      </div>
+
+      <aside class="rail" id="calculator-panel" aria-label="Atributos">
+        <div class="builder-card">
+          <h2><span id="builder-title">Atributos</span><span class="lvl">Nível 1</span></h2>
+          <label for="char-name-input">Nome do personagem</label>
+          <input id="char-name-input" type="text" placeholder="Digite o nome" autocomplete="off">
+          <div id="attr-rows"></div>
+          <p id="points-locked-note">Distribuição travada na ficha. Pontos novos liberam ao subir de nível.</p>
+          <div class="statline">
+            <span id="char-hp-value">—</span>
+            <span id="char-saves-value">—</span>
+            <span id="char-primaries-value">—</span>
+          </div>
+          <div class="builder-actions">
+            <button id="print-btn" type="button">Imprimir ficha</button>
+          </div>
+        </div>
+      </aside>
+
+      <div class="scroll-hint" aria-hidden="true">Scroll</div>
+    </div>
+  </div>
+
+  <div class="sections-wrap">
+    <section class="sec" id="inventario-section">
+      <div class="sec-head">
+        <span class="num">01</span>
+        <h2>Inventário</h2>
+      </div>
+      <div class="inv-frame">
+        <div class="inv-bar">
+          <span class="inv-title">Inventário</span>
+          <span class="inv-count" id="inv-count">0/0</span>
+        </div>
+        <div class="inv-grid" id="inv-grid"></div>
+      </div>
+    </section>
+
+    <section class="sec" id="historia-section">
+      <div class="sec-head">
+        <span class="num">02</span>
+        <h2>História</h2>
+      </div>
+
+      <dl class="profile-strip">
+        <div class="cell"><dt>Idade</dt><dd id="perfil-idade">—</dd></div>
+        <div class="cell"><dt>Altura</dt><dd id="perfil-altura">—</dd></div>
+        <div class="cell"><dt>Peso</dt><dd id="perfil-peso">—</dd></div>
+        <div class="cell wide"><dt>Perfil físico</dt><dd id="perfil-fisico">—</dd></div>
+      </dl>
+
+      <p class="lead" id="char-como-chegou"></p>
+      <p class="lead" id="char-historico"></p>
+
+      <dl class="duo-grid" id="historia-body">
+        <div class="field"><dt>Temperamento</dt><dd id="historia-temperamento">—</dd></div>
+        <div class="field"><dt>Marca</dt><dd id="historia-marca">—</dd></div>
+        <div class="field"><dt>Contradição</dt><dd id="historia-contradicao">—</dd></div>
+        <div class="field"><dt>Tique</dt><dd id="historia-tique">—</dd></div>
+      </dl>
+    </section>
+
+    <section class="sec" id="proficiencias-section">
+      <div class="sec-head">
+        <span class="num">03</span>
+        <h2>Proficiências</h2>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Perícias automáticas</h3>
+          <p id="char-pericias-value">—</p>
+          <p class="hint" id="char-pericia-livre">—</p>
+        </div>
+        <div class="card">
+          <h3>Defesas</h3>
+          <p id="char-defesas-value">—</p>
+        </div>
+        <div class="card">
+          <h3>Armas e armadura</h3>
+          <p id="char-prof-categoria">—</p>
+          <p class="hint" id="char-prof-loadout">—</p>
+        </div>
+      </div>
+
+      <dl class="equip-dl" id="char-equipamento-value">
+        <div><dt id="equip-arma-label">Arma assinatura</dt><dd id="equip-arma">—</dd></div>
+        <div><dt>Habilidade única</dt><dd id="equip-hab">—</dd></div>
+        <div><dt>Gadget</dt><dd id="equip-gadget">—</dd></div>
+      </dl>
+
+      <dl class="resource-note" id="recurso-classe" hidden>
+        <dt>Recurso de classe</dt>
+        <dd id="recurso-classe-txt">—</dd>
+      </dl>
+    </section>
+
+    <section class="sec" id="progressao-section">
+      <div class="sec-head">
+        <span class="num">04</span>
+        <h2>Progressão</h2>
+      </div>
+      <p class="lead">Nível 1 desbloqueado. A tabela abaixo é a trilha completa da classe — a evolução acontece na mesa, com o mestre.</p>
+      <table class="prog-table">
+        <tbody id="prog-body"></tbody>
+      </table>
+    </section>
+
+    <footer>FICHA_RPG — Nível 1 · Evolução de níveis com o mestre</footer>
+  </div>
+
+  <div id="print-sheet" aria-hidden="true"></div>
+
+</section>
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/SplitText.min.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  window.RPGCalc = window.RPGCalc || {};
+
+  // Sistema de atributos das fichas: Impacto, Reflexo, Resistência, Cognição,
+  // Instinto, Influência (substituem FOR/DES/CON/INT/SAB/CAR).
+  window.RPGCalc.ATTRS = ['IMP', 'REF', 'RES', 'COG', 'INS', 'INF'];
+  window.RPGCalc.ATTR_LABELS = {
+    IMP: 'Impacto',
+    REF: 'Reflexo',
+    RES: 'Resistência',
+    COG: 'Cognição',
+    INS: 'Instinto',
+    INF: 'Influência'
+  };
+  window.RPGCalc.MIN_SCORE = 8;
+  window.RPGCalc.MAX_SCORE = 15;
+  window.RPGCalc.TOTAL_POINTS = 27;
+  window.RPGCalc.POINT_BUY_COST = { 8: 0, 9: 1, 10: 2, 11: 3, 12: 4, 13: 5, 14: 7, 15: 9 };
+
+  window.RPGCalc.costForScore = function (score) {
+    if (!(score in window.RPGCalc.POINT_BUY_COST)) {
+      throw new RangeError('score out of point-buy range: ' + score);
+    }
+    return window.RPGCalc.POINT_BUY_COST[score];
+  };
+
+  window.RPGCalc.totalPointCost = function (scores) {
+    return window.RPGCalc.ATTRS.reduce(
+      (sum, attr) => sum + window.RPGCalc.costForScore(scores[attr]),
+      0
+    );
+  };
+
+  window.RPGCalc.abilityModifier = function (score) {
+    return Math.floor((score - 10) / 2);
+  };
+
+  // HP nível 1 = dado de vida cheio + modificador de Resistência
+  window.RPGCalc.calcHP = function (hitDie, resScore) {
+    return hitDie + window.RPGCalc.abilityModifier(resScore);
+  };
+
+  window.RPGCalc.canIncrease = function (scores, attr) {
+    const current = scores[attr];
+    if (current >= window.RPGCalc.MAX_SCORE) return false;
+    const nextScores = Object.assign({}, scores, { [attr]: current + 1 });
+    return window.RPGCalc.totalPointCost(nextScores) <= window.RPGCalc.TOTAL_POINTS;
+  };
+
+  window.RPGCalc.canDecrease = function (scores, attr) {
+    return scores[attr] > window.RPGCalc.MIN_SCORE;
+  };
+
+  // ANCHOR: PURE_FUNCTIONS
+
+  window.RPGCalc.CLASSES = {
+    federal: {
+      id: 'federal',
+      nome: 'Federal',
+      arquetipo: 'Fighter — versátil, institucional',
+      personagem: 'Mipin Greyrat',
+      palette: { bg: '#1A130B', deep: '#0F0B06', surface: '#4A3420', accent: '#C98A3D', accent2: '#8A5A26', light: '#F2E9DC', muted: '#9C8C77' },
+      img: 'img/mipin-cut.png',
+      dadoVida: 10,
+      perfil: { idade: '28 anos', altura: '1,85 m', peso: '79 kg' },
+      perfilFisico: 'Físico "de manual", treino recente de academia, sem o desgaste real de anos de campo. Cabelo curto, sem cicatriz visível ainda. Postura tentando parecer mais experiente do que é.',
+      comoChegou: 'Formado em Justiça Criminal, entrou no FBI aos 24 direto de programa de recrutamento acelerado — notas boas, perfil "ideal de cartaz", pouco tempo de rua de verdade. Passou 2 anos em função de apoio/analista antes de virar agente de campo. O caso do parceiro/mentor foi seu primeiro caso de campo sério: ferida aberta há poucos meses, não trauma de anos acumulado. Suspensão recente, retorno ao caso atual é praticamente a primeira chance real de provar que aguenta o trabalho.',
+      historico: 'Nasceu em Chicago, pais classe média, pai policial também — motivo raiz da escolha de carreira, sempre quis a farda desde criança, romantizou antes de entender o peso real dela. Vive sozinho em apartamento pequeno perto de onde a agência o realoca, ainda sem raiz fixa.',
+      historia: {
+        temperamento: 'Contido, tentando parecer mais controlado do que realmente é — raiva e insegurança vazam sob pressão, compensa com protocolo decorado, não instinto de campo (ainda não teve tempo de desenvolver instinto).',
+        marca: 'Guarda a arma do mentor morto, nunca usa, nunca menciona. Se perguntado sobre o caso, repete resposta decorada, sempre igual — ensaiou tanto que virou automática.',
+        contradicao: 'Quer seguir regra à risca porque não confia no próprio julgamento ainda, mas foi decisão fora do manual (por afeto, não corrupção) que causou a morte do mentor. Rigidez atual é medo disfarçado de disciplina.',
+        tique: 'Verifica arma travada 2x antes de guardar, mesmo sem necessidade — ritual novo, ainda inseguro se fez certo.'
+      },
+      primarios: ['IMP', 'REF'],
+      secundario: 'INS',
+      saves: ['IMP', 'INS'],
+      sugestao: { IMP: 14, REF: 14, RES: 13, COG: 10, INS: 12, INF: 9 },
+      pericias: ['Investigação', 'Intimidação', 'Percepção', 'Intuição'],
+      periciaLivre: 'Escolha livre (1): qualquer uma da lista geral — Persuasão recomendada se for jogar a subclasse Negociador.',
+      proficiencias: {
+        categoria: 'Armas simples + marciais completas. Armadura leve/média.',
+        loadout: 'Loadout inicial, além da arma assinatura: 1 arma de fogo secundária (Pistola Padrão, SMG Compacta, Rifle de Assalto ou Espingarda Tática) + 1 arma corpo a corpo simples (Faca de Combate ou Bastão Retrátil Elétrico).'
+      },
+      equipamento: {
+        armaLabel: 'Arma assinatura',
+        arma: 'Pistola de Serviço "Distintivo" — 1d8 perfurante, 15 cartuchos. Trava biométrica: só dispara na mão do dono, imune a desarme/roubo por terceiro.',
+        habilidadeUnica: 'Mandado de Emergência — 1x por descanso longo, declara busca/apreensão institucional instantânea; NPC de baixo escalão é obrigado a cooperar (sem teste, autoridade automática). Nível 13: funciona até em NPC de escalão médio.',
+        gadget: 'Algemas de choque — aplicam Atordoado por 1 turno se o alvo já estiver Agarrado.'
+      },
+      featureNivel1: 'Mandado Federal — acesso a banco de dados, abertura de porta institucional.',
+      progressao: [
+        [1, 'Mandado Federal — acesso a banco de dados, abertura de porta institucional'],
+        [2, 'Fôlego Tático — recupera recursos curtos, ação bônus para reposicionar'],
+        [3, 'Especialização: Negociador ou Assalto (subclasse)'],
+        [4, 'Melhoria de atributo'],
+        [5, 'Ataque Extra — 2 ataques por ação'],
+        [6, 'Melhoria de atributo'],
+        [7, 'Leitura de Cena — vantagem em Investigação em cena de crime'],
+        [8, 'Melhoria de atributo'],
+        [9, 'Indomável — reroll de teste falho, 1x por descanso longo'],
+        [11, 'Ataque Extra (2) — 3 ataques'],
+        [13, 'Autoridade Federal — intimida NPC institucional automaticamente'],
+        [15, 'Indomável melhora — 2x por descanso'],
+        [17, 'Ação Decisiva — ação extra 1x por combate'],
+        [20, 'Ataque Extra (3) — 4 ataques por ação']
+      ]
+    },
+
+    narcoticos: {
+      id: 'narcoticos',
+      nome: 'Narcóticos',
+      arquetipo: 'Rogue — infiltrado',
+      personagem: 'Ryan Sheppard',
+      palette: { bg: '#2A0D14', deep: '#17060B', surface: '#5B2333', accent: '#F24333', accent2: '#BA1B1D', light: '#F7F4F3', muted: '#A08A85' },
+      img: 'img/ryan-cut.png',
+      dadoVida: 8,
+      perfil: { idade: '25 anos', altura: '1,76 m', peso: '68 kg' },
+      perfilFisico: 'Magro, rosto ainda jovem demais pro papel que finge nas ruas — compensa com postura estudada, copiada de gente mais velha que observou. Sem tatuagem funcional ainda além de uma, recente.',
+      comoChegou: 'Entrou na polícia aos 21, dois anos de patrulha comum antes de ser notado por um talento raro: se misturar e mentir com naturalidade. Recrutado pra narcóticos undercover aos 23 — primeira operação de infiltração de verdade, em andamento há pouco mais de um ano quando o caso atual cruza o caminho dele. Não são anos de disfarces acumulados: é a primeira máscara que ele usou por tempo longo, e já sente ela grudando.',
+      historico: 'Infiltrado há pouco mais de um ano em gangue cibernética das docas — já começa a sentir a linha entre personagem e pessoa real embaçar, cedo demais pra alguém tão novo no ofício. Contato de confiança dentro da gangue morreu recente (overdose suspeita ou execução), história bate com o caso atual. Motivação: descobrir se foi acidente ou se alguém descobriu ele — medo pessoal, não só dever.',
+      historia: {
+        temperamento: 'Caloroso fácil demais — dom natural de simpatia, não treino longo, e ele mesmo ainda não sabe controlar quando é genuíno e quando é personagem.',
+        marca: '1 nome tatuado, da identidade atual que usa há um ano — primeira vez usando disfarce por tanto tempo, já começa a sentir que esquece o nome de nascença em certos dias.',
+        contradicao: 'Despreza violência gratuita (viu de perto recente, ainda choca ele), mas já foi obrigado a machucar alguém pra manter o disfarce — não processou o que isso significa sobre si mesmo ainda.',
+        tique: 'Troca de sotaque/gíria sem perceber — ainda meio deliberado, ainda praticando, não virou automático de verdade como seria em alguém mais experiente.'
+      },
+      primarios: ['REF', 'INF'],
+      secundario: 'INS',
+      saves: ['REF', 'INF'],
+      sugestao: { IMP: 9, REF: 15, RES: 12, COG: 10, INS: 12, INF: 14 },
+      pericias: ['Furtividade', 'Enganação', 'Intuição', 'Sobrevivência (rua)'],
+      periciaLivre: 'Escolha livre (1): Persuasão recomendada — o dom natural de simpatia dele pede esse reforço.',
+      proficiencias: {
+        categoria: 'Armas simples + faca/pistola especializada. Sem armadura pesada (furtividade).',
+        loadout: 'Loadout inicial, além da arma assinatura: 1 arma de fogo leve (Pistola Padrão ou SMG Compacta) + 1 arma corpo a corpo com Acuidade além da faca fixa — Lâmina Monofilamento (opcional, upgrade posterior).'
+      },
+      equipamento: {
+        armaLabel: 'Arma assinatura',
+        arma: 'Faca "Sombra das Docas" + pistola improvisada — faca 1d4 cortante, Acuidade. Arma "não-oficial", não rastreável, não aparece em scanner metálico padrão.',
+        habilidadeUnica: 'Identidade Queimada — 1x por descanso curto, assume disfarce completo (aparência + voz + histórico falso) sob escrutínio leve/médio sem teste. Vantagem automática em Enganação nesse uso.',
+        gadget: 'Dardo rastreador subcutâneo — ataque à distância sem dano, marca a localização do alvo por 24h.'
+      },
+      featureNivel1: 'Ataque Furtivo (1d6), Especialista — dobra o bônus em 1 perícia.',
+      progressao: [
+        [1, 'Ataque Furtivo (1d6), Especialista — dobra o bônus em 1 perícia'],
+        [2, 'Ação Ardilosa — Disfarçar/Esconder/Desengajar como ação bônus'],
+        [3, 'Arquétipo: Infiltrado ou Contato de Rua'],
+        [4, 'Melhoria de atributo'],
+        [5, 'Ataque Furtivo (3d6), Esquiva Sobrenatural'],
+        [7, 'Evasão — teste de Reflexo falho vira sucesso parcial'],
+        [9, 'Ataque Furtivo (5d6)'],
+        [11, 'Golpe Confiável — reroll de 1 dado de ataque por turno'],
+        [13, 'Ataque Furtivo (7d6)'],
+        [15, 'Mente Escorregadia — imune a Assustado/Enfeitiçado'],
+        [17, 'Ataque Furtivo (9d6)'],
+        [20, 'Golpe de Sorte — converte falha em sucesso, 1x por descanso longo']
+      ]
+    },
+
+    cia: {
+      id: 'cia',
+      nome: 'CIA',
+      arquetipo: 'Ranger/Assassin (subclasse Rogue)',
+      personagem: 'Nero Vox',
+      palette: { bg: '#120A18', deep: '#080510', surface: '#5B2A62', accent: '#BF40FA', accent2: '#4928C2', light: '#E3D9FC', muted: '#94819F' },
+      img: 'img/nero-cut.png',
+      dadoVida: 8,
+      perfil: { idade: '26 anos', altura: '1,78 m', peso: '73 kg' },
+      perfilFisico: 'Atlético, mas ainda com a magreza de treino recente, não o volume de anos de operação real. Sem marca visível ainda — corpo "limpo" mais por falta de tempo de campo que por design deliberado.',
+      comoChegou: 'Recrutado direto de programa militar de elite aos 23, passou a maior parte do tempo em treinamento intensivo, não em operação real — teoria e simulação, pouca experiência de campo de fato. O caso atual é uma das primeiras missões de extração reais da carreira dele. Foi escolhido mais por potencial testado em simulação que por histórico comprovado: a agência está, na prática, testando ele.',
+      historico: 'Nunca foi investigador — foi treinado como extrator/eliminador, mas ainda verde em execução real. Mandado pro caso não por justiça: a agência quer algo específico recuperado ou silenciado antes que o time investigativo chegue lá. Lealdade dividida: obedece ordem porque não tem experiência pra questionar abertamente ainda, mas começa a notar coisas que não batem, inseguro se deve reportar ou ficar quieto.',
+      historia: {
+        temperamento: 'Frio na superfície, mas é disciplina de treino recente, não frieza natural de anos — por dentro processa mais do que deixa transparecer, ainda aprendendo a esconder bem. Fala em frases curtas, mais por instrução de treinamento que hábito genuíno.',
+        marca: 'Começou uma lista mental de alvos, mas a lista ainda é curta — cada nome pesa mais por ser recente, não tem calo emocional de veterano.',
+        contradicao: 'Treinado pra obedecer sem questionar, mas o caso atual já gera a primeira dúvida real da carreira dele — não sabe se é sinal de fraqueza ou de que está certo em desconfiar.',
+        tique: 'Sempre se posiciona de costas pra porta/janela em qualquer ambiente — treino recente, ainda deliberado, ainda percebe conscientemente fazendo isso.'
+      },
+      primarios: ['REF', 'INS'],
+      secundario: 'COG',
+      saves: ['REF', 'COG'],
+      sugestao: { IMP: 10, REF: 15, RES: 12, COG: 12, INS: 13, INF: 8 },
+      pericias: ['Furtividade', 'Investigação', 'Intimidação', 'Atletismo'],
+      periciaLivre: 'Escolha livre (1): Persuasão ou Percepção — depende se quer reforçar o campo social ou o tático.',
+      proficiencias: {
+        categoria: 'Armas de precisão (rifle, pistola silenciada). Armadura leve só.',
+        loadout: 'Loadout inicial, além da arma assinatura: 1 arma de fogo secundária (Pistola Padrão ou Pistola Pesada) + 1 arma corpo a corpo simples (Faca de Combate).'
+      },
+      equipamento: {
+        armaLabel: 'Arma assinatura',
+        arma: 'Rifle de Precisão Protótipo "Silêncio" — 2d10 perfurante, 5 cartuchos, alcance dobrado. Sem estampido nem fogo de boca: nenhuma testemunha percebe a direção do tiro, só o impacto.',
+        habilidadeUnica: 'Extração Limpa — 1x por descanso longo, após matar/neutralizar alvo prioritário, desaparece da cena; a próxima tentativa de rastreá-lo tem desvantagem por 1 cena inteira.',
+        gadget: 'Micro-drone camuflado — reconhecimento silencioso, 10 min de bateria, vídeo em tempo real.'
+      },
+      featureNivel1: 'Marca do Caçador (dano extra em alvo marcado, 1d6), Sentidos de Campo.',
+      progressao: [
+        [1, 'Marca do Caçador (dano extra em alvo marcado, 1d6), Sentidos de Campo'],
+        [2, 'Estilo de Combate: Precisão ou Duas Armas'],
+        [3, 'Arquétipo: Atirador de Elite ou Extrator'],
+        [5, 'Ataque Extra'],
+        [6, 'Marca do Caçador melhora — 2 alvos'],
+        [7, 'Evasão'],
+        [9, 'Golpe Fatal — crítico automático em alvo surpreendido'],
+        [11, 'Marca do Caçador (3d6)'],
+        [13, 'Camuflagem Adaptativa — vantagem em Furtividade parado'],
+        [15, 'Sentidos Aguçados — imune a surpresa'],
+        [17, 'Marca do Caçador (4d6)'],
+        [20, 'Execução Perfeita — crítico automático se o alvo estiver abaixo de 50% do HP']
+      ]
+    },
+
+    netrunner: {
+      id: 'netrunner',
+      nome: 'Netrunner',
+      arquetipo: 'Wizard — tech em vez de magia',
+      personagem: 'Zane Corvus',
+      palette: { bg: '#04220C', deep: '#021407', surface: '#1D6B26', accent: '#25E970', accent2: '#98C43D', light: '#FBFFF2', muted: '#7FA487' },
+      img: 'img/zane-cut.png',
+      dadoVida: 6,
+      perfil: { idade: '27 anos', altura: '1,74 m', peso: '68 kg' },
+      perfilFisico: 'Magro, postura curvada de quem passa mais tempo sentado em terminal que em pé. Óculos com HUD integrado, mão esquerda com implante visível de porta neural.',
+      comoChegou: 'Nasceu na própria cidade onde a história se passa, classe média baixa, autodidata em tech desde criança (os pais não entendiam o que ele fazia, só sabiam que era bom). Contratado por megacorp aos 20, ascensão rápida em segurança de sistemas. Aos 25, descobriu irregularidade em um dado que a corp queria enterrado — foi demitido, histórico apagado, ameaçado veladamente.',
+      historico: 'Vive desde então na periferia digital e física da cidade, sobrevivendo de freelance ilegal, sempre a um passo de ser encontrado por quem o apagou. Não confia em nenhuma instituição — tudo que aprendeu sobre poder e corp veio da própria demissão.',
+      historia: {
+        temperamento: 'Sarcástico como defesa, ansiedade alta disfarçada de piada. Fala demais quando nervoso, quieto quando confortável (inverso do esperado).',
+        marca: 'A corp que o expulsou apagou o histórico dele dos sistemas — oficialmente "não existe" há anos. Virou obsessão: provar que existe, deixar rastro em tudo que hackeia.',
+        contradicao: 'Não confia em ninguém institucional, mas é o mais leal do grupo informalmente — trata os colegas como família substituta sem admitir.',
+        tique: 'Fala sozinho enquanto hackeia, narra passo a passo — hábito de quando trabalhava sozinho por anos.'
+      },
+      primarios: ['COG'],
+      secundario: 'REF',
+      saves: ['COG', 'REF'],
+      sugestao: { IMP: 8, REF: 13, RES: 10, COG: 15, INS: 12, INF: 10 },
+      pericias: ['Investigação', 'Tecnologia', 'Enganação', 'Sociedade Digital'],
+      periciaLivre: 'Escolha livre (1): Persuasão recomendada — contrabalança o sarcasmo defensivo quando precisa convencer alguém de verdade.',
+      proficiencias: {
+        categoria: 'Pistola básica só. Sem armadura (foco em "conjuração" tech).',
+        loadout: 'Loadout inicial, além do foco: 1 arma de fogo — Pistola Padrão (única opção da categoria) + 1 arma corpo a corpo simples pra emergência (Faca de Combate).'
+      },
+      recursoClasse: 'Slots de magia viram Ciclos de Processamento — recarregam em descanso curto, não longo (reflete cooldown de hardware).',
+      equipamento: {
+        armaLabel: 'Foco assinatura',
+        arma: 'Deck de Invasão "Fantasma" — não é arma convencional, é foco de conjuração tech. Permite exploits à distância sem contato físico com o sistema alvo (o padrão exige proximidade/cabo).',
+        habilidadeUnica: 'Backdoor Persistente — ao invadir um sistema com sucesso 1x, mantém acesso oculto permanente (sem novo teste) até alguém fazer varredura de segurança ativa contra ele especificamente.',
+        gadget: 'Drone-familiar "Rato" — voa/rasteja, câmera + microfone, controlado via deck, carrega item pequeno.'
+      },
+      featureNivel1: 'Grimório Digital (biblioteca de exploits), 2 Ciclos de Processamento.',
+      progressao: [
+        [1, 'Grimório Digital (biblioteca de exploits), 2 Ciclos'],
+        [2, 'Recuperação de Sistema — recupera ciclos em descanso curto'],
+        [3, 'Especialização: Ataque (malware ofensivo) ou Suporte (hackeia ambiente/drones)'],
+        [4, 'Melhoria de atributo'],
+        [5, '3º nível de exploit — travar veículo, cegar câmera de área'],
+        [6, 'Firewall Pessoal — resistência a dano de EMP/hack reverso'],
+        [9, '5º nível de exploit — controle de drone hostil, apagar registro'],
+        [11, 'Exploit Aprimorado — 1 exploit com dano extra 1d8'],
+        [13, '7º nível de exploit — invadir sistema de segurança de prédio inteiro'],
+        [17, '9º nível de exploit — desligar grid elétrico de um quarteirão'],
+        [20, 'Mestre de Sistema — 1 exploit por descanso curto sem custo']
+      ]
+    },
+
+    'corp-security': {
+      id: 'corp-security',
+      nome: 'Corp Security',
+      arquetipo: 'Barbarian/Fighter — tanque',
+      personagem: 'David Hasselhoff',
+      palette: { bg: '#0B1435', deep: '#060C22', surface: '#3D518C', accent: '#7692FF', accent2: '#1B2CC1', light: '#ABD2FA', muted: '#7E8CB2' },
+      img: 'img/david-cut.png',
+      dadoVida: 12,
+      perfil: { idade: '36 anos', altura: '1,92 m', peso: '104 kg' },
+      perfilFisico: 'Maior do grupo, construção pesada reforçada por implante muscular corp-financiado. Postura ereta, quase rígida, treino militar entranhado.',
+      comoChegou: 'Nasceu em cidade pequena do interior, família de origem humilde, alistou-se cedo pra ajudar em casa financeiramente. Serviu 8 anos em unidade de combate, saiu com honras mas sem perspectiva civil clara. Recrutado por megacorp de segurança privada — salário muito acima do que qualquer emprego "normal" pagaria, motivo real de aceitar.',
+      historico: 'Ainda na folha de pagamento da corp, mandado "colaborar" com a investigação — na real, espionar por dentro e reportar o que acham. A família (mãe, irmã, sobrinho) ainda depende desse dinheiro. Ele sabe que a corp não é boa, mas trocar de emprego significa família passar necessidade — dilema que carrega em silêncio, todos os dias.',
+      historia: {
+        temperamento: 'Disciplinado, educado, quase gentil — o treino militar não apagou a raiz de origem simples, ele lembra de onde veio mesmo vestindo uniforme corp caro.',
+        marca: 'A família dele ainda depende financeiramente do salário corp — motivo real por trás de espionar o grupo pra empresa. Não é vilania: é sobrevivência de outras pessoas.',
+        contradicao: 'Descobre aos poucos que a corp que sustenta ele/família é parte do problema investigado. Dilema real, não drama forçado: lealdade x ética, sem resposta fácil.',
+        tique: 'Chama todo mundo por sobrenome/cargo mesmo em ambiente informal, resquício militar.'
+      },
+      primarios: ['IMP', 'RES'],
+      secundario: 'INS',
+      saves: ['IMP', 'RES'],
+      sugestao: { IMP: 15, REF: 10, RES: 15, COG: 8, INS: 11, INF: 9 },
+      pericias: ['Atletismo', 'Intimidação', 'Comando Tático'],
+      periciaLivre: 'Escolha livre (1): Persuasão recomendada — contrabalança a rigidez militar quando precisa convencer sem ameaçar.',
+      proficiencias: {
+        categoria: 'Todas as armas. Armadura pesada/escudo.',
+        loadout: 'Loadout inicial, além do braço assinatura: acesso liberado a qualquer arma da tabela completa, inclusive categoria pesada — Machado de Demolição Servo-Assistido ou Metralhadora Montada, se quiser especializar em dano bruto.'
+      },
+      equipamento: {
+        armaLabel: 'Arma assinatura',
+        arma: 'Braço Servo-Assistido "Sentinela" — soqueira de impacto cinético 1d8 concussão + escudo de energia deployável (ação bônus, +2 CA por 1 minuto, 1x por descanso curto).',
+        habilidadeUnica: 'Protocolo de Contenção — 1x por descanso longo, gera pulso de força que empurra todos num raio de 3m (teste de Impacto ou caem), sem dano. Feito pra conter, não pra matar (reflete a origem corp: relatório limpo).',
+        gadget: 'Espuma de contenção tática — imobiliza alvo humano, não funciona em blindado/exo.'
+      },
+      featureNivel1: 'Modo Combate (Fúria adaptada) — +dano corpo a corpo, resistência a dano físico, custo de recursos.',
+      progressao: [
+        [1, 'Modo Combate (Fúria adaptada) — +dano corpo a corpo, resistência a dano físico, custo de recursos'],
+        [2, 'Ataque Descuidado / Defesa Reflexiva (escolha por turno)'],
+        [3, 'Especialização: Exo-Blindado ou Linha de Frente'],
+        [5, 'Ataque Extra, Movimento Rápido'],
+        [7, 'Instinto de Perigo — vantagem em teste de Reflexo'],
+        [9, 'Crítico Brutal — dado extra em crítico corpo a corpo'],
+        [11, 'Modo Combate Incansável — imune a Exaustão durante o modo ativo'],
+        [13, 'Crítico Brutal (2 dados extra)'],
+        [15, 'Fúria Persistente — não termina o modo combate exceto inconsciente'],
+        [17, 'Crítico Brutal (3 dados extra)'],
+        [20, 'Força Primitiva Cibernética — Impacto/Resistência viram 25 automaticamente durante o Modo Combate']
+      ]
+    }
+  };
+
+  // ANCHOR: CLASS_DATA
+
+  if (typeof document !== 'undefined') {
+    var RC = window.RPGCalc;
+    var ORDER = Object.keys(RC.CLASSES);
+
+    // estado independente por classe — começa na sugestão de point-buy da ficha
+    var stateByClass = {};
+    ORDER.forEach(function (id) {
+      stateByClass[id] = {
+        name: RC.CLASSES[id].personagem || '',
+        scores: Object.assign({}, RC.CLASSES[id].sugestao)
+      };
+    });
+    var activeId = 'federal';
+    var splitInstance = null;
+
+    function cls() { return RC.CLASSES[activeId]; }
+    function st() { return stateByClass[activeId]; }
+
+    function applyPalette() {
+      var p = cls().palette;
+      var root = document.documentElement.style;
+      Object.keys(p).forEach(function (k) {
+        root.setProperty('--c-' + k, p[k]);
+      });
+    }
+
+    function renderClassSelect() {
+      var container = document.getElementById('class-select');
+      container.innerHTML = '';
+      ORDER.forEach(function (id, i) {
+        var c = RC.CLASSES[id];
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = id === activeId ? 'active' : '';
+        btn.dataset.classId = id;
+        btn.setAttribute('aria-pressed', id === activeId ? 'true' : 'false');
+
+        var idx = document.createElement('span');
+        idx.className = 'idx';
+        idx.textContent = '0' + (i + 1);
+        btn.appendChild(idx);
+        btn.appendChild(document.createTextNode(stateByClass[id].name || c.nome));
+
+        btn.addEventListener('click', function () {
+          if (id === activeId) return;
+          activeId = id;
+          switchClass();
+        });
+        container.appendChild(btn);
+      });
+    }
+
+    function setHeroName(text) {
+      var h1 = document.getElementById('char-player-name');
+      var parts = String(text).trim().split(/\s+/);
+      var cut = parts.length > 1 ? Math.ceil(parts.length / 2) : 1;
+      var lines = [parts.slice(0, cut).join(' ')];
+      if (parts.length > 1) lines.push(parts.slice(cut).join(' '));
+
+      h1.innerHTML = '';
+      lines.forEach(function (txt) {
+        var el = document.createElement('span');
+        el.className = 'line';
+        el.textContent = txt;
+        h1.appendChild(el);
+      });
+      fitHeroName();
+    }
+
+    // As linhas são nowrap; sem isto um nome longo (HASSELHOFF) estoura a coluna e,
+    // depois do SplitText, a última letra cai sozinha pra linha de baixo.
+    // Mede com Range: scrollWidth devolveria a largura da CAIXA, não a do texto.
+    function fitHeroName() {
+      var h1 = document.getElementById('char-player-name');
+      var stage = document.querySelector('.stage');
+      if (!stage || !stage.clientWidth) return;
+
+      h1.style.fontSize = '';
+      var limit = stage.clientWidth * 0.92;
+      var range = document.createRange();
+      var lines = h1.querySelectorAll('.line');
+      var widest = 0;
+
+      for (var i = 0; i < lines.length; i++) {
+        range.selectNodeContents(lines[i]);
+        var pad = parseFloat(getComputedStyle(lines[i]).paddingLeft) || 0;
+        widest = Math.max(widest, range.getBoundingClientRect().width + pad);
+      }
+
+      if (widest > limit) {
+        var base = parseFloat(getComputedStyle(h1).fontSize);
+        h1.style.fontSize = Math.floor(base * (limit / widest)) + 'px';
+      }
+    }
+
+    function renderHero() {
+      var c = cls();
+      var s = st();
+      setHeroName(s.name || c.nome);
+      document.getElementById('char-cursive-name').textContent = c.nome.toUpperCase();
+      document.getElementById('char-class-tag').textContent = c.nome + ' · ' + c.arquetipo;
+
+      var img = document.getElementById('hero-portrait');
+      var fallback = document.getElementById('hero-fallback');
+      var aura = document.getElementById('hero-aura');
+      if (c.img) {
+        img.src = c.img;
+        img.alt = (s.name || c.nome) + ' — arte do personagem';
+        img.hidden = false;
+        fallback.style.display = 'none';
+        aura.style.setProperty('--portrait', 'url("' + c.img + '")');
+        aura.hidden = false;
+        img.onerror = function () {
+          img.hidden = true;
+          aura.hidden = true;
+          fallback.style.display = '';
+        };
+        img.onload = function () {
+          fitHeroName();
+          if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+        };
+      } else {
+        img.hidden = true;
+        aura.hidden = true;
+        fallback.style.display = '';
+      }
+    }
+
+    // Nível 1: a distribuição é a da ficha e não se mexe. Os steppers voltam quando
+    // o mestre liberar pontos no level-up — a lógica de point-buy (canIncrease etc.)
+    // continua em RPGCalc esperando esse momento.
+    function renderAttrRows() {
+      var container = document.getElementById('attr-rows');
+      container.innerHTML = '';
+      var c = cls();
+      var s = st();
+      RC.ATTRS.forEach(function (attr) {
+        var score = s.scores[attr];
+        var mod = RC.abilityModifier(score);
+        var isPrimary = c.primarios.indexOf(attr) !== -1;
+        var isSecondary = c.secundario === attr;
+
+        var row = document.createElement('div');
+        row.className = 'attr-row' +
+          (isPrimary ? ' is-primary' : '') +
+          (isSecondary ? ' is-secondary' : '');
+        row.dataset.attr = attr;
+
+        var label = document.createElement('span');
+        label.className = 'attr-label';
+        label.textContent = RC.ATTR_LABELS[attr];
+        row.appendChild(label);
+
+        var controls = document.createElement('div');
+        controls.className = 'attr-controls';
+
+        var scoreEl = document.createElement('span');
+        scoreEl.className = 'attr-score-value';
+        scoreEl.textContent = String(score);
+
+        var modEl = document.createElement('span');
+        modEl.className = 'attr-mod-value';
+        modEl.textContent = (mod >= 0 ? '+' : '') + mod;
+
+        controls.appendChild(scoreEl);
+        controls.appendChild(modEl);
+        row.appendChild(controls);
+        container.appendChild(row);
+      });
+    }
+
+    function renderStatline() {
+      var c = cls();
+      var s = st();
+      var hp = RC.calcHP(c.dadoVida, s.scores.RES);
+      document.getElementById('char-hp-value').textContent = 'HP ' + hp + ' · d' + c.dadoVida;
+      document.getElementById('char-saves-value').textContent =
+        'Saves ' + c.saves.map(function (a) { return RC.ATTR_LABELS[a]; }).join(' / ');
+      document.getElementById('char-primaries-value').textContent =
+        c.primarios.map(function (a) { return a + ' ' + s.scores[a]; }).join(' · ');
+    }
+
+    function renderBuilder() {
+      var s = st();
+      var input = document.getElementById('char-name-input');
+      if (document.activeElement !== input) input.value = s.name;
+      document.getElementById('builder-title').textContent = 'Atributos — ' + cls().nome;
+      renderAttrRows();
+      renderStatline();
+      renderPrintSheet();
+    }
+
+    // ícones de linha por tipo (sem lib, recolorem via stroke: var(--c-accent))
+    var INV_ICONS = {
+      arma: '<svg viewBox="0 0 24 24"><path d="M3 8h13v4h-4l-2 4H7l1-4H3z"/><path d="M16 8h4v3h-4"/></svg>',
+      gadget: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M18 6l-2 2M8 16l-2 2"/></svg>',
+      municao: '<svg viewBox="0 0 24 24"><path d="M8 3h3l1 5v10H7V8z"/><path d="M14 6h3v9h-3z"/></svg>',
+      racao: '<svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="14" rx="1"/><path d="M6 9h12"/></svg>',
+      agua: '<svg viewBox="0 0 24 24"><path d="M10 2h4v3l2 3v12H8V8l2-3z"/><path d="M8 13h8"/></svg>',
+      medico: '<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M12 8v8M8 12h8"/></svg>'
+    };
+    // itens de sobrevivência compartilhados + equipamento por classe (nome, tipo, qtd)
+    var INV_BASE = [
+      { n: 'Ração de campo', t: 'racao', q: 3 },
+      { n: 'Água purificada', t: 'agua', q: 2 },
+      { n: 'Munição', t: 'municao', q: 2 },
+      { n: 'Kit médico', t: 'medico', q: 1 }
+    ];
+    var INV_EXTRA = {
+      federal: [
+        { n: 'Pistola "Distintivo"', t: 'arma' }, { n: 'Algemas de choque', t: 'gadget' },
+        { n: 'SMG Compacta', t: 'arma' }, { n: 'Faca de Combate', t: 'arma' }
+      ],
+      narcoticos: [
+        { n: 'Faca "Sombra das Docas"', t: 'arma' }, { n: 'Dardo rastreador', t: 'gadget' },
+        { n: 'Pistola Padrão', t: 'arma' }, { n: 'Lâmina Monofilamento', t: 'arma' }
+      ],
+      cia: [
+        { n: 'Rifle "Silêncio"', t: 'arma' }, { n: 'Micro-drone', t: 'gadget' },
+        { n: 'Pistola Pesada', t: 'arma' }, { n: 'Faca de Combate', t: 'arma' }
+      ],
+      netrunner: [
+        { n: 'Deck "Fantasma"', t: 'gadget' }, { n: 'Drone "Rato"', t: 'gadget' },
+        { n: 'Pistola Padrão', t: 'arma' }, { n: 'Faca de Combate', t: 'arma' }
+      ],
+      'corp-security': [
+        { n: 'Braço "Sentinela"', t: 'arma' }, { n: 'Espuma de contenção', t: 'gadget' },
+        { n: 'Machado de Demolição', t: 'arma' }, { n: 'Metralhadora Montada', t: 'municao' }
+      ]
+    };
+
+    function renderInventario() {
+      var items = INV_BASE.concat(INV_EXTRA[activeId] || []);
+      var grid = document.getElementById('inv-grid');
+      grid.innerHTML = '';
+      items.forEach(function (it) {
+        var slot = document.createElement('div');
+        slot.className = 'inv-slot';
+        slot.innerHTML = (INV_ICONS[it.t] || '') +
+          '<span class="inv-name"></span>' +
+          (it.q ? '<span class="inv-qty"></span>' : '');
+        slot.querySelector('.inv-name').textContent = it.n;
+        if (it.q) slot.querySelector('.inv-qty').textContent = 'x' + it.q;
+        grid.appendChild(slot);
+      });
+      // completa a última fila de 4 com slots vazios pra grade não ficar torta
+      var pad = (4 - (items.length % 4)) % 4;
+      for (var i = 0; i < pad; i++) {
+        var e = document.createElement('div');
+        e.className = 'inv-slot empty';
+        grid.appendChild(e);
+      }
+      document.getElementById('inv-count').textContent = items.length + '/' + (items.length + pad);
+    }
+
+    function renderSections() {
+      var c = cls();
+
+      document.getElementById('perfil-idade').textContent = c.perfil.idade;
+      document.getElementById('perfil-altura').textContent = c.perfil.altura;
+      document.getElementById('perfil-peso').textContent = c.perfil.peso;
+      document.getElementById('perfil-fisico').textContent = c.perfilFisico;
+      document.getElementById('char-como-chegou').textContent = c.comoChegou;
+      document.getElementById('char-historico').textContent = c.historico;
+
+      document.getElementById('historia-temperamento').textContent = c.historia.temperamento;
+      document.getElementById('historia-marca').textContent = c.historia.marca;
+      document.getElementById('historia-contradicao').textContent = c.historia.contradicao;
+      document.getElementById('historia-tique').textContent = c.historia.tique;
+
+      document.getElementById('char-pericias-value').textContent = c.pericias.join(', ') + '.';
+      document.getElementById('char-pericia-livre').textContent = c.periciaLivre;
+      document.getElementById('char-defesas-value').textContent =
+        'Dado de vida d' + c.dadoVida + '. Saves proficientes: ' +
+        c.saves.map(function (a) { return RC.ATTR_LABELS[a]; }).join(' + ') + '.';
+      document.getElementById('char-prof-categoria').textContent = c.proficiencias.categoria;
+      document.getElementById('char-prof-loadout').textContent = c.proficiencias.loadout;
+
+      document.getElementById('equip-arma-label').textContent = c.equipamento.armaLabel;
+      document.getElementById('equip-arma').textContent = c.equipamento.arma;
+      document.getElementById('equip-hab').textContent = c.equipamento.habilidadeUnica;
+      document.getElementById('equip-gadget').textContent = c.equipamento.gadget;
+
+      var recurso = document.getElementById('recurso-classe');
+      if (c.recursoClasse) {
+        document.getElementById('recurso-classe-txt').textContent = c.recursoClasse;
+        recurso.hidden = false;
+      } else {
+        recurso.hidden = true;
+      }
+
+      var body = document.getElementById('prog-body');
+      body.innerHTML = '';
+      c.progressao.forEach(function (row) {
+        var tr = document.createElement('tr');
+        if (row[0] === 1) tr.className = 'is-current';
+
+        var lvl = document.createElement('td');
+        lvl.className = 'lvl';
+        lvl.textContent = row[0] < 10 ? '0' + row[0] : String(row[0]);
+        tr.appendChild(lvl);
+
+        var feat = document.createElement('td');
+        feat.textContent = row[1];
+        tr.appendChild(feat);
+
+        var tag = document.createElement('td');
+        tag.className = 'tag';
+        tag.textContent = row[0] === 1 ? 'Atual' : '';
+        tr.appendChild(tag);
+
+        body.appendChild(tr);
+      });
+    }
+
+    function renderPrintSheet() {
+      var c = cls();
+      var s = st();
+      var hp = RC.calcHP(c.dadoVida, s.scores.RES);
+      var sheet = document.getElementById('print-sheet');
+      sheet.innerHTML = '';
+
+      function heading(txt) {
+        var h = document.createElement('h2');
+        h.textContent = txt;
+        sheet.appendChild(h);
+      }
+      function defList(pairs) {
+        var dl = document.createElement('dl');
+        pairs.forEach(function (pair) {
+          var dt = document.createElement('dt');
+          dt.textContent = pair[0];
+          var dd = document.createElement('dd');
+          dd.textContent = pair[1];
+          dl.appendChild(dt);
+          dl.appendChild(dd);
+        });
+        sheet.appendChild(dl);
+      }
+
+      var h1 = document.createElement('h1');
+      h1.textContent = s.name || c.nome;
+      sheet.appendChild(h1);
+
+      var sub = document.createElement('div');
+      sub.className = 'ps-class';
+      sub.textContent = c.nome + ' — ' + c.arquetipo + ' · Nível 1 · HP ' + hp + ' (d' + c.dadoVida + ')';
+      sheet.appendChild(sub);
+
+      heading('Atributos');
+      var table = document.createElement('table');
+      var tr1 = document.createElement('tr');
+      var tr2 = document.createElement('tr');
+      RC.ATTRS.forEach(function (attr) {
+        var th = document.createElement('th');
+        th.textContent = RC.ATTR_LABELS[attr];
+        tr1.appendChild(th);
+        var td = document.createElement('td');
+        var mod = RC.abilityModifier(s.scores[attr]);
+        td.textContent = s.scores[attr] + ' (' + (mod >= 0 ? '+' : '') + mod + ')';
+        tr2.appendChild(td);
+      });
+      table.appendChild(tr1);
+      table.appendChild(tr2);
+      sheet.appendChild(table);
+
+      heading('Perícias e proficiências');
+      defList([
+        ['Saves proficientes', c.saves.map(function (a) { return RC.ATTR_LABELS[a]; }).join(' + ')],
+        ['Atributos primários', c.primarios.map(function (a) { return RC.ATTR_LABELS[a]; }).join(' / ')],
+        ['Perícias automáticas', c.pericias.join(', ')],
+        [c.periciaLivre.split(':')[0], c.periciaLivre.split(':').slice(1).join(':').trim()],
+        ['Armas e armadura', c.proficiencias.categoria],
+        ['Loadout inicial', c.proficiencias.loadout]
+      ]);
+
+      heading('Equipamento assinatura');
+      var equip = [
+        [c.equipamento.armaLabel, c.equipamento.arma],
+        ['Habilidade única', c.equipamento.habilidadeUnica],
+        ['Gadget', c.equipamento.gadget]
+      ];
+      if (c.recursoClasse) equip.push(['Recurso de classe', c.recursoClasse]);
+      defList(equip);
+
+      heading('Nível 1');
+      defList([['Feature', c.featureNivel1]]);
+    }
+
+    function render() {
+      applyPalette();
+      renderClassSelect();
+      renderHero();
+      renderBuilder();
+      renderInventario();
+      renderSections();
+    }
+
+    // ---- animações ----
+    var gsapReady = typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined';
+    var splitReady = gsapReady && typeof SplitText !== 'undefined';
+    if (gsapReady) {
+      gsap.registerPlugin(ScrollTrigger);
+      if (splitReady) gsap.registerPlugin(SplitText);
+    }
+
+    function playIntro() {
+      if (!gsapReady) return null;
+
+      // remonta o markup do nome antes de dividir — evita split sobre spans de um split anterior
+      setHeroName(st().name || cls().nome);
+      splitInstance = null;
+
+      var intro = gsap.timeline({ defaults: { ease: 'power4.out' } });
+
+      if (splitReady) {
+        splitInstance = new SplitText('#char-player-name .line', { type: 'chars' });
+        gsap.set(splitInstance.chars, { yPercent: 110 });
+        intro.to(splitInstance.chars, { yPercent: 0, duration: 0.9, stagger: 0.028 }, 0);
+      } else {
+        intro.fromTo('#char-player-name', { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.8 }, 0);
+      }
+
+      // não animar x/y de #hero-img: o CSS o centra com translateX(-50%) e o pin usa yPercent
+      intro.fromTo('#hero-img',
+        { autoAlpha: 0, scale: 1.04 },
+        { autoAlpha: 1, scale: 1, duration: 0.9, ease: 'power3.out' }, 0.05);
+      intro.fromTo('#char-cursive-name',
+        { autoAlpha: 0, x: 60 },
+        { autoAlpha: 0.9, x: 0, duration: 1.1, ease: 'power3.out' }, 0.1);
+      intro.fromTo('.builder-card',
+        { autoAlpha: 0, x: -28 },
+        { autoAlpha: 1, x: 0, duration: 0.7 }, 0.08);
+      intro.fromTo('.name-rule',
+        { autoAlpha: 0, x: -20 },
+        { autoAlpha: 1, x: 0, duration: 0.6 }, 0.35);
+      intro.fromTo('.hero-meta',
+        { autoAlpha: 0, y: 16 },
+        { autoAlpha: 1, y: 0, duration: 0.6 }, 0.45);
+      return intro;
+    }
+
+    // A troca de classe nunca depende da animação terminar: os dados entram primeiro,
+    // a animação é decoração por cima. Se o GSAP falhar, a ficha continua trocando.
+    function switchClass() {
+      render();
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      if (!gsapReady) return;
+      ScrollTrigger.refresh();
+      playIntro();
+    }
+
+    document.getElementById('char-name-input').addEventListener('input', function (e) {
+      st().name = e.target.value;
+      setHeroName(st().name || cls().nome);
+      renderPrintSheet();
+    });
+    document.getElementById('char-name-input').addEventListener('blur', function () {
+      renderClassSelect();
+      if (gsapReady) playIntro();
+    });
+
+    document.getElementById('print-btn').addEventListener('click', function () { window.print(); });
+
+    var resizeTimer = null;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(fitHeroName, 120);
+    });
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(fitHeroName);
+    }
+
+    render();
+
+    if (gsapReady) {
+      var mm = gsap.matchMedia();
+
+      // hero pinado só faz sentido no desktop; o reveal das seções vale em qualquer largura
+      mm.add('(min-width: 901px)', function () {
+        // o personagem sobe do rodapé e atravessa o nome, que afunda
+        gsap.set('#hero-img', { yPercent: 62 });
+
+        var tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: '#hero',
+            start: 'top top',
+            end: '+=140%',
+            scrub: 1,
+            pin: true
+          }
+        });
+        tl.to('#hero-img', { yPercent: 0, ease: 'none' }, 0)
+          .to('#char-player-name', { yPercent: -14, scale: 0.86, autoAlpha: 0.3, transformOrigin: 'left top', ease: 'none' }, 0)
+          .to('#char-cursive-name', { yPercent: -26, autoAlpha: 0.25, ease: 'none' }, 0)
+          .to('.name-rule', { autoAlpha: 0, ease: 'none' }, 0)
+          .to('.scroll-hint', { autoAlpha: 0, duration: 0.15 }, 0.05);
+      });
+
+      gsap.utils.toArray('.sec').forEach(function (sec) {
+        gsap.from(sec, {
+          y: 60, autoAlpha: 0, duration: 0.7, ease: 'power2.out',
+          scrollTrigger: { trigger: sec, start: 'top 82%', toggleActions: 'play none none reverse' }
+        });
+      });
+
+      playIntro();
+    }
+
+    // ANCHOR: DOM_INIT
+  }
+})();
+</script>
+</body>
+</html>
