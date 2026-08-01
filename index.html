@@ -558,7 +558,130 @@
     font-variant-numeric: tabular-nums;
   }
 
+  /* ================= NAV LATERAL + VIEWS ================= */
+  :root { --nav-w: 210px; }
+  .app-nav {
+    position: fixed; top: 0; left: 0; bottom: 0; z-index: 50;
+    width: var(--nav-w);
+    background: color-mix(in srgb, var(--c-deep) 94%, #000);
+    border-right: 1px solid color-mix(in srgb, var(--c-surface) 55%, transparent);
+    display: flex; flex-direction: column; gap: 3px;
+    padding: 18px 12px;
+  }
+  .app-nav .brand {
+    font-family: var(--font-display); font-size: 20px; letter-spacing: .08em;
+    color: var(--c-light); padding: 4px 10px 18px;
+  }
+  .app-nav .brand em { color: var(--c-accent); font-style: normal; }
+  .app-nav button {
+    display: flex; align-items: center; gap: 12px;
+    background: none; border: none; text-align: left;
+    color: var(--c-muted); font-family: var(--font-ui);
+    font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    padding: 12px; border-left: 3px solid transparent;
+    transition: color .18s, background .18s, border-color .18s;
+  }
+  .app-nav button svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.7; flex: none; }
+  .app-nav button:hover { color: var(--c-light); background: color-mix(in srgb, var(--c-surface) 22%, transparent); }
+  .app-nav button.active { color: var(--c-accent); border-left-color: var(--c-accent); background: color-mix(in srgb, var(--c-accent) 10%, transparent); }
+
+  #calculator-section { margin-left: var(--nav-w); }
+  .view { display: none; }
+  .view.active { display: block; }
+  /* o seletor de personagens só existe dentro da Ficha; a cor da paleta permanece */
+  body:not(.is-ficha) .class-select { display: none; }
+  .view-head { max-width: 1080px; margin: 0 auto; padding: 96px 24px 0; }
+  .view-head-row { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  .view-head h2 { font-family: var(--font-display); font-size: clamp(34px, 5vw, 56px); text-transform: uppercase; letter-spacing: .015em; }
+  .view-head p { color: var(--c-muted); font-size: 14px; margin-top: 10px; max-width: 60ch; line-height: 1.75; font-weight: 400; }
+  /* pill de contagem — conceito emprestado do vvd.world ("0 idade · 1 evento") */
+  .view-stat {
+    font-family: var(--font-ui); font-weight: 700; font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--c-deep); background: var(--c-accent);
+    padding: 7px 13px; white-space: nowrap; margin-bottom: 6px;
+  }
+
+  /* relações — grafo com rostos */
+  .graph-wrap { max-width: 860px; margin: 0 auto; padding: 24px 20px 20px; }
+  .graph-wrap svg { width: 100%; height: auto; }
+  .graph-edge { stroke: color-mix(in srgb, var(--c-muted) 42%, transparent); stroke-width: 1.5; }
+  .graph-node { cursor: pointer; }
+  .graph-node image { cursor: pointer; }
+  .graph-node text { font-family: var(--font-ui); font-weight: 700; font-size: 15px; letter-spacing: .03em; fill: var(--c-light); }
+  .graph-node .gn-role { font-family: var(--font-ui); font-weight: 600; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+
+  /* lista de relações escritas (legível) */
+  .rel-list { max-width: 860px; margin: 0 auto; padding: 0 24px 60px; display: grid; gap: 8px; }
+  .rel-row { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center; border: 1px solid color-mix(in srgb, var(--c-surface) 55%, transparent); border-left: 3px solid var(--c-accent); background: color-mix(in srgb, var(--c-bg) 45%, transparent); padding: 12px 16px; }
+  .rel-pair { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+  .rel-pair img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 2px solid var(--rc, var(--c-accent)); background: var(--c-deep); }
+  .rel-pair .rp-x { color: var(--c-muted); font-size: 12px; }
+  .rel-row .rel-text { font-family: var(--font-ui); font-size: 14px; line-height: 1.55; color: var(--c-light); }
+  .rel-row .rel-text b { color: var(--c-accent); font-weight: 700; }
+
+  /* linha do tempo — horizontal, estilo vvd (eixo + eventos alternando acima/abaixo) */
+  .tl { position: relative; display: flex; overflow-x: auto; padding: 40px 40px 50px; scroll-snap-type: x proximity; }
+  .tl::before { content: ""; position: absolute; left: 40px; right: 40px; top: 50%; height: 2px; background: color-mix(in srgb, var(--c-surface) 60%, transparent); }
+  .tl-item { flex: 0 0 250px; scroll-snap-align: center; position: relative; height: 360px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .tl-card { position: absolute; left: 18px; right: 18px; background: color-mix(in srgb, var(--c-bg) 55%, #000 15%); border: 1px solid color-mix(in srgb, var(--c-surface) 55%, transparent); border-top: 3px solid var(--dot, var(--c-accent)); padding: 14px 16px; transition: transform .15s ease, border-color .15s ease; }
+  .tl-item:nth-child(odd) .tl-card { bottom: calc(50% + 34px); }
+  .tl-item:nth-child(even) .tl-card { top: calc(50% + 34px); }
+  .tl-item:hover .tl-card { transform: translateY(-3px); border-color: var(--c-accent); }
+  .tl-card::after { content: ""; position: absolute; left: 50%; width: 2px; height: 22px; background: color-mix(in srgb, var(--c-surface) 70%, transparent); transform: translateX(-50%); }
+  .tl-item:nth-child(odd) .tl-card::after { bottom: -22px; }
+  .tl-item:nth-child(even) .tl-card::after { top: -22px; }
+  .tl-item .tl-what { transition: color .15s; }
+  .tl-item:hover .tl-what { color: var(--c-accent); }
+  .tl-badge { font-family: var(--font-ui); font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--c-muted); margin-top: 8px; }
+  .tl-badge b { color: var(--c-accent); font-weight: 700; }
+
+  /* modal de contexto (cena/lugar/acontecimento) */
+  .ctx-overlay { position: fixed; inset: 0; z-index: 80; display: none; align-items: center; justify-content: center; padding: 24px; background: rgba(0,0,0,.6); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+  .ctx-overlay.open { display: flex; }
+  .ctx-modal { width: min(620px, 100%); max-height: 86vh; overflow-y: auto; background: color-mix(in srgb, var(--c-bg) 60%, #000 20%); border: 1px solid var(--c-surface); border-top: 3px solid var(--c-accent); box-shadow: 0 40px 80px -30px rgba(0,0,0,.8); padding: 24px 26px 22px; }
+  .ctx-modal .ctx-when { font-family: var(--font-ui); font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--c-accent); }
+  .ctx-modal h3 { font-family: var(--font-display); font-size: clamp(22px, 3vw, 30px); letter-spacing: .02em; margin: 4px 0 6px; color: var(--c-light); }
+  .ctx-modal .ctx-meta { font-size: 12px; color: var(--c-muted); margin-bottom: 16px; }
+  .ctx-modal label { display: block; font-size: 9px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--c-muted); margin-bottom: 6px; }
+  .ctx-modal textarea { width: 100%; min-height: 200px; resize: vertical; background: color-mix(in srgb, #000 40%, var(--c-deep)); border: 1px solid var(--c-surface); color: var(--c-light); font-family: var(--font-ui); font-size: 14px; line-height: 1.7; padding: 12px 14px; }
+  .ctx-modal textarea:focus { outline: none; border-color: var(--c-accent); }
+  .ctx-actions { display: flex; gap: 10px; margin-top: 16px; }
+  .ctx-actions button { font-family: var(--font-ui); font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; padding: 11px 18px; cursor: pointer; border: 1px solid var(--c-surface); background: transparent; color: var(--c-light); transition: background .18s, color .18s, border-color .18s; }
+  .ctx-actions .ctx-save { background: var(--c-accent); color: var(--c-deep); border-color: var(--c-accent); }
+  .ctx-actions button:hover { border-color: var(--c-accent); }
+  .ctx-actions .ctx-save:hover { background: transparent; color: var(--c-accent); }
+  .ctx-actions .ctx-saved { margin-left: auto; align-self: center; font-size: 11px; color: var(--c-accent); opacity: 0; transition: opacity .2s; }
+  .ctx-actions .ctx-saved.show { opacity: 1; }
+  .tl-item::before { content: ""; position: absolute; left: 50%; top: 50%; width: 18px; height: 18px; border-radius: 50%; background: var(--c-bg); border: 3px solid var(--dot, var(--c-accent)); transform: translate(-50%, -50%); z-index: 2; }
+  .tl-when { font-family: var(--font-ui); font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--c-accent); }
+  .tl-what { font-family: var(--font-ui); font-size: 15px; font-weight: 600; line-height: 1.5; margin-top: 5px; color: var(--c-light); }
+  .tl-who { font-family: var(--font-ui); font-size: 11px; font-weight: 600; color: var(--c-muted); margin-top: 4px; text-transform: uppercase; letter-spacing: .1em; }
+
+  /* cards de entidade */
+  .cards-wrap { max-width: 1080px; margin: 0 auto; padding: 30px 24px 60px; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+  .ent-card { border: 1px solid color-mix(in srgb, var(--c-surface) 60%, transparent); border-top: 3px solid var(--k, var(--c-accent)); background: color-mix(in srgb, var(--c-bg) 45%, transparent); padding: 0; overflow: hidden; cursor: pointer; text-align: left; transition: transform .15s ease, border-color .15s ease; }
+  .ent-card:hover { transform: translateY(-3px); }
+  .ent-card .ec-img { height: 160px; background: color-mix(in srgb, #000 40%, var(--c-deep)); display: flex; align-items: flex-end; justify-content: center; overflow: hidden; }
+  .ent-card .ec-img img { max-height: 160px; object-fit: contain; }
+  .ent-card.ent-prova .ec-img svg { width: 60px; height: 60px; stroke: var(--c-accent); fill: none; stroke-width: 1.5; align-self: center; }
+  .ent-card .ec-body { padding: 12px 14px 16px; }
+  .ent-card h4 { font-family: var(--font-display); font-size: 19px; letter-spacing: .03em; color: var(--c-light); }
+  .ent-card .ec-tag { font-family: var(--font-ui); font-size: 10px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--k, var(--c-accent)); margin-top: 5px; }
+
   /* ================= RESPONSIVO ================= */
+  @media (max-width: 900px) {
+    :root { --nav-w: 0px; }
+    .app-nav {
+      flex-direction: row; bottom: 0; top: auto; right: 0; width: auto;
+      border-right: none; border-top: 1px solid color-mix(in srgb, var(--c-surface) 55%, transparent);
+      padding: 6px; gap: 2px; justify-content: space-around;
+      -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    }
+    .app-nav .brand { display: none; }
+    .app-nav button { flex-direction: column; gap: 4px; font-size: 9px; padding: 8px 4px; border-left: none; border-top: 3px solid transparent; flex: 1; justify-content: center; text-align: center; }
+    .app-nav button.active { border-left: none; border-top-color: var(--c-accent); }
+    #calculator-section { margin-left: 0; padding-bottom: 64px; }
+  }
   @media (max-width: 900px) {
     .topbar { padding: 0 14px; height: 56px; }
     .wordmark { font-size: 11px; letter-spacing: .2em; }
@@ -611,13 +734,23 @@
   }
 </style>
 </head>
-<body>
+<body class="is-ficha">
+<nav class="app-nav" id="app-nav" aria-label="Seções">
+  <div class="brand">FICHA<em>_</em>RPG</div>
+  <button type="button" class="active" data-view="ficha"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v4h4M9 12h7M9 16h7"/></svg>Ficha</button>
+  <button type="button" data-view="relacoes"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="8" r="2.5"/><circle cx="10" cy="18" r="2.5"/><path d="M8 7l8 1M8 8l1 8M16 10l-5 7"/></svg>Relações</button>
+  <button type="button" data-view="timeline"><svg viewBox="0 0 24 24"><path d="M5 4v16"/><circle cx="5" cy="8" r="2"/><circle cx="5" cy="16" r="2"/><path d="M9 8h11M9 16h11"/></svg>Linha do tempo</button>
+  <button type="button" data-view="cards"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="7" height="7"/><rect x="14" y="4" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Cards</button>
+</nav>
+
 <section id="calculator-section">
 
   <header class="topbar">
     <div class="wordmark">FICHA<em>_</em>RPG</div>
     <nav class="class-select" id="class-select" aria-label="Classes"></nav>
   </header>
+
+  <div class="view active" id="view-ficha">
 
   <div class="hero" id="hero">
     <div class="hero-inner" id="hero-inner">
@@ -751,6 +884,56 @@
     </section>
 
     <footer>FICHA_RPG — Nível 1 · Evolução de níveis com o mestre</footer>
+  </div>
+  </div><!-- /view-ficha -->
+
+  <div class="view" id="view-relacoes">
+    <div class="view-head">
+      <div class="view-head-row">
+        <h2>Relações</h2>
+        <span class="view-stat" id="stat-relacoes">—</span>
+      </div>
+      <p>Como os cinco se cruzam no caso. Clique num nó pra abrir a ficha daquele personagem.</p>
+    </div>
+    <div class="graph-wrap"><svg id="graph" viewBox="0 0 640 480" role="img"></svg></div>
+    <div class="rel-list" id="rel-list"></div>
+  </div>
+
+  <div class="view" id="view-timeline">
+    <div class="view-head">
+      <div class="view-head-row">
+        <h2>Linha do tempo</h2>
+        <span class="view-stat" id="stat-timeline">—</span>
+      </div>
+      <p>Recapitulação pros jogadores — tudo que o grupo sabe até agora, sem nada além disso.</p>
+    </div>
+    <div class="tl" id="tl"></div>
+  </div>
+
+  <div class="view" id="view-cards">
+    <div class="view-head">
+      <div class="view-head-row">
+        <h2>Cards</h2>
+        <span class="view-stat" id="stat-cards">—</span>
+      </div>
+      <p>Entidades do mundo — personagens e provas do crime. Clique num personagem pra abrir a ficha.</p>
+    </div>
+    <div class="cards-wrap" id="cards"></div>
+  </div>
+
+  <div class="ctx-overlay" id="ctx-overlay">
+    <div class="ctx-modal" role="dialog" aria-modal="true" aria-labelledby="ctx-title">
+      <div class="ctx-when" id="ctx-when">—</div>
+      <h3 id="ctx-title">—</h3>
+      <div class="ctx-meta" id="ctx-meta"></div>
+      <label for="ctx-text">Contexto da cena / lugar / acontecimento</label>
+      <textarea id="ctx-text" placeholder="Descreva a cena, o lugar, quem estava, o que aconteceu..."></textarea>
+      <div class="ctx-actions">
+        <button type="button" class="ctx-save" id="ctx-save">Salvar</button>
+        <button type="button" id="ctx-close">Fechar</button>
+        <span class="ctx-saved" id="ctx-saved">Salvo ✓</span>
+      </div>
+    </div>
   </div>
 
   <div id="print-sheet" aria-hidden="true"></div>
@@ -1336,6 +1519,208 @@
       document.getElementById('inv-count').textContent = items.length + '/' + (items.length + pad);
     }
 
+    // ---- Relações (grafo) ----
+    var REL_EDGES = [
+      ['federal', 'cia', 'método oposto: mandado × execução'],
+      ['narcoticos', 'netrunner', 'furtividade física + digital'],
+      ['corp-security', 'federal', 'músculo institucional, desconfiança'],
+      ['corp-security', 'cia', 'corp × agência, interesses cruzados'],
+      ['netrunner', 'cia', 'o dado que a CIA quer sumir passou por Zane'],
+      ['corp-security', 'narcoticos', 'a corp vigia o submundo das docas']
+    ];
+    function renderRelacoes() {
+      document.getElementById('stat-relacoes').textContent = ORDER.length + ' personagens · ' + REL_EDGES.length + ' conexões';
+      var svg = document.getElementById('graph');
+      var W = 640, H = 480, cx = W / 2, cy = H / 2 - 10, R = 165;
+      var pos = {};
+      ORDER.forEach(function (id, i) {
+        var a = -Math.PI / 2 + i * (2 * Math.PI / ORDER.length);
+        pos[id] = { x: cx + R * Math.cos(a), y: cy + R * Math.sin(a) };
+      });
+      var svgns = 'http://www.w3.org/2000/svg';
+      var RAD = 40;
+      svg.innerHTML = '';
+      // arestas primeiro (ficam atrás dos rostos); os textos vão pra lista abaixo
+      REL_EDGES.forEach(function (e) {
+        var a = pos[e[0]], b = pos[e[1]];
+        var line = document.createElementNS(svgns, 'line');
+        line.setAttribute('class', 'graph-edge');
+        line.setAttribute('x1', a.x); line.setAttribute('y1', a.y);
+        line.setAttribute('x2', b.x); line.setAttribute('y2', b.y);
+        svg.appendChild(line);
+      });
+      ORDER.forEach(function (id) {
+        var p = pos[id], c = RC.CLASSES[id];
+        var face = c.img ? c.img.replace('-cut.png', '-face.png') : '';
+        var g = document.createElementNS(svgns, 'g');
+        g.setAttribute('class', 'graph-node');
+        g.addEventListener('click', function () { activeId = id; switchClass(); setView('ficha'); });
+
+        var clip = document.createElementNS(svgns, 'clipPath');
+        var cid = 'clip-' + id;
+        clip.setAttribute('id', cid);
+        var cc = document.createElementNS(svgns, 'circle');
+        cc.setAttribute('cx', p.x); cc.setAttribute('cy', p.y); cc.setAttribute('r', RAD);
+        clip.appendChild(cc);
+        g.appendChild(clip);
+
+        var bg = document.createElementNS(svgns, 'circle');
+        bg.setAttribute('cx', p.x); bg.setAttribute('cy', p.y); bg.setAttribute('r', RAD);
+        bg.setAttribute('fill', c.palette.deep);
+        g.appendChild(bg);
+
+        if (face) {
+          var img = document.createElementNS(svgns, 'image');
+          img.setAttributeNS('http://www.w3.org/1999/xlink', 'href', face);
+          img.setAttribute('href', face);
+          img.setAttribute('x', p.x - RAD); img.setAttribute('y', p.y - RAD);
+          img.setAttribute('width', RAD * 2); img.setAttribute('height', RAD * 2);
+          img.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+          img.setAttribute('clip-path', 'url(#' + cid + ')');
+          g.appendChild(img);
+        }
+        var ring = document.createElementNS(svgns, 'circle');
+        ring.setAttribute('cx', p.x); ring.setAttribute('cy', p.y); ring.setAttribute('r', RAD);
+        ring.setAttribute('fill', 'none');
+        ring.setAttribute('stroke', c.palette.accent);
+        ring.setAttribute('stroke-width', 3);
+        g.appendChild(ring);
+
+        var t = document.createElementNS(svgns, 'text');
+        t.setAttribute('x', p.x); t.setAttribute('y', p.y + RAD + 20);
+        t.setAttribute('text-anchor', 'middle');
+        t.textContent = stateByClass[id].name || c.nome;
+        g.appendChild(t);
+        var role = document.createElementNS(svgns, 'text');
+        role.setAttribute('class', 'gn-role');
+        role.setAttribute('x', p.x); role.setAttribute('y', p.y + RAD + 34);
+        role.setAttribute('text-anchor', 'middle');
+        role.setAttribute('fill', c.palette.accent);
+        role.textContent = c.nome;
+        g.appendChild(role);
+        svg.appendChild(g);
+      });
+
+      // lista de relações escritas — o que deixa os textos legíveis
+      var list = document.getElementById('rel-list');
+      list.innerHTML = '';
+      REL_EDGES.forEach(function (e) {
+        var ca = RC.CLASSES[e[0]], cb = RC.CLASSES[e[1]];
+        var fa = ca.img.replace('-cut.png', '-face.png'), fb = cb.img.replace('-cut.png', '-face.png');
+        var row = document.createElement('div');
+        row.className = 'rel-row';
+        row.innerHTML =
+          '<div class="rel-pair">' +
+            '<img src="' + fa + '" alt="" style="--rc:' + ca.palette.accent + '">' +
+            '<span class="rp-x">×</span>' +
+            '<img src="' + fb + '" alt="" style="--rc:' + cb.palette.accent + '">' +
+          '</div>' +
+          '<div class="rel-text"><b></b> — <span></span></div>';
+        row.querySelector('b').textContent = ca.nome + ' × ' + cb.nome;
+        row.querySelector('.rel-text span').textContent = e[2];
+        list.appendChild(row);
+      });
+    }
+
+    // ---- Linha do tempo (rascunho do caso) ----
+    // id = chave estável do localStorage (não muda se a ordem mudar); local = cena/lugar
+    var TL_EVENTS = [
+      { id: 'ev-madrugada', w: 'Madrugada', local: 'Chamados separadamente', t: 'Corpo encontrado no Cais 47. Cinco pessoas — Mipin, Ryan, Nero, Zane e David — são chamadas separadamente, sem se conhecerem antes.', who: null,
+        ctx: 'Um corpo foi encontrado no Cais 47. Cinco pessoas, de agências e origens completamente diferentes, foram chamadas separadamente, sem se conhecerem antes: Mipin (FBI), Ryan (Narcóticos, tirado de operação undercover em andamento), Nero (agência federal, primeira missão real dele), Zane (contatado por canal que ele jura ser impossível de rastrear), e David (mandado pela própria corp de segurança onde trabalha "representar os interesses da empresa").' },
+      { id: 'ev-cais47', w: 'Cais 47', local: 'Píer, sob o viaduto', t: 'A cena do crime: mulher morta, sentada contra um pilar — postura calma demais, como se tivesse sido arrumada depois de morta.', who: null,
+        ctx: 'No píer, sob o viaduto, encontraram o corpo de uma mulher, cerca de trinta anos, sentada contra um pilar de concreto — postura calma demais, mãos cruzadas no colo, como se tivesse sido arrumada depois de morta. O que o grupo levantou até agora:\n\n• Chip de identificação dela estava queimado deliberadamente — sem nome oficial ainda\n• Crachá arrancado às pressas do blazer, marca do clipe ainda visível\n• Um celular descartável barato no bolso, com um único número discado repetidamente nas últimas 48h antes da morte — número desconectado agora\n• Uma marca circular pequena na nuca, sugerindo algum tipo de procedimento neural — natureza exata ainda não confirmada\n• Um símbolo de gangue pichado no pilar ao lado — Ryan reconheceu que é uma variante desatualizada, abandonada há uns 2 anos pela gangue real das docas, o que sugere forjado\n• Marcas de arrasto no chão molhado, indicando que o corpo foi morto em outro ponto do píer e movido até a posição em que foi encontrado\n• Uma câmera de segurança supostamente desligada, mas com bateria residual — Zane conseguiu recuperar um fragmento de gravação corrompida mostrando duas silhuetas diferentes, agindo em momentos diferentes, sem indicação de que se conheciam\n• Um morador de rua nas proximidades relatou ter visto "alguém de terno" saindo apressado horas antes do horário estimado de morte, carregando uma bolsa pequena preta — não viu o rosto\n• Escondida na bainha do blazer da vítima, uma nota física com uma sequência alfanumérica que parece ordem de operação financeira — corretora, algo como um ticker, e uma data/hora futura. Significado completo ainda não decifrado' },
+      { id: 'ev-base', w: 'A formação da base', local: 'Galpão do Zane', t: 'Sem lugar institucional seguro pra todos, Zane oferece seu esconderijo pessoal como base do grupo.', who: 'netrunner',
+        ctx: 'Sem lugar institucional seguro pra todos (cada um tinha motivo pra recusar prédio federal, delegacia, ou qualquer coisa oficial), Zane ofereceu seu próprio esconderijo — um galpão reformado, fora de qualquer sistema de registro, que ele nunca tinha dividido com ninguém antes. Vira a base de operações do grupo.' },
+      { id: 'ev-relogio', w: 'A descoberta do relógio', local: 'Base', t: 'A data/hora anexada ao código da nota não é aleatória — é uma contagem regressiva de ~36 horas a partir de agora.', who: null,
+        ctx: 'Reexaminando a nota da bainha com mais calma, perceberam que a data/hora anexada ao código não é aleatória — é uma contagem regressiva, prazo de aproximadamente 36 horas a partir de então. O grupo decidiu se dividir pra investigar mais rápido.' },
+      { id: 'ev-fio1', w: 'Fio 1 — o arquivo morto', local: 'Porão de arquivos da delegacia', t: 'Mipin e Ryan vasculham registros antigos atrás do número do celular descartável — e quase são flagrados pelo detetive Marlowe.', who: 'federal',
+        ctx: 'Mipin e Ryan foram atrás de registros antigos que pudessem explicar o número do celular descartável. No porão de arquivos da delegacia, um zelador antigo (Otis) confirmou lembrar de uma caixa de processo que "sumiu e voltou" incompleta anos atrás — entregou uma página avulsa que sobrou, com o nome do agente responsável redigido, mas uma assinatura parcial visível no rodapé: três letras, "...ER". No meio da busca, quase foram flagrados por um detetive da própria delegacia (Marlowe), que apareceu "por acaso" atrás de outro arquivo — situação tensa, mas contornada.' },
+      { id: 'ev-fio2', w: 'Fio 2 — retorno ao Cais 47', local: 'Cais 47, à noite', t: 'Zane e Nero voltam pra extrair mais da câmera e são emboscados por mercenários — capturam um vivo.', who: 'netrunner',
+        ctx: 'Zane e Nero voltaram ao Cais 47 à noite pra tentar extrair mais da câmera. Foram emboscados por dois mercenários bem equipados, que pareciam mais interessados em destruir a gravação do que necessariamente eliminar o grupo. Depois de um combate no píer (usando contêineres, um guindaste velho, e um poste de luz danificado como parte da tática), conseguiram nocautear e capturar um dos mercenários vivo, além de recuperar mais 15 segundos de gravação — mostrando que a segunda silhueta se move com padrão de treinamento profissional muito específico, algo que Nero reconheceu na hora como familiar demais.' },
+      { id: 'ev-fio3', w: 'Fio 3 — o laboratório', local: 'Instalação farmacêutica', t: 'David confirma que o composto do corpo é um sedativo neural experimental ligado à sigla "A.B."', who: 'corp-security',
+        ctx: 'Convocado por Kessler (chefe dele) pra investigar uma instalação farmacêutica ligada de alguma forma ao caso, David conseguiu, sob pressão, que um gerente nervoso confirmasse que o composto tóxico encontrado no corpo é um sedativo neural experimental, produzido sob contrato exclusivo pra uma subsidiária identificada só pela sigla "A.B.". Também presenciou uma van sendo esvaziada às pressas na doca de carga, e — dependendo de como a cena se resolveu — pode ter conseguido um cartão de acesso físico que abre outro endereço na cidade, ainda não identificado.' },
+      { id: 'ev-atual', w: 'Onde vocês pararam', local: 'Base', t: 'O mercenário capturado está inconsciente na base. Os três fios se reencontram — o prazo de 36h continua correndo.', who: null,
+        ctx: 'O mercenário capturado está na base, ainda inconsciente. Os três grupos estão se reencontrando pra comparar tudo que cada fio trouxe — a página com a assinatura parcial, a gravação recuperada, a sigla "A.B.", e o que mais tiver sido levantado no laboratório. O prazo de 36 horas do código financeiro continua correndo.' }
+    ];
+    function tlCtx(id) { try { return localStorage.getItem('tl-ctx-' + id) || ''; } catch (e) { return ''; } }
+    function renderTimeline() {
+      document.getElementById('stat-timeline').textContent = TL_EVENTS.length + ' eventos';
+      var tl = document.getElementById('tl');
+      tl.innerHTML = '';
+      TL_EVENTS.forEach(function (ev, i) {
+        var item = document.createElement('div');
+        item.className = 'tl-item';
+        item.dataset.i = i;
+        if (ev.who) item.style.setProperty('--dot', RC.CLASSES[ev.who].palette.accent);
+        var who = ev.who ? '<div class="tl-who">' + RC.CLASSES[ev.who].nome + ' · ' + (stateByClass[ev.who].name || '') + '</div>' : '';
+        var has = tlCtx(ev.id) ? '<b>contexto editado</b> · ' : (ev.ctx ? '<b>contexto</b> · ' : '');
+        item.innerHTML = '<div class="tl-card"><div class="tl-when">' + ev.w + '</div><div class="tl-what"></div>' + who +
+          '<div class="tl-badge">' + has + (ev.local || '') + ' · clique para contexto</div></div>';
+        item.querySelector('.tl-what').textContent = ev.t;
+        item.addEventListener('click', function () { openCtx(i); });
+        tl.appendChild(item);
+      });
+    }
+
+    var ctxIdx = null;
+    function openCtx(i) {
+      ctxIdx = i;
+      var ev = TL_EVENTS[i];
+      document.getElementById('ctx-when').textContent = ev.w + (ev.local ? ' · ' + ev.local : '');
+      document.getElementById('ctx-title').textContent = ev.t;
+      document.getElementById('ctx-meta').textContent = ev.who
+        ? (RC.CLASSES[ev.who].nome + ' — ' + (stateByClass[ev.who].name || '')) : 'Evento do mundo';
+      document.getElementById('ctx-text').value = tlCtx(ev.id) || ev.ctx || '';
+      document.getElementById('ctx-saved').classList.remove('show');
+      document.getElementById('ctx-overlay').classList.add('open');
+      document.getElementById('ctx-text').focus();
+    }
+    function closeCtx() { document.getElementById('ctx-overlay').classList.remove('open'); ctxIdx = null; }
+    function saveCtx() {
+      if (ctxIdx == null) return;
+      try { localStorage.setItem('tl-ctx-' + TL_EVENTS[ctxIdx].id, document.getElementById('ctx-text').value); } catch (e) {}
+      var s = document.getElementById('ctx-saved'); s.classList.add('show');
+      setTimeout(function () { s.classList.remove('show'); }, 1600);
+      renderTimeline();
+    }
+
+    // ---- Cards de entidade (personagens + provas) ----
+    function renderCards() {
+      var provaCount = 0;
+      ORDER.forEach(function (id) { (INV_EXTRA[id] || []).forEach(function (it) { if (it.p) provaCount++; }); });
+      document.getElementById('stat-cards').textContent = ORDER.length + ' personagens · ' + provaCount + ' provas';
+      var wrap = document.getElementById('cards');
+      wrap.innerHTML = '';
+      ORDER.forEach(function (id) {
+        var c = RC.CLASSES[id], s = stateByClass[id];
+        var card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'ent-card';
+        card.style.setProperty('--k', c.palette.accent);
+        card.innerHTML = '<div class="ec-img">' + (c.img ? '<img src="' + c.img + '" alt="">' : '') + '</div>' +
+          '<div class="ec-body"><h4></h4><div class="ec-tag"></div></div>';
+        card.querySelector('h4').textContent = s.name || c.nome;
+        card.querySelector('.ec-tag').textContent = c.nome + ' · ' + c.arquetipo;
+        card.addEventListener('click', function () { activeId = id; switchClass(); setView('ficha'); });
+        wrap.appendChild(card);
+      });
+      // provas do crime como cards
+      ORDER.forEach(function (id) {
+        (INV_EXTRA[id] || []).forEach(function (it) {
+          if (!it.p) return;
+          var c = RC.CLASSES[id];
+          var card = document.createElement('button');
+          card.type = 'button';
+          card.className = 'ent-card ent-prova';
+          card.style.setProperty('--k', c.palette.accent);
+          card.innerHTML = '<div class="ec-img">' + (INV_ICONS.prova) + '</div>' +
+            '<div class="ec-body"><h4></h4><div class="ec-tag">Prova · ' + c.nome + '</div></div>';
+          card.querySelector('h4').textContent = it.n;
+          wrap.appendChild(card);
+        });
+      });
+    }
+
     function renderSections() {
       var c = cls();
 
@@ -1477,6 +1862,22 @@
       renderBuilder();
       renderInventario();
       renderSections();
+      renderRelacoes();
+      renderTimeline();
+      renderCards();
+    }
+
+    function setView(v) {
+      document.body.classList.toggle('is-ficha', v === 'ficha');
+      document.querySelectorAll('.app-nav button').forEach(function (b) {
+        b.classList.toggle('active', b.dataset.view === v);
+      });
+      document.querySelectorAll('.view').forEach(function (s) {
+        s.classList.toggle('active', s.id === 'view-' + v);
+      });
+      window.scrollTo(0, 0);
+      // o pin do hero mede px; só recalcula quando a Ficha volta a ficar visível
+      if (v === 'ficha' && window.ScrollTrigger) window.ScrollTrigger.refresh();
     }
 
     // ---- animações ----
@@ -1544,6 +1945,19 @@
     });
 
     document.getElementById('print-btn').addEventListener('click', function () { window.print(); });
+
+    document.querySelectorAll('.app-nav button').forEach(function (b) {
+      b.addEventListener('click', function () { setView(b.dataset.view); });
+    });
+
+    document.getElementById('ctx-save').addEventListener('click', saveCtx);
+    document.getElementById('ctx-close').addEventListener('click', closeCtx);
+    document.getElementById('ctx-overlay').addEventListener('click', function (e) {
+      if (e.target === this) closeCtx();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeCtx();
+    });
 
     var resizeTimer = null;
     window.addEventListener('resize', function () {
