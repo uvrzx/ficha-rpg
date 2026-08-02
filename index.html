@@ -615,6 +615,8 @@
   .rel-row { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center; border: 1px solid color-mix(in srgb, var(--c-surface) 55%, transparent); border-left: 3px solid var(--c-accent); background: color-mix(in srgb, var(--c-bg) 45%, transparent); padding: 12px 16px; }
   .rel-pair { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
   .rel-pair img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 2px solid var(--rc, var(--c-accent)); background: var(--c-deep); }
+  .rel-npc-avatar { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-ui); font-size: 11px; font-weight: 700; color: var(--rc, var(--c-accent)); background: var(--c-deep); border: 2px dashed var(--rc, var(--c-accent)); }
+  .graph-node.npc text { font-size: 12px; }
   .rel-pair .rp-x { color: var(--c-muted); font-size: 12px; }
   .rel-row .rel-text { font-family: var(--font-ui); font-size: 14px; line-height: 1.55; color: var(--c-light); }
   .rel-row .rel-text b { color: var(--c-accent); font-weight: 700; }
@@ -707,6 +709,16 @@
     .profile-strip .cell:last-child { border-bottom: none; }
     .prog-table .tag { display: none; }
     .inv-grid { grid-template-columns: repeat(2, 1fr); }
+
+    /* linha do tempo — vira lista vertical no cell: sem scroll-snap horizontal
+       preso, que travava o scroll da página e cortava os cards */
+    .tl { display: block; overflow-x: visible; padding: 20px 16px 20px 30px; scroll-snap-type: none; }
+    .tl::before { left: 9px; right: auto; top: 0; bottom: 0; width: 2px; height: auto; }
+    .tl-item { display: block; height: auto; margin-bottom: 22px; }
+    .tl-item:last-child { margin-bottom: 0; }
+    .tl-item::before { left: 9px; top: 22px; }
+    .tl-card { position: static; margin-left: 22px; }
+    .tl-card::after { display: none; }
   }
 
   @media print {
@@ -895,7 +907,7 @@
       </div>
       <p>Como os cinco se cruzam no caso. Clique num nó pra abrir a ficha daquele personagem.</p>
     </div>
-    <div class="graph-wrap"><svg id="graph" viewBox="0 0 640 480" role="img"></svg></div>
+    <div class="graph-wrap"><svg id="graph" viewBox="0 0 640 600" role="img"></svg></div>
     <div class="rel-list" id="rel-list"></div>
   </div>
 
@@ -1520,25 +1532,53 @@
     }
 
     // ---- Relações (grafo) ----
+    // NPCs — não jogáveis, satélites do personagem a quem estão ligados (of)
+    var NPCS = {
+      'mentor-mipin': { nome: 'Mentor Morto', tag: 'NPC · a arma dele fica guardada', of: 'federal' },
+      'ab-diretor': { nome: 'Diretor da A.B.', tag: 'NPC · dono da subsidiária', of: 'corp-security' },
+      'contato-zane': { nome: 'Contato Anônimo', tag: 'NPC · canal irrastreável', of: 'netrunner' }
+    };
+    var NPC_ORDER = Object.keys(NPCS);
+    function entityInfo(id) {
+      if (RC.CLASSES[id]) {
+        var c = RC.CLASSES[id];
+        return { nome: stateByClass[id].name || c.nome, tag: c.nome, accent: c.palette.accent, deep: c.palette.deep, face: c.img ? c.img.replace('-cut.png', '-face.png') : '' };
+      }
+      var n = NPCS[id], p = RC.CLASSES[n.of].palette;
+      return { nome: n.nome, tag: n.tag, accent: p.accent, deep: p.deep, face: '' };
+    }
+    function avatarHTML(info) {
+      if (info.face) return '<img src="' + info.face + '" alt="" style="--rc:' + info.accent + '">';
+      var initials = info.nome.split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase();
+      return '<div class="rel-npc-avatar" style="--rc:' + info.accent + '">' + initials + '</div>';
+    }
     var REL_EDGES = [
       ['federal', 'cia', 'método oposto: mandado × execução'],
       ['narcoticos', 'netrunner', 'furtividade física + digital'],
       ['corp-security', 'federal', 'músculo institucional, desconfiança'],
       ['corp-security', 'cia', 'corp × agência, interesses cruzados'],
       ['netrunner', 'cia', 'o dado que a CIA quer sumir passou por Zane'],
-      ['corp-security', 'narcoticos', 'a corp vigia o submundo das docas']
+      ['corp-security', 'narcoticos', 'a corp vigia o submundo das docas'],
+      ['federal', 'mentor-mipin', 'guarda a arma dele, nunca usa, nunca menciona o caso'],
+      ['corp-security', 'ab-diretor', 'dono da subsidiária por trás do sedativo neural — Kessler responde a ele'],
+      ['netrunner', 'contato-zane', 'canal que jura ser impossível de rastrear — foi quem puxou Zane pro caso']
     ];
     function renderRelacoes() {
-      document.getElementById('stat-relacoes').textContent = ORDER.length + ' personagens · ' + REL_EDGES.length + ' conexões';
+      document.getElementById('stat-relacoes').textContent = (ORDER.length + NPC_ORDER.length) + ' personagens · ' + REL_EDGES.length + ' conexões';
       var svg = document.getElementById('graph');
-      var W = 640, H = 480, cx = W / 2, cy = H / 2 - 10, R = 165;
-      var pos = {};
+      var W = 640, H = 600, cx = W / 2, cy = H / 2, R = 165, R2 = R + 90;
+      var pos = {}, ang = {};
       ORDER.forEach(function (id, i) {
         var a = -Math.PI / 2 + i * (2 * Math.PI / ORDER.length);
+        ang[id] = a;
         pos[id] = { x: cx + R * Math.cos(a), y: cy + R * Math.sin(a) };
       });
+      NPC_ORDER.forEach(function (id) {
+        var a = ang[NPCS[id].of];
+        pos[id] = { x: cx + R2 * Math.cos(a), y: cy + R2 * Math.sin(a) };
+      });
       var svgns = 'http://www.w3.org/2000/svg';
-      var RAD = 40;
+      var RAD = 40, RAD_NPC = 24;
       svg.innerHTML = '';
       // arestas primeiro (ficam atrás dos rostos); os textos vão pra lista abaixo
       REL_EDGES.forEach(function (e) {
@@ -1601,22 +1641,64 @@
         svg.appendChild(g);
       });
 
+      // satélites — NPCs ligados a um personagem, menores e sem rosto
+      NPC_ORDER.forEach(function (id) {
+        var p = pos[id], info = entityInfo(id);
+        var g = document.createElementNS(svgns, 'g');
+        g.setAttribute('class', 'graph-node npc');
+
+        var bg = document.createElementNS(svgns, 'circle');
+        bg.setAttribute('cx', p.x); bg.setAttribute('cy', p.y); bg.setAttribute('r', RAD_NPC);
+        bg.setAttribute('fill', info.deep);
+        g.appendChild(bg);
+
+        var initials = document.createElementNS(svgns, 'text');
+        initials.setAttribute('x', p.x); initials.setAttribute('y', p.y + 5);
+        initials.setAttribute('text-anchor', 'middle');
+        initials.setAttribute('fill', info.accent);
+        initials.setAttribute('font-size', '15');
+        initials.setAttribute('font-weight', '700');
+        initials.textContent = info.nome.split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase();
+        g.appendChild(initials);
+
+        var ring = document.createElementNS(svgns, 'circle');
+        ring.setAttribute('cx', p.x); ring.setAttribute('cy', p.y); ring.setAttribute('r', RAD_NPC);
+        ring.setAttribute('fill', 'none');
+        ring.setAttribute('stroke', info.accent);
+        ring.setAttribute('stroke-width', 2);
+        ring.setAttribute('stroke-dasharray', '4 3');
+        g.appendChild(ring);
+
+        var t = document.createElementNS(svgns, 'text');
+        t.setAttribute('x', p.x); t.setAttribute('y', p.y + RAD_NPC + 18);
+        t.setAttribute('text-anchor', 'middle');
+        t.textContent = info.nome;
+        g.appendChild(t);
+        var role = document.createElementNS(svgns, 'text');
+        role.setAttribute('class', 'gn-role');
+        role.setAttribute('x', p.x); role.setAttribute('y', p.y + RAD_NPC + 32);
+        role.setAttribute('text-anchor', 'middle');
+        role.setAttribute('fill', info.accent);
+        role.textContent = 'NPC';
+        g.appendChild(role);
+        svg.appendChild(g);
+      });
+
       // lista de relações escritas — o que deixa os textos legíveis
       var list = document.getElementById('rel-list');
       list.innerHTML = '';
       REL_EDGES.forEach(function (e) {
-        var ca = RC.CLASSES[e[0]], cb = RC.CLASSES[e[1]];
-        var fa = ca.img.replace('-cut.png', '-face.png'), fb = cb.img.replace('-cut.png', '-face.png');
+        var ia = entityInfo(e[0]), ib = entityInfo(e[1]);
         var row = document.createElement('div');
         row.className = 'rel-row';
         row.innerHTML =
           '<div class="rel-pair">' +
-            '<img src="' + fa + '" alt="" style="--rc:' + ca.palette.accent + '">' +
+            avatarHTML(ia) +
             '<span class="rp-x">×</span>' +
-            '<img src="' + fb + '" alt="" style="--rc:' + cb.palette.accent + '">' +
+            avatarHTML(ib) +
           '</div>' +
           '<div class="rel-text"><b></b> — <span></span></div>';
-        row.querySelector('b').textContent = ca.nome + ' × ' + cb.nome;
+        row.querySelector('b').textContent = ia.nome + ' × ' + ib.nome;
         row.querySelector('.rel-text span').textContent = e[2];
         list.appendChild(row);
       });
