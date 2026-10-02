@@ -34,21 +34,20 @@ test('every class has the required shape and non-empty fields', () => {
 
     assert.ok(VALID_HIT_DICE.includes(cls.dadoVida), `${id} dadoVida must be one of ${VALID_HIT_DICE}`);
 
-    assert.ok(Array.isArray(cls.pericias) && cls.pericias.length > 0, `${id} needs pericias`);
-    assert.ok(cls.periciaLivre.length > 0, `${id} needs periciaLivre`);
-    assert.ok(cls.proficiencias.categoria.length > 0, `${id} needs proficiencias.categoria`);
-    assert.ok(cls.proficiencias.loadout.length > 0, `${id} needs proficiencias.loadout`);
+    assert.ok(Array.isArray(cls.pericias), `${id} pericias must be an array (pode estar vazio)`);
+    assert.equal(typeof cls.periciaLivre, "string", `${id} periciaLivre must be a string`);
+    assert.equal(typeof cls.proficiencias.categoria, "string");
+    assert.equal(typeof cls.proficiencias.loadout, "string");
 
     for (const field of ['armaLabel', 'arma', 'habilidadeUnica', 'gadget']) {
-      assert.ok(typeof cls.equipamento[field] === 'string' && cls.equipamento[field].length > 0,
-        `${id} equipamento.${field} must be a non-empty string`);
+      assert.equal(typeof cls.equipamento[field], 'string', `${id} equipamento.${field} must be a string`);
     }
 
     for (const field of ['idade', 'altura', 'peso']) {
       assert.ok(typeof cls.perfil[field] === 'string' && cls.perfil[field].length > 0,
         `${id} perfil.${field} must be a non-empty string`);
     }
-    for (const field of ['perfilFisico', 'comoChegou', 'historico', 'featureNivel1']) {
+    for (const field of ['perfilFisico', 'comoChegou', 'historico']) {
       assert.ok(typeof cls[field] === 'string' && cls[field].length > 0,
         `${id} ${field} must be a non-empty string`);
     }
@@ -57,7 +56,7 @@ test('every class has the required shape and non-empty fields', () => {
         `${id} historia.${field} must be a non-empty string`);
     }
 
-    assert.match(cls.img, /^img\/.+-cut\.png$/, `${id} img must point at a cutout`);
+    assert.ok(cls.img === '' || /^img\/.+-cut\.png$/.test(cls.img), `${id} img must be empty (placeholder) or point at a cutout`);
   }
 });
 
@@ -80,11 +79,12 @@ test('a sugestao de point-buy de cada ficha cabe no orcamento de 27 pontos', () 
   }
 });
 
-test('a progressao comeca no nivel 1 e sobe sem repetir nivel', () => {
+test('progressao (quando preenchida) comeca no nivel 1 e sobe sem repetir nivel', () => {
   const { RPGCalc } = loadSandbox().window;
   for (const id of EXPECTED_IDS) {
     const { progressao } = RPGCalc.CLASSES[id];
-    assert.ok(Array.isArray(progressao) && progressao.length > 0, `${id} needs progressao`);
+    assert.ok(Array.isArray(progressao), `${id} progressao must be an array`);
+    if (progressao.length === 0) continue; // limpa: a definir
     assert.equal(progressao[0][0], 1, `${id} progressao must start at level 1`);
 
     let prev = 0;
@@ -99,21 +99,18 @@ test('a progressao comeca no nivel 1 e sobe sem repetir nivel', () => {
   }
 });
 
-test('Mipin (Federal) bate com a ficha em PDF', () => {
+test('Federal: mecânica bate com a ficha em PDF', () => {
   const { RPGCalc } = loadSandbox().window;
   const federal = RPGCalc.CLASSES.federal;
-  assert.equal(federal.personagem, 'Mipin Greyrat');
-  assert.deepEqual(federal.primarios, ['IMP', 'REF']);
-  assert.deepEqual(federal.saves, ['IMP', 'INS']);
+  assert.deepEqual(federal.primarios, ['FOR', 'DES']);
+  assert.deepEqual(federal.saves, ['FOR', 'SAB']);
   assert.equal(federal.dadoVida, 10);
-  assert.deepEqual(federal.sugestao, { IMP: 14, REF: 14, RES: 13, COG: 10, INS: 12, INF: 9 });
+  assert.deepEqual(federal.sugestao, { FOR: 14, DES: 14, CON: 13, INT: 10, SAB: 12, CAR: 9 });
 });
 
-test('Zane (Netrunner) tem um unico atributo primario', () => {
+test('Netrunner tem um unico atributo primario', () => {
   const { RPGCalc } = loadSandbox().window;
   const netrunner = RPGCalc.CLASSES.netrunner;
-  assert.equal(netrunner.personagem, 'Zane Corvus');
-  assert.deepEqual(netrunner.primarios, ['COG']);
+  assert.deepEqual(netrunner.primarios, ['INT']);
   assert.equal(netrunner.dadoVida, 6);
-  assert.ok(netrunner.recursoClasse.length > 0, 'netrunner tem Ciclos de Processamento');
 });

@@ -3,26 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FICHA_RPG — Nível 1</title>
+<title>FICHA RPG</title>
 <style>
   @font-face {
-    font-family: 'Anton';
-    src: url('fonts/anton-400.woff2') format('woff2');
+    font-family: 'Evil Empire';
+    src: url('fonts/evilempire.otf') format('opentype');
     font-weight: 400; font-style: normal; font-display: swap;
   }
   @font-face {
-    font-family: 'Chakra Petch';
-    src: url('fonts/chakrapetch-400.woff2') format('woff2');
+    font-family: 'Fredoka Display';
+    src: url('fonts/fredoka-700.woff2') format('woff2');
     font-weight: 400; font-style: normal; font-display: swap;
   }
   @font-face {
-    font-family: 'Chakra Petch';
-    src: url('fonts/chakrapetch-600.woff2') format('woff2');
+    font-family: 'Fredoka';
+    src: url('fonts/fredoka-400.woff2') format('woff2');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Fredoka';
+    src: url('fonts/fredoka-600.woff2') format('woff2');
     font-weight: 600; font-style: normal; font-display: swap;
   }
   @font-face {
-    font-family: 'Chakra Petch';
-    src: url('fonts/chakrapetch-700.woff2') format('woff2');
+    font-family: 'Fredoka';
+    src: url('fonts/fredoka-700.woff2') format('woff2');
     font-weight: 700; font-style: normal; font-display: swap;
   }
 
@@ -35,8 +40,8 @@
     --c-accent2: #8A5A26;
     --c-light: #F2E9DC;
     --c-muted: #9C8C77;
-    --font-display: 'Anton', 'Arial Narrow Bold', sans-serif;
-    --font-ui: 'Chakra Petch', 'Segoe UI', sans-serif;
+    --font-display: 'Evil Empire', 'Fredoka Display', 'Arial Rounded MT Bold', sans-serif;
+    --font-ui: 'Evil Empire', 'Fredoka', 'Segoe UI', sans-serif;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -45,6 +50,7 @@
     color: var(--c-light);
     font-family: var(--font-ui);
     overflow-x: hidden;
+    font-synthesis: none; /* fonte tem 1 peso só: sem negrito falso */
     min-height: 100dvh;
     zoom: 1.1; /* +10% em todo o projeto pra leitura */
   }
@@ -68,7 +74,7 @@
     border-bottom: 1px solid color-mix(in srgb, var(--c-surface) 55%, transparent);
   }
   .wordmark {
-    font-weight: 700; font-size: 13px; letter-spacing: .3em;
+    font-weight: 700; font-size: 15px; letter-spacing: .3em;
     color: var(--c-light); white-space: nowrap;
   }
   .wordmark em { font-style: normal; color: var(--c-accent); }
@@ -77,7 +83,7 @@
     position: relative;
     background: none; border: none;
     color: var(--c-muted);
-    font-size: 11px; font-weight: 600; letter-spacing: .14em;
+    font-size: 14px; font-weight: 600; letter-spacing: .14em;
     text-transform: uppercase;
     padding: 22px 14px;
     white-space: nowrap;
@@ -85,7 +91,7 @@
     min-height: 44px;
   }
   .class-select button .idx {
-    color: var(--c-accent); font-size: 9px; margin-right: 6px;
+    color: var(--c-accent); font-size: 12px; margin-right: 6px;
     opacity: .6; transition: opacity .2s ease;
   }
   .class-select button::after {
@@ -128,7 +134,7 @@
     top: 6vh; left: 0; right: 0;
     z-index: 1;
     font-family: var(--font-display);
-    font-size: clamp(72px, 11.5vw, 184px);
+    font-size: clamp(64px, 9.5vw, 150px);
     line-height: 1;
     text-transform: uppercase;
     text-align: right;
@@ -145,8 +151,8 @@
     z-index: 2;
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(64px, 9.5vw, 168px);
-    line-height: .88;
+    font-size: clamp(54px, 7.4vw, 130px);
+    line-height: .98;
     letter-spacing: .01em;
     text-transform: uppercase;
     color: var(--c-light);
@@ -167,7 +173,7 @@
     top: calc(13vh - 18px); left: 4.2%;
     z-index: 2;
     display: flex; align-items: center; gap: 10px;
-    font-size: 10px; font-weight: 700; letter-spacing: .3em;
+    font-size: 13px; font-weight: 700; letter-spacing: .3em;
     text-transform: uppercase;
     color: var(--c-accent);
   }
@@ -218,11 +224,11 @@
     display: flex; flex-direction: column; gap: 6px; align-items: flex-end;
   }
   .hero-meta .meta-k {
-    font-size: 9px; font-weight: 700; letter-spacing: .3em;
+    font-size: 12px; font-weight: 700; letter-spacing: .3em;
     color: var(--c-muted); text-transform: uppercase;
   }
   .hero-meta .meta-v {
-    font-size: 13px; font-weight: 600; letter-spacing: .18em;
+    font-size: 15px; font-weight: 600; letter-spacing: .18em;
     color: var(--c-light); text-transform: uppercase;
     border-right: 3px solid var(--c-accent);
     padding-right: 10px;
@@ -240,7 +246,7 @@
     box-shadow: 0 34px 70px -24px rgba(0, 0, 0, .7);
   }
   .builder-card h2 {
-    font-size: 12px; font-weight: 700;
+    font-size: 14px; font-weight: 700;
     letter-spacing: .26em; text-transform: uppercase;
     color: var(--c-deep);
     display: flex; justify-content: space-between; align-items: center;
@@ -248,12 +254,12 @@
   }
   .builder-card h2 .lvl {
     background: var(--c-deep); color: var(--c-accent);
-    font-size: 10px; letter-spacing: .18em;
+    font-size: 13px; letter-spacing: .18em;
     padding: 5px 9px; white-space: nowrap;
   }
   .builder-card label {
     display: block;
-    font-size: 9px; font-weight: 700; letter-spacing: .26em;
+    font-size: 12px; font-weight: 700; letter-spacing: .26em;
     color: color-mix(in srgb, var(--c-deep) 72%, var(--c-accent));
     text-transform: uppercase; margin-bottom: 7px;
   }
@@ -287,14 +293,14 @@
   }
   .attr-row.is-primary:hover { background: var(--c-deep); }
   .attr-row.is-secondary { box-shadow: inset 3px 0 0 color-mix(in srgb, var(--c-deep) 55%, transparent); }
-  .attr-row .attr-label { font-size: 12px; font-weight: 700; letter-spacing: .16em; }
+  .attr-row .attr-label { font-size: 14px; font-weight: 700; letter-spacing: .16em; }
   .attr-controls { display: flex; align-items: baseline; gap: 10px; }
   .attr-score-value {
     font-weight: 700; min-width: 24px; text-align: right;
     font-variant-numeric: tabular-nums; font-size: 17px;
   }
   .attr-mod-value {
-    font-size: 11px; min-width: 30px; text-align: right;
+    font-size: 14px; min-width: 30px; text-align: right;
     font-variant-numeric: tabular-nums;
     color: color-mix(in srgb, var(--c-deep) 62%, var(--c-accent));
   }
@@ -304,7 +310,7 @@
     display: flex; align-items: center; gap: 10px;
     background: var(--c-deep);
     color: color-mix(in srgb, var(--c-light) 72%, transparent);
-    font-size: 9px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+    font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
     line-height: 1.7;
     padding: 12px 14px;
     margin-top: 14px;
@@ -326,7 +332,7 @@
   .statline > span {
     flex: 1;
     padding: 9px 8px;
-    font-size: 10px; font-weight: 700; letter-spacing: .08em;
+    font-size: 13px; font-weight: 700; letter-spacing: .08em;
     text-transform: uppercase; text-align: center;
     color: var(--c-deep);
     border-right: 1px solid var(--c-deep);
@@ -337,7 +343,7 @@
     flex: 1;
     background: var(--c-deep); color: var(--c-accent);
     border: 1px solid var(--c-deep);
-    padding: 13px 8px; font-size: 10px; font-weight: 700; letter-spacing: .26em;
+    padding: 13px 8px; font-size: 13px; font-weight: 700; letter-spacing: .26em;
     text-transform: uppercase;
     transition: background .2s ease, color .2s ease;
   }
@@ -348,7 +354,7 @@
     left: 50%; bottom: 22px; transform: translateX(-50%);
     z-index: 6;
     display: flex; flex-direction: column; align-items: center; gap: 8px;
-    font-size: 9px; font-weight: 700; letter-spacing: .34em;
+    font-size: 12px; font-weight: 700; letter-spacing: .34em;
     color: var(--c-muted); text-transform: uppercase;
     pointer-events: none;
   }
@@ -367,7 +373,7 @@
     padding-bottom: 18px; margin-bottom: 34px;
   }
   .sec .sec-head .num {
-    font-size: 12px; font-weight: 700; letter-spacing: .2em; color: var(--c-accent);
+    font-size: 14px; font-weight: 700; letter-spacing: .2em; color: var(--c-accent);
   }
   .sec h2 {
     font-family: var(--font-display); font-weight: 400;
@@ -393,10 +399,10 @@
   .profile-strip .cell:last-child { border-right: none; }
   .profile-strip .cell.wide { flex: 3 1 320px; }
   .profile-strip dt {
-    font-size: 9px; font-weight: 700; letter-spacing: .26em;
+    font-size: 12px; font-weight: 700; letter-spacing: .26em;
     color: var(--c-accent); text-transform: uppercase; margin-bottom: 6px;
   }
-  .profile-strip dd { font-size: 13px; line-height: 1.7; font-variant-numeric: tabular-nums; }
+  .profile-strip dd { font-size: 15px; line-height: 1.7; font-variant-numeric: tabular-nums; }
 
   .duo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 48px; }
   .duo-grid .field {
@@ -404,7 +410,7 @@
     border-bottom: 1px dashed color-mix(in srgb, var(--c-surface) 50%, transparent);
   }
   .duo-grid dt {
-    font-size: 10px; font-weight: 700; letter-spacing: .26em;
+    font-size: 13px; font-weight: 700; letter-spacing: .26em;
     color: var(--c-accent); text-transform: uppercase; margin-bottom: 7px;
   }
   .duo-grid dd { font-size: 14px; line-height: 1.75; }
@@ -417,13 +423,13 @@
     padding: 20px 18px;
   }
   .card h3 {
-    font-size: 10px; font-weight: 700; letter-spacing: .26em;
+    font-size: 13px; font-weight: 700; letter-spacing: .26em;
     color: var(--c-accent); text-transform: uppercase; margin-bottom: 10px;
   }
-  .card p { font-size: 13px; line-height: 1.75; }
+  .card p { font-size: 15px; line-height: 1.75; }
   .card p + p { margin-top: 10px; }
   .card .hint {
-    color: var(--c-muted); font-size: 12px;
+    color: var(--c-muted); font-size: 14px;
   }
 
   .equip-dl { margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 32px; }
@@ -432,10 +438,10 @@
     padding-top: 14px;
   }
   .equip-dl dt {
-    font-size: 10px; font-weight: 700; letter-spacing: .26em;
+    font-size: 13px; font-weight: 700; letter-spacing: .26em;
     color: var(--c-accent); text-transform: uppercase; margin-bottom: 8px;
   }
-  .equip-dl dd { font-size: 13px; line-height: 1.75; }
+  .equip-dl dd { font-size: 15px; line-height: 1.75; }
 
   .resource-note {
     margin-top: 26px;
@@ -444,10 +450,10 @@
     padding: 16px 18px;
   }
   .resource-note dt {
-    font-size: 10px; font-weight: 700; letter-spacing: .26em;
+    font-size: 13px; font-weight: 700; letter-spacing: .26em;
     color: var(--c-accent); text-transform: uppercase; margin-bottom: 8px;
   }
-  .resource-note dd { font-size: 13px; line-height: 1.75; }
+  .resource-note dd { font-size: 15px; line-height: 1.75; }
   .resource-note[hidden] { display: none; }
 
   /* progressão */
@@ -456,7 +462,7 @@
     border-bottom: 1px solid color-mix(in srgb, var(--c-surface) 45%, transparent);
   }
   .prog-table tr.is-current { background: color-mix(in srgb, var(--c-accent) 10%, transparent); }
-  .prog-table td { padding: 12px 10px; font-size: 13px; line-height: 1.6; vertical-align: baseline; }
+  .prog-table td { padding: 12px 10px; font-size: 15px; line-height: 1.6; vertical-align: baseline; }
   .prog-table .lvl {
     width: 78px;
     font-family: var(--font-display);
@@ -467,13 +473,13 @@
   .prog-table tr.is-current .lvl { color: var(--c-accent); }
   .prog-table .tag {
     width: 92px; text-align: right;
-    font-size: 9px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+    font-size: 12px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
     color: var(--c-accent);
   }
 
   .placeholder-note {
     margin-top: 30px;
-    font-size: 10px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+    font-size: 13px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
     color: var(--c-muted);
     display: flex; align-items: center; gap: 12px;
   }
@@ -481,7 +487,7 @@
 
   footer {
     padding: 70px 32px 40px; text-align: center;
-    font-size: 9px; font-weight: 600; letter-spacing: .3em; text-transform: uppercase;
+    font-size: 12px; font-weight: 600; letter-spacing: .3em; text-transform: uppercase;
     color: var(--c-muted);
     background: var(--c-deep);
   }
@@ -539,20 +545,20 @@
   .inv-slot.prova { border-color: var(--c-accent); box-shadow: inset 0 0 0 1px var(--c-accent), inset 0 0 26px rgba(0,0,0,.55); }
   .inv-slot.prova::after {
     content: "PROVA"; position: absolute; top: 6px; left: 6px;
-    font-family: var(--font-ui); font-size: 8px; font-weight: 700; letter-spacing: .16em;
+    font-family: var(--font-ui); font-size: 12px; font-weight: 700; letter-spacing: .16em;
     color: var(--c-deep); background: var(--c-accent); padding: 2px 5px;
   }
   .inv-name {
     position: absolute; left: 0; right: 0; bottom: 0;
     padding: 6px 8px;
     background: linear-gradient(to top, color-mix(in srgb, var(--c-deep) 92%, transparent), transparent);
-    font-family: var(--font-ui); font-size: 11px; font-weight: 600;
+    font-family: var(--font-ui); font-size: 14px; font-weight: 600;
     letter-spacing: .03em; line-height: 1.25; color: var(--c-light);
     text-align: left;
   }
   .inv-qty {
     position: absolute; right: 6px; top: 6px;
-    font-family: var(--font-ui); font-size: 13px; font-weight: 700;
+    font-family: var(--font-ui); font-size: 15px; font-weight: 700;
     color: var(--c-deep); background: var(--c-accent);
     padding: 1px 6px;
     font-variant-numeric: tabular-nums;
@@ -577,7 +583,7 @@
     display: flex; align-items: center; gap: 12px;
     background: none; border: none; text-align: left;
     color: var(--c-muted); font-family: var(--font-ui);
-    font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    font-size: 14px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
     padding: 12px; border-left: 3px solid transparent;
     transition: color .18s, background .18s, border-color .18s;
   }
@@ -596,7 +602,7 @@
   .view-head p { color: var(--c-muted); font-size: 14px; margin-top: 10px; max-width: 60ch; line-height: 1.75; font-weight: 400; }
   /* pill de contagem — conceito emprestado do vvd.world ("0 idade · 1 evento") */
   .view-stat {
-    font-family: var(--font-ui); font-weight: 700; font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+    font-family: var(--font-ui); font-weight: 700; font-size: 14px; letter-spacing: .12em; text-transform: uppercase;
     color: var(--c-deep); background: var(--c-accent);
     padding: 7px 13px; white-space: nowrap; margin-bottom: 6px;
   }
@@ -608,16 +614,16 @@
   .graph-node { cursor: pointer; }
   .graph-node image { cursor: pointer; }
   .graph-node text { font-family: var(--font-ui); font-weight: 700; font-size: 15px; letter-spacing: .03em; fill: var(--c-light); }
-  .graph-node .gn-role { font-family: var(--font-ui); font-weight: 600; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+  .graph-node .gn-role { font-family: var(--font-ui); font-weight: 600; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
 
   /* lista de relações escritas (legível) */
   .rel-list { max-width: 860px; margin: 0 auto; padding: 0 24px 60px; display: grid; gap: 8px; }
   .rel-row { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center; border: 1px solid color-mix(in srgb, var(--c-surface) 55%, transparent); border-left: 3px solid var(--c-accent); background: color-mix(in srgb, var(--c-bg) 45%, transparent); padding: 12px 16px; }
   .rel-pair { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
   .rel-pair img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 2px solid var(--rc, var(--c-accent)); background: var(--c-deep); }
-  .rel-npc-avatar { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-ui); font-size: 11px; font-weight: 700; color: var(--rc, var(--c-accent)); background: var(--c-deep); border: 2px dashed var(--rc, var(--c-accent)); }
-  .graph-node.npc text { font-size: 12px; }
-  .rel-pair .rp-x { color: var(--c-muted); font-size: 12px; }
+  .rel-npc-avatar { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-ui); font-size: 14px; font-weight: 700; color: var(--rc, var(--c-accent)); background: var(--c-deep); border: 2px dashed var(--rc, var(--c-accent)); }
+  .graph-node.npc text { font-size: 14px; }
+  .rel-pair .rp-x { color: var(--c-muted); font-size: 14px; }
   .rel-row .rel-text { font-family: var(--font-ui); font-size: 14px; line-height: 1.55; color: var(--c-light); }
   .rel-row .rel-text b { color: var(--c-accent); font-weight: 700; }
 
@@ -634,30 +640,30 @@
   .tl-item:nth-child(even) .tl-card::after { top: -22px; }
   .tl-item .tl-what { transition: color .15s; }
   .tl-item:hover .tl-what { color: var(--c-accent); }
-  .tl-badge { font-family: var(--font-ui); font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--c-muted); margin-top: 8px; }
+  .tl-badge { font-family: var(--font-ui); font-size: 13px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--c-muted); margin-top: 8px; }
   .tl-badge b { color: var(--c-accent); font-weight: 700; }
 
   /* modal de contexto (cena/lugar/acontecimento) */
   .ctx-overlay { position: fixed; inset: 0; z-index: 80; display: none; align-items: center; justify-content: center; padding: 24px; background: rgba(0,0,0,.6); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
   .ctx-overlay.open { display: flex; }
   .ctx-modal { width: min(620px, 100%); max-height: 86vh; overflow-y: auto; background: color-mix(in srgb, var(--c-bg) 60%, #000 20%); border: 1px solid var(--c-surface); border-top: 3px solid var(--c-accent); box-shadow: 0 40px 80px -30px rgba(0,0,0,.8); padding: 24px 26px 22px; }
-  .ctx-modal .ctx-when { font-family: var(--font-ui); font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--c-accent); }
+  .ctx-modal .ctx-when { font-family: var(--font-ui); font-size: 13px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--c-accent); }
   .ctx-modal h3 { font-family: var(--font-display); font-size: clamp(22px, 3vw, 30px); letter-spacing: .02em; margin: 4px 0 6px; color: var(--c-light); }
-  .ctx-modal .ctx-meta { font-size: 12px; color: var(--c-muted); margin-bottom: 16px; }
-  .ctx-modal label { display: block; font-size: 9px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--c-muted); margin-bottom: 6px; }
+  .ctx-modal .ctx-meta { font-size: 14px; color: var(--c-muted); margin-bottom: 16px; }
+  .ctx-modal label { display: block; font-size: 12px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--c-muted); margin-bottom: 6px; }
   .ctx-modal textarea { width: 100%; min-height: 200px; resize: vertical; background: color-mix(in srgb, #000 40%, var(--c-deep)); border: 1px solid var(--c-surface); color: var(--c-light); font-family: var(--font-ui); font-size: 14px; line-height: 1.7; padding: 12px 14px; }
   .ctx-modal textarea:focus { outline: none; border-color: var(--c-accent); }
   .ctx-actions { display: flex; gap: 10px; margin-top: 16px; }
-  .ctx-actions button { font-family: var(--font-ui); font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; padding: 11px 18px; cursor: pointer; border: 1px solid var(--c-surface); background: transparent; color: var(--c-light); transition: background .18s, color .18s, border-color .18s; }
+  .ctx-actions button { font-family: var(--font-ui); font-size: 14px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; padding: 11px 18px; cursor: pointer; border: 1px solid var(--c-surface); background: transparent; color: var(--c-light); transition: background .18s, color .18s, border-color .18s; }
   .ctx-actions .ctx-save { background: var(--c-accent); color: var(--c-deep); border-color: var(--c-accent); }
   .ctx-actions button:hover { border-color: var(--c-accent); }
   .ctx-actions .ctx-save:hover { background: transparent; color: var(--c-accent); }
-  .ctx-actions .ctx-saved { margin-left: auto; align-self: center; font-size: 11px; color: var(--c-accent); opacity: 0; transition: opacity .2s; }
+  .ctx-actions .ctx-saved { margin-left: auto; align-self: center; font-size: 14px; color: var(--c-accent); opacity: 0; transition: opacity .2s; }
   .ctx-actions .ctx-saved.show { opacity: 1; }
   .tl-item::before { content: ""; position: absolute; left: 50%; top: 50%; width: 18px; height: 18px; border-radius: 50%; background: var(--c-bg); border: 3px solid var(--dot, var(--c-accent)); transform: translate(-50%, -50%); z-index: 2; }
-  .tl-when { font-family: var(--font-ui); font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--c-accent); }
+  .tl-when { font-family: var(--font-ui); font-size: 13px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--c-accent); }
   .tl-what { font-family: var(--font-ui); font-size: 15px; font-weight: 600; line-height: 1.5; margin-top: 5px; color: var(--c-light); }
-  .tl-who { font-family: var(--font-ui); font-size: 11px; font-weight: 600; color: var(--c-muted); margin-top: 4px; text-transform: uppercase; letter-spacing: .1em; }
+  .tl-who { font-family: var(--font-ui); font-size: 14px; font-weight: 600; color: var(--c-muted); margin-top: 4px; text-transform: uppercase; letter-spacing: .1em; }
 
   /* cards de entidade */
   .cards-wrap { max-width: 1080px; margin: 0 auto; padding: 30px 24px 60px; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
@@ -668,7 +674,237 @@
   .ent-card.ent-prova .ec-img svg { width: 60px; height: 60px; stroke: var(--c-accent); fill: none; stroke-width: 1.5; align-self: center; }
   .ent-card .ec-body { padding: 12px 14px 16px; }
   .ent-card h4 { font-family: var(--font-display); font-size: 19px; letter-spacing: .03em; color: var(--c-light); }
-  .ent-card .ec-tag { font-family: var(--font-ui); font-size: 10px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--k, var(--c-accent)); margin-top: 5px; }
+  .ent-card .ec-tag { font-family: var(--font-ui); font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--k, var(--c-accent)); margin-top: 5px; }
+
+  /* ================= TEMA PERGAMINHO & MADEIRA =================
+     Referência: UI cartoon de jogo (papel rasgado, tábuas, hexágonos, fitas).
+     --k = cor viva da classe; --k-dark = tom escuro dela. Em superfícies de
+     papel (.paper-scope) as variáveis --c-* são remapeadas pra tinta/papel,
+     então as regras antigas continuam valendo sem reescrever uma por uma. */
+  :root {
+    --ink: #4A2F22; --ink-soft: #7F6149;
+    --paper: #F0DEC0; --paper-2: #E0C8A4; --paper-edge: #B58F68;
+    --wood: #5C3D2C; --wood-dark: #35221A; --wood-light: #7E5639;
+    --red: #D9534A; --red-dark: #A63A33;
+    --teal: #2AA7A9; --teal-dark: #1B7679;
+    --mustard: #F2B632; --mustard-dark: #B98616;
+    --k: var(--c-accent); --k-dark: var(--c-accent2);
+    --hex: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+    --torn: polygon(0 1.2%, 5% 0, 11% 1.4%, 18% .3%, 26% 1.6%, 35% .2%, 44% 1.4%, 53% 0, 62% 1.5%, 71% .3%, 80% 1.4%, 89% 0, 95% 1.3%, 100% .4%, 100% 98.6%, 94% 100%, 86% 98.4%, 77% 99.9%, 68% 98.5%, 59% 100%, 50% 98.6%, 41% 99.9%, 31% 98.4%, 22% 100%, 13% 98.5%, 6% 99.8%, 0 98.7%);
+    --paper-tex: radial-gradient(120% 90% at 25% 8%, rgba(255,255,255,.4), transparent 60%), linear-gradient(180deg, var(--paper), var(--paper-2));
+    --wood-tex: repeating-linear-gradient(90deg, transparent 0 96px, rgba(0,0,0,.22) 96px 98px), linear-gradient(180deg, rgba(255,255,255,.07), rgba(0,0,0,.2)), var(--wood);
+  }
+  body { background: repeating-linear-gradient(90deg, transparent 0 150px, rgba(0,0,0,.2) 150px 152px), var(--c-bg); }
+  ::-webkit-scrollbar-track { background: var(--wood-dark); }
+  ::-webkit-scrollbar-thumb { background: var(--wood-light); border-radius: 6px; }
+
+  .builder-card, .card, .profile-strip, .duo-grid .field, .equip-dl > div, .resource-note,
+  .prog-table tr, .rel-row, .tl-card, .ctx-modal, .ent-card {
+    --c-light: var(--ink); --c-muted: var(--ink-soft);
+    --c-accent: var(--c-accent2); --c-surface: var(--paper-edge); --c-deep: #FFF6E4;
+    color: var(--ink);
+  }
+
+  /* fita/etiqueta colorida — títulos pequenos dentro do papel */
+  .card h3, .profile-strip dt, .duo-grid dt, .equip-dl dt, .resource-note dt {
+    display: inline-block; background: var(--k); color: var(--wood-dark);
+    padding: 3px 18px 3px 12px; margin-bottom: 10px;
+    clip-path: polygon(0 0, 100% 0, calc(100% - 9px) 50%, 100% 100%, 0 100%);
+  }
+
+  /* ---- topbar / nav: tábua de madeira ---- */
+  .topbar { background: var(--wood-tex); border-bottom: 5px solid var(--wood-dark); box-shadow: 0 6px 14px rgba(0,0,0,.45); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .wordmark { color: var(--paper); text-shadow: 0 2px 0 var(--wood-dark); }
+  .class-select button { color: var(--paper-2); border-radius: 10px 10px 0 0; margin-top: 10px; padding-top: 12px; padding-bottom: 12px; min-height: 0; }
+  .class-select button::after { left: 0; right: 0; top: 0; bottom: auto; height: 5px; border-radius: 10px 10px 0 0; background: var(--k); }
+  .class-select button:hover { color: #fff; background: rgba(0,0,0,.18); }
+  .class-select button.active { color: var(--ink); background: var(--paper-tex); }
+  .class-select button.active .idx { color: var(--k-dark); }
+  .app-nav { background: var(--wood-tex); border-right: 5px solid var(--wood-dark); box-shadow: 6px 0 14px rgba(0,0,0,.4); }
+  .app-nav .brand { background: var(--paper-tex); color: var(--ink); border-radius: 8px; margin: 2px 0 14px; text-align: center; box-shadow: 0 4px 0 var(--wood-dark); padding: 8px 10px 6px; }
+  .app-nav .brand em { color: var(--red); }
+  .app-nav button { color: var(--paper-2); border-left: none; border-radius: 10px; }
+  .app-nav button:hover { color: #fff; background: rgba(0,0,0,.2); }
+  .app-nav button.active { color: var(--ink); background: var(--paper-tex); border-left: none; box-shadow: inset 7px 0 0 var(--k), 0 4px 0 var(--wood-dark); }
+
+  /* ---- hero ---- */
+  .hero-glow { background: radial-gradient(54% 46% at 66% 80%, color-mix(in srgb, var(--k) 22%, transparent), transparent 72%), repeating-linear-gradient(90deg, transparent 0 150px, rgba(0,0,0,.2) 150px 152px), linear-gradient(180deg, var(--c-bg), var(--c-deep)); }
+  .word-back { -webkit-text-stroke: 2px color-mix(in srgb, var(--wood-light) 70%, transparent); }
+  .hero-name { color: var(--paper); -webkit-text-stroke: 9px var(--wood-dark); paint-order: stroke fill; text-shadow: 0 7px 0 rgba(0,0,0,.35); }
+  /* faixa pendurada (fita) com o nível */
+  .name-rule { top: 0; left: 4%; gap: 0; background: var(--k); color: var(--wood-dark); padding: 14px 20px 30px; border-top: 7px solid var(--wood-dark); clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%); letter-spacing: .2em; }
+  .name-rule::before { display: none; }
+  .hero-meta .meta-k { color: var(--paper-2); }
+  .hero-meta .meta-v { color: var(--ink); background: var(--paper-tex); border: 0; border-radius: 8px; padding: 6px 14px; box-shadow: 0 4px 0 var(--wood-dark); }
+
+  /* ---- painel de atributos: pergaminho com placa de madeira e selo ---- */
+  .rail { filter: drop-shadow(0 22px 22px rgba(0,0,0,.55)); }
+  .builder-card { background: var(--paper-tex); color: var(--ink); clip-path: var(--torn); box-shadow: none; padding: 30px 26px 30px; }
+  .builder-card h2 { background: var(--wood-tex); color: var(--paper); border-radius: 8px; border-bottom: 5px solid var(--wood-dark); padding: 10px 14px 8px 30px; margin: 0 -4px 22px; position: relative; text-shadow: 0 2px 0 var(--wood-dark); }
+  .builder-card h2::before { content: ""; position: absolute; left: 10px; top: 50%; width: 9px; height: 9px; border-radius: 50%; transform: translateY(-50%); background: radial-gradient(circle at 35% 35%, #e6d9bb, #6b5a44); }
+  .builder-card h2 .lvl { width: 56px; height: 56px; margin: -16px -6px -16px 0; border-radius: 50%; display: grid; place-items: center; text-align: center; line-height: 1.05; white-space: normal; padding: 0 6px; color: #fff2dc; background: radial-gradient(circle at 35% 30%, #ef7b70, var(--red) 55%, var(--red-dark)); box-shadow: inset 0 0 0 4px rgba(0,0,0,.14), 0 4px 0 rgba(0,0,0,.4); }
+  .builder-card label { color: var(--ink-soft); }
+  #char-name-input { background: #FFF6E4; border: 3px solid var(--wood); border-radius: 10px; color: var(--ink); }
+  .attr-row { border: 3px solid var(--paper-edge); border-radius: 999px; background: var(--paper-2); margin-bottom: 8px; padding: 5px 8px 5px 16px; gap: 10px; }
+  .attr-row:hover { background: color-mix(in srgb, var(--k) 20%, var(--paper-2)); }
+  .attr-row.is-primary { background: color-mix(in srgb, var(--k) 42%, var(--paper)); border-color: var(--k-dark); color: var(--ink); }
+  .attr-row.is-primary:hover { background: color-mix(in srgb, var(--k) 52%, var(--paper)); }
+  .attr-row.is-primary .attr-label::before { content: "★ "; color: var(--k-dark); }
+  .attr-row.is-secondary { box-shadow: none; }
+  .attr-row .attr-label { min-width: 104px; }
+  .attr-bar { flex: 1; height: 14px; border-radius: 999px; background: var(--wood-dark); border: 2px solid var(--wood-dark); overflow: hidden; min-width: 40px; }
+  .attr-bar i { display: block; height: 100%; border-radius: 999px; background: linear-gradient(180deg, rgba(255,255,255,.45), transparent 55%), var(--k); }
+  .attr-controls { gap: 6px; align-items: center; }
+  .attr-score-value { width: 38px; height: 34px; min-width: 0; display: grid; place-items: center; clip-path: var(--hex); background: var(--wood); color: var(--paper); font-size: 18px; }
+  .attr-row.is-primary .attr-score-value { background: var(--k-dark); color: #fff6e4; }
+  .attr-mod-value, .attr-row.is-primary .attr-mod-value { color: var(--ink-soft); min-width: 28px; }
+  #points-locked-note { background: var(--paper-2); color: var(--ink-soft); border: 2px dashed var(--paper-edge); border-radius: 10px; }
+  #points-locked-note::before { width: 16px; height: 16px; border: 0; border-radius: 0; clip-path: var(--hex); background: var(--k); box-shadow: none; }
+  .statline { border: 0; gap: 6px; }
+  .statline > span { border: 3px solid var(--wood); border-radius: 10px; background: var(--paper-2); color: var(--ink); }
+  .statline > span:last-child { border-right: 3px solid var(--wood); }
+  #print-btn { background: var(--red); color: #fff4e0; border: 0; border-bottom: 5px solid var(--red-dark); border-radius: 10px; text-shadow: 0 2px 0 rgba(0,0,0,.25); }
+  #print-btn:hover { background: #e4655b; color: #fff; }
+  .scroll-hint { color: var(--paper-2); }
+
+  /* ---- seções: placa de madeira + selo de cera ---- */
+  .sections-wrap { background: repeating-linear-gradient(90deg, transparent 0 150px, rgba(0,0,0,.2) 150px 152px), var(--c-deep); }
+  .sec .sec-head { border: 0; padding: 0; gap: 16px; align-items: center; }
+  .sec .sec-head .num { order: 2; width: 52px; height: 52px; margin-left: -6px; border-radius: 50%; display: grid; place-items: center; color: #fff2dc; font-size: 17px; background: radial-gradient(circle at 35% 30%, #ef7b70, var(--red) 55%, var(--red-dark)); box-shadow: inset 0 0 0 4px rgba(0,0,0,.14), 0 4px 0 rgba(0,0,0,.4); }
+  .sec .sec-head h2, .view-head h2 { position: relative; display: inline-block; background: var(--wood-tex); color: var(--paper); padding: 10px 32px 8px; border-radius: 8px; border-bottom: 6px solid var(--wood-dark); text-shadow: 0 3px 0 rgba(0,0,0,.4); box-shadow: 0 8px 14px -6px rgba(0,0,0,.5); }
+  .sec .sec-head h2 { font-size: clamp(28px, 4vw, 46px); }
+  .sec .sec-head h2::before, .sec .sec-head h2::after, .view-head h2::before, .view-head h2::after { content: ""; position: absolute; top: 50%; width: 9px; height: 9px; border-radius: 50%; transform: translateY(-50%); background: radial-gradient(circle at 35% 35%, #e6d9bb, #6b5a44); }
+  .sec .sec-head h2::before, .view-head h2::before { left: 11px; }
+  .sec .sec-head h2::after, .view-head h2::after { right: 11px; }
+  .sec p.lead { background: var(--paper-tex); color: var(--ink); padding: 18px 22px; max-width: 72ch; border: 3px solid var(--paper-edge); border-radius: 14px 8px 16px 6px / 8px 14px 6px 16px; box-shadow: 0 6px 0 rgba(0,0,0,.35); }
+
+  /* ---- blocos de papel ---- */
+  .profile-strip, .card, .duo-grid .field, .equip-dl > div, .resource-note, .rel-row, .ent-card {
+    background: var(--paper-tex); color: var(--ink);
+    border: 3px solid var(--paper-edge); border-radius: 14px 8px 16px 6px / 8px 14px 6px 16px;
+    box-shadow: 0 6px 0 rgba(0,0,0,.35);
+  }
+  .profile-strip { padding: 4px 0; }
+  .profile-strip .cell { border-right: 2px dashed var(--paper-edge); }
+  .card { border-top-width: 3px; padding: 20px 18px; }
+  .duo-grid .field { padding: 14px 16px; border-bottom-style: solid; }
+  .duo-grid { gap: 14px 18px; }
+  .equip-dl { gap: 14px; }
+  .equip-dl > div { padding: 14px 16px; }
+  .resource-note { border-left-width: 3px; }
+
+  /* ---- progressão: faixas com nível em hexágono ---- */
+  .prog-table, .prog-table tbody { display: block; }
+  .prog-table tr { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; padding: 8px 16px 8px 10px; background: var(--paper-tex); border: 3px solid var(--paper-edge); border-radius: 12px 8px 14px 8px / 8px 12px 8px 14px; box-shadow: 0 5px 0 rgba(0,0,0,.35); }
+  .prog-table td { padding: 0; }
+  .prog-table tr.is-current { background: linear-gradient(color-mix(in srgb, var(--k) 38%, transparent), color-mix(in srgb, var(--k) 38%, transparent)), var(--paper-tex); border-color: var(--k-dark); }
+  .prog-table .lvl { flex: none; width: 60px; height: 54px; clip-path: var(--hex); background: var(--wood); color: var(--paper); display: grid; place-items: center; font-size: 22px; padding-top: 6px; position: relative; }
+  .prog-table .lvl::before { content: "NV"; position: absolute; top: 7px; left: 0; right: 0; text-align: center; font-size: 10px; letter-spacing: .2em; opacity: .75; }
+  .prog-table tr.is-current .lvl { background: var(--k); color: var(--wood-dark); }
+  .prog-table .tag { width: auto; margin-left: auto; background: var(--red); color: #fff4e0; padding: 3px 14px; border-radius: 8px; border-bottom: 4px solid var(--red-dark); }
+  .prog-table td:nth-child(2) { flex: 1; }
+  .prog-table .tag:empty { display: none; }
+  footer { background: transparent; color: var(--paper-2); }
+
+  /* ---- inventário: madeira + papel + casas escuras ---- */
+  .inv-frame { background: var(--wood-tex); border: 0; border-radius: 16px; padding: 18px; box-shadow: 0 8px 0 var(--wood-dark), 0 28px 40px -14px rgba(0,0,0,.6); }
+  .inv-bar .inv-title { background: var(--paper-tex); color: var(--ink); padding: 6px 24px 4px; border-radius: 8px; box-shadow: 0 4px 0 var(--wood-dark); }
+  .inv-bar .inv-count { background: var(--red); color: #fff4e0; border-radius: 10px; border-bottom: 4px solid var(--red-dark); }
+  .inv-grid { background: var(--paper-tex); padding: 16px; border-radius: 12px; box-shadow: inset 0 0 0 4px var(--paper-edge), inset 0 6px 14px rgba(0,0,0,.18); }
+  .inv-slot { background: radial-gradient(circle at 50% 35%, #4a3226, var(--wood-dark)); border: 4px solid var(--wood-light); border-radius: 16px; box-shadow: inset 0 0 22px rgba(0,0,0,.6), 0 4px 0 rgba(0,0,0,.3); }
+  .inv-slot:hover { border-color: var(--k); }
+  .inv-slot.empty { opacity: 1; border: 0; border-radius: 0; clip-path: var(--hex); background: var(--paper-edge); box-shadow: none; }
+  .inv-slot.empty::after { content: ""; position: absolute; inset: 6px; clip-path: var(--hex); background: radial-gradient(circle at 50% 30%, #F7EBD4, var(--paper-2)); }
+  .inv-slot.prova { border-color: var(--teal); box-shadow: inset 0 0 22px rgba(0,0,0,.6), 0 0 0 2px var(--teal-dark), 0 4px 0 rgba(0,0,0,.3); }
+  .inv-slot.prova::after { top: 8px; left: -4px; background: var(--teal); color: #fff; padding: 2px 14px 2px 10px; clip-path: polygon(0 0, 100% 0, calc(100% - 8px) 50%, 100% 100%, 0 100%); }
+  .inv-name { left: 6px; right: 6px; bottom: 6px; padding: 3px 6px; background: var(--paper-tex); color: var(--ink); border-radius: 8px; text-align: center; font-size: 13px; }
+  .inv-qty { top: auto; bottom: 38px; right: 8px; background: var(--red); color: #fff; border-radius: 8px; border-bottom: 3px solid var(--red-dark); }
+
+  /* ---- views: relações / timeline / cards ---- */
+  .view-head { padding-top: 100px; }
+  .view-head p { color: var(--paper-2); margin-top: 18px; }
+  .view-stat { background: var(--teal); color: #fff; border-radius: 10px; border-bottom: 4px solid var(--teal-dark); }
+  .graph-wrap { background: var(--wood-dark); border: 6px solid var(--wood); border-radius: 18px; box-shadow: 0 8px 0 rgba(0,0,0,.35), inset 0 0 40px rgba(0,0,0,.5); margin-top: 28px; }
+  .graph-edge { stroke: var(--paper-edge); stroke-width: 3; stroke-dasharray: 2 9; stroke-linecap: round; opacity: .8; }
+  .rel-list { padding-top: 28px; gap: 14px; }
+  .tl-empty { margin: 60px auto; color: var(--paper-2); font-size: 16px; text-align: center; width: 100%; }
+  .prog-empty { justify-content: center; }
+  .rel-empty { text-align: center; color: var(--paper-2); font-size: 16px; }
+  .rel-row { border-left-width: 3px; }
+  .rel-pair img, .rel-npc-avatar { border-width: 3px; }
+  .tl::before { height: 5px; margin-top: -2px; background: repeating-linear-gradient(90deg, var(--paper-edge) 0 12px, transparent 12px 22px); border-radius: 3px; }
+  .tl { counter-reset: ev; }
+  .tl-item { counter-increment: ev; }
+  .tl-item { flex-basis: 310px; height: 600px; }
+  .tl-card { left: 14px; right: 14px; padding: 16px 18px; }
+  .tl-item:nth-child(odd) .tl-card { bottom: calc(50% + 38px); }
+  .tl-item:nth-child(even) .tl-card { top: calc(50% + 38px); }
+  .tl-item::before { content: counter(ev); width: 44px; height: 40px; border: 0; border-radius: 0; clip-path: var(--hex); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 17px; color: var(--ink); padding-top: 3px; background: radial-gradient(circle, var(--paper) 0 52%, var(--dot, var(--k)) 54%); }
+  .tl-card { border-radius: 8px 16px 16px 8px; border: 3px solid var(--paper-edge); border-top: 6px solid var(--dot, var(--k)); background: var(--paper-tex); box-shadow: 0 6px 0 rgba(0,0,0,.35); }
+  .tl-card::after { background: var(--paper-edge); }
+  .tl-item:hover .tl-what { color: var(--k-dark); }
+  .ent-card { border-top-width: 6px; border-top-color: var(--k); display: flex; flex-direction: column; justify-content: flex-start; }
+  .ent-card .ec-body { flex: 1; }
+  .ent-card .ec-img { background: radial-gradient(circle at 50% 35%, #4a3226, var(--wood-dark)); }
+  .ent-card h4 { color: var(--ink); }
+  .ent-card .ec-tag { color: var(--k-dark); }
+
+  /* ---- popup de contexto: pergaminho com X vermelho ---- */
+  .ctx-modal { position: relative; background: var(--paper-tex); border: 6px solid var(--wood); border-radius: 14px; box-shadow: 0 0 0 4px var(--wood-dark), 0 40px 80px -20px rgba(0,0,0,.8); padding: 30px 28px 24px; }
+  .ctx-modal h3 { color: var(--ink); }
+  .ctx-modal textarea { background: #FFF6E4; border: 3px solid var(--paper-edge); border-radius: 10px; color: var(--ink); }
+  .ctx-x { position: sticky; float: right; top: 0; margin: -18px -14px 0 8px; z-index: 2; width: 40px; height: 40px; border-radius: 10px; border: 0; border-bottom: 5px solid var(--red-dark); background: var(--red); color: #fff; font-size: 20px; font-family: var(--font-ui); box-shadow: 0 4px 10px rgba(0,0,0,.5); }
+  .ctx-actions button { border: 0; border-bottom: 5px solid var(--mustard-dark); border-radius: 10px; background: var(--mustard); color: var(--wood-dark); }
+  .ctx-actions .ctx-save { background: var(--teal); border-bottom-color: var(--teal-dark); color: #fff; }
+  .ctx-actions .ctx-save:hover { background: #35bcbf; color: #fff; }
+  .ctx-actions button:hover { filter: brightness(1.08); }
+  .ctx-actions .ctx-saved { color: var(--teal-dark); background: none; border: 0; }
+
+  /* ---- zonas: mapa de papel dobrado numa moldura de madeira ---- */
+  .zmap-frame { max-width: 1080px; margin: 34px auto 0; padding: 0 24px; }
+  .zmap-title { width: fit-content; margin: 0 auto -16px; position: relative; z-index: 3; background: var(--red); color: #fff4e0; padding: 8px 44px 6px; border-radius: 6px; border-bottom: 5px solid var(--red-dark); font-family: var(--font-display); font-size: 24px; letter-spacing: .08em; text-transform: uppercase; box-shadow: 0 6px 12px rgba(0,0,0,.4); }
+  .zmap-wrap { position: relative; background: var(--wood-tex); border-radius: 16px; padding: 30px 16px 16px; box-shadow: 0 8px 0 var(--wood-dark), 0 28px 40px -14px rgba(0,0,0,.6); }
+  .zmap { display: flex; overflow-x: auto; scroll-behavior: smooth; padding: 26px 30px 20px; border-radius: 10px; background: repeating-linear-gradient(90deg, rgba(255,255,255,.14) 0 110px, rgba(0,0,0,.07) 110px 220px), var(--paper-tex); box-shadow: inset 0 0 0 3px var(--paper-edge), inset 0 8px 18px rgba(0,0,0,.2); scrollbar-width: thin; }
+  .zn { flex: 0 0 220px; position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px; background: none; border: 0; padding: 4px 6px 8px; color: var(--ink); font-family: var(--font-ui); cursor: pointer; }
+  .zn::before { content: ""; position: absolute; left: 0; right: 0; top: 36px; border-top: 4px dashed var(--paper-edge); }
+  .zn:first-child::before { left: 50%; }
+  .zn:last-child::before { right: 50%; }
+  .zn-hex { position: relative; z-index: 1; width: 76px; height: 68px; clip-path: var(--hex); background: var(--wood-dark); display: grid; place-items: center; transition: transform .15s ease; }
+  .zn-hex::after { content: ""; position: absolute; inset: 6px; clip-path: var(--hex); background: var(--wood); }
+  .zn-hex b { position: relative; z-index: 1; font-family: var(--font-display); font-size: 26px; font-weight: 400; color: var(--paper); line-height: 1; }
+  .zn-hex svg { position: relative; z-index: 1; width: 26px; height: 26px; stroke: var(--paper-2); fill: none; stroke-width: 2; }
+  .zn.is-atual .zn-hex { background: var(--k-dark); }
+  .zn.is-atual .zn-hex::after { background: var(--k); }
+  .zn.is-atual .zn-hex b { color: var(--wood-dark); }
+  .zn.is-bloqueada .zn-hex::after { background: #9d8a72; }
+  .zn.is-bloqueada .zn-name { opacity: .6; }
+  .zn.is-sel .zn-hex { transform: scale(1.14); }
+  .zn:hover .zn-hex { transform: scale(1.08); }
+  .zn-name { font-size: 15px; letter-spacing: .1em; text-transform: uppercase; text-align: center; background: var(--paper-tex); padding: 4px 12px; border-radius: 6px; border: 2px solid var(--paper-edge); max-width: 190px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .zn.is-sel .zn-name { border-color: var(--k-dark); box-shadow: 0 3px 0 var(--k-dark); }
+  .zn-add .zn-hex::after { background: transparent; }
+  .zn-add .zn-hex { background: transparent; border: 0; }
+  .zn-add .zn-hex b { color: var(--ink-soft); }
+  .zn-add { opacity: .75; }
+  .zmap-arrow { position: absolute; top: 50%; z-index: 4; width: 40px; height: 48px; margin-top: -24px; border: 0; border-bottom: 5px solid var(--mustard-dark); border-radius: 10px; background: var(--mustard); color: var(--wood-dark); font-size: 16px; }
+  #zmap-prev { left: 2px; }
+  #zmap-next { right: 2px; }
+  .zdetail { max-width: 1080px; margin: 34px auto 0; padding: 0 24px 60px; }
+  .zcard { background: var(--paper-tex); color: var(--ink); --c-light: var(--ink); --c-muted: var(--ink-soft); border: 3px solid var(--paper-edge); border-top: 8px solid var(--k); border-radius: 14px 8px 16px 6px / 8px 14px 6px 16px; box-shadow: 0 6px 0 rgba(0,0,0,.35); padding: 22px 24px 24px; display: grid; gap: 12px; }
+  .zcard.is-bloqueada { border-top-color: #9d8a72; }
+  .zcard-tag { width: fit-content; background: var(--k); color: var(--wood-dark); padding: 3px 18px 3px 12px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; clip-path: polygon(0 0, 100% 0, calc(100% - 9px) 50%, 100% 100%, 0 100%); }
+  .zcard-name { font-family: var(--font-display); font-size: clamp(26px, 4vw, 38px); color: var(--ink); background: transparent; border: 0; border-bottom: 3px dashed var(--paper-edge); padding: 2px 0; width: 100%; }
+  .zcard-name:focus, .zcard-desc:focus { outline: none; border-color: var(--k-dark); }
+  .zcard label { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+  .zcard-desc { width: 100%; min-height: 160px; resize: vertical; background: #FFF6E4; border: 3px solid var(--paper-edge); border-radius: 10px; color: var(--ink); font-family: var(--font-ui); font-size: 15px; line-height: 1.7; padding: 12px 14px; }
+  .ztoggle { display: flex; width: fit-content; border: 3px solid var(--wood); border-radius: 999px; overflow: hidden; background: var(--wood-dark); }
+  .ztoggle button { border: 0; background: transparent; color: var(--paper-2); font-family: var(--font-ui); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; padding: 8px 16px; }
+  .ztoggle button.on { background: var(--teal); color: #fff; }
+  .zcard-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .zcard-actions button { border: 0; border-radius: 10px; font-family: var(--font-ui); font-size: 14px; letter-spacing: .14em; text-transform: uppercase; padding: 11px 22px; }
+  .zbtn-sel { background: var(--red); color: #fff4e0; border-bottom: 5px solid var(--red-dark); }
+  .zbtn-del { background: var(--paper-2); color: var(--ink); border-bottom: 5px solid var(--paper-edge); }
+  .zcard-actions button:hover { filter: brightness(1.08); }
 
   /* ================= RESPONSIVO ================= */
   @media (max-width: 900px) {
@@ -680,14 +916,14 @@
       -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
     }
     .app-nav .brand { display: none; }
-    .app-nav button { flex-direction: column; gap: 4px; font-size: 9px; padding: 8px 4px; border-left: none; border-top: 3px solid transparent; flex: 1; justify-content: center; text-align: center; }
+    .app-nav button { flex-direction: column; gap: 4px; font-size: 12px; padding: 8px 4px; border-left: none; border-top: 3px solid transparent; flex: 1; justify-content: center; text-align: center; }
     .app-nav button.active { border-left: none; border-top-color: var(--c-accent); }
     #calculator-section { margin-left: 0; padding-bottom: 64px; }
   }
   @media (max-width: 900px) {
     .topbar { padding: 0 14px; height: 56px; }
-    .wordmark { font-size: 11px; letter-spacing: .2em; }
-    .class-select button { padding: 18px 9px; font-size: 10px; }
+    .wordmark { font-size: 14px; letter-spacing: .2em; }
+    .class-select button { padding: 18px 9px; font-size: 13px; }
     .hero-inner {
       display: flex; flex-direction: column;
       height: auto; min-height: 100vh;
@@ -721,6 +957,18 @@
     .tl-card::after { display: none; }
   }
 
+  @media (max-width: 900px) {
+    .zmap-frame { padding: 0 12px; }
+    .zmap-arrow { display: none; }
+    .zmap { display: block; overflow-x: visible; padding: 20px 14px; }
+    .zn { flex-direction: row; width: 100%; gap: 14px; justify-content: flex-start; padding: 8px 0; }
+    .zn::before { left: 38px; right: auto; top: 0; bottom: 0; border-top: 0; border-left: 4px dashed var(--paper-edge); }
+    .zn:first-child::before { top: 50%; left: 38px; }
+    .zn:last-child::before { bottom: 50%; right: auto; }
+    .zn-name { max-width: none; text-align: left; flex: 1; }
+    .zdetail { padding: 0 12px 60px; }
+  }
+
   @media print {
     #print-btn,
     #points-locked-note,
@@ -748,17 +996,18 @@
 </head>
 <body class="is-ficha">
 <nav class="app-nav" id="app-nav" aria-label="Seções">
-  <div class="brand">FICHA<em>_</em>RPG</div>
+  <div class="brand">FICHA RPG</div>
   <button type="button" class="active" data-view="ficha"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v4h4M9 12h7M9 16h7"/></svg>Ficha</button>
   <button type="button" data-view="relacoes"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="8" r="2.5"/><circle cx="10" cy="18" r="2.5"/><path d="M8 7l8 1M8 8l1 8M16 10l-5 7"/></svg>Relações</button>
   <button type="button" data-view="timeline"><svg viewBox="0 0 24 24"><path d="M5 4v16"/><circle cx="5" cy="8" r="2"/><circle cx="5" cy="16" r="2"/><path d="M9 8h11M9 16h11"/></svg>Linha do tempo</button>
+  <button type="button" data-view="zonas"><svg viewBox="0 0 24 24"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg>Zonas</button>
   <button type="button" data-view="cards"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="7" height="7"/><rect x="14" y="4" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Cards</button>
 </nav>
 
 <section id="calculator-section">
 
   <header class="topbar">
-    <div class="wordmark">FICHA<em>_</em>RPG</div>
+    <div class="wordmark">FICHA RPG</div>
     <nav class="class-select" id="class-select" aria-label="Classes"></nav>
   </header>
 
@@ -770,7 +1019,7 @@
 
       <div class="stage" id="character-panel">
         <div class="word-back" id="char-cursive-name" aria-hidden="true">—</div>
-        <div class="name-rule" id="name-rule">Nível 1</div>
+        <div class="name-rule" id="name-rule">Nível —</div>
         <h1 class="hero-name" id="char-player-name"><span class="line">—</span></h1>
         <div class="hero-img" id="hero-img">
           <img id="hero-portrait" alt="" hidden>
@@ -783,7 +1032,7 @@
             </svg>
           </div>
         </div>
-        <div class="hero-meta">
+        <div class="hero-meta" style="display:none">
           <span class="meta-k">Classe</span>
           <span class="meta-v" id="char-class-tag">—</span>
         </div>
@@ -791,7 +1040,7 @@
 
       <aside class="rail" id="calculator-panel" aria-label="Atributos">
         <div class="builder-card">
-          <h2><span id="builder-title">Atributos</span><span class="lvl">Nível 1</span></h2>
+          <h2><span id="builder-title">Atributos</span><span class="lvl">Nível —</span></h2>
           <label for="char-name-input">Nome do personagem</label>
           <input id="char-name-input" type="text" placeholder="Digite o nome" autocomplete="off">
           <div id="attr-rows"></div>
@@ -889,13 +1138,13 @@
         <span class="num">04</span>
         <h2>Progressão</h2>
       </div>
-      <p class="lead">Nível 1 desbloqueado. A tabela abaixo é a trilha completa da classe — a evolução acontece na mesa, com o mestre.</p>
+      <p class="lead">Trilha de níveis a definir com o mestre.</p>
       <table class="prog-table">
         <tbody id="prog-body"></tbody>
       </table>
     </section>
 
-    <footer>FICHA_RPG — Nível 1 · Evolução de níveis com o mestre</footer>
+    <footer>FICHA RPG</footer>
   </div>
   </div><!-- /view-ficha -->
 
@@ -922,6 +1171,25 @@
     <div class="tl" id="tl"></div>
   </div>
 
+  <div class="view" id="view-zonas">
+    <div class="view-head">
+      <div class="view-head-row">
+        <h2>Zonas</h2>
+        <span class="view-stat" id="stat-zonas">—</span>
+      </div>
+      <p>O mapa da campanha. Toque numa zona pra ver os detalhes; o mestre edita nome, descrição e estado (salvo neste navegador).</p>
+    </div>
+    <div class="zmap-frame">
+      <div class="zmap-title">Zonas</div>
+      <div class="zmap-wrap">
+        <button type="button" class="zmap-arrow" id="zmap-prev" aria-label="Zonas anteriores">◀</button>
+        <div class="zmap" id="zmap"></div>
+        <button type="button" class="zmap-arrow" id="zmap-next" aria-label="Próximas zonas">▶</button>
+      </div>
+    </div>
+    <div class="zdetail" id="zdetail"></div>
+  </div>
+
   <div class="view" id="view-cards">
     <div class="view-head">
       <div class="view-head-row">
@@ -935,6 +1203,7 @@
 
   <div class="ctx-overlay" id="ctx-overlay">
     <div class="ctx-modal" role="dialog" aria-modal="true" aria-labelledby="ctx-title">
+      <button type="button" class="ctx-x" id="ctx-x" aria-label="Fechar">✕</button>
       <div class="ctx-when" id="ctx-when">—</div>
       <h3 id="ctx-title">—</h3>
       <div class="ctx-meta" id="ctx-meta"></div>
@@ -962,14 +1231,14 @@
 
   // Sistema de atributos das fichas: Impacto, Reflexo, Resistência, Cognição,
   // Instinto, Influência (substituem FOR/DES/CON/INT/SAB/CAR).
-  window.RPGCalc.ATTRS = ['IMP', 'REF', 'RES', 'COG', 'INS', 'INF'];
+  window.RPGCalc.ATTRS = ['FOR', 'DES', 'CON', 'INT', 'SAB', 'CAR'];
   window.RPGCalc.ATTR_LABELS = {
-    IMP: 'Impacto',
-    REF: 'Reflexo',
-    RES: 'Resistência',
-    COG: 'Cognição',
-    INS: 'Instinto',
-    INF: 'Influência'
+    FOR: 'Força',
+    DES: 'Destreza',
+    CON: 'Constituição',
+    INT: 'Inteligência',
+    SAB: 'Sabedoria',
+    CAR: 'Carisma'
   };
   window.RPGCalc.MIN_SCORE = 8;
   window.RPGCalc.MAX_SCORE = 15;
@@ -1017,256 +1286,190 @@
       id: 'federal',
       nome: 'Federal',
       arquetipo: 'Fighter — versátil, institucional',
-      personagem: 'Mipin Greyrat',
-      palette: { bg: '#1A130B', deep: '#0F0B06', surface: '#4A3420', accent: '#C98A3D', accent2: '#8A5A26', light: '#F2E9DC', muted: '#9C8C77' },
-      img: 'img/mipin-cut.png',
+      personagem: 'Personagem 1',
+      palette: { bg: '#2B1D17', deep: '#1D120D', surface: '#5C3D2C', accent: '#F2B632', accent2: '#B8791A', light: '#F6E8D2', muted: '#BBA48A' },
+      img: '',
       dadoVida: 10,
-      perfil: { idade: '28 anos', altura: '1,85 m', peso: '79 kg' },
-      perfilFisico: 'Físico "de manual", treino recente de academia, sem o desgaste real de anos de campo. Cabelo curto, sem cicatriz visível ainda. Postura tentando parecer mais experiente do que é.',
-      comoChegou: 'Formado em Justiça Criminal, entrou no FBI aos 24 direto de programa de recrutamento acelerado — notas boas, perfil "ideal de cartaz", pouco tempo de rua de verdade. Passou 2 anos em função de apoio/analista antes de virar agente de campo. O caso do parceiro/mentor foi seu primeiro caso de campo sério: ferida aberta há poucos meses, não trauma de anos acumulado. Suspensão recente, retorno ao caso atual é praticamente a primeira chance real de provar que aguenta o trabalho.',
-      historico: 'Nasceu em Chicago, pais classe média, pai policial também — motivo raiz da escolha de carreira, sempre quis a farda desde criança, romantizou antes de entender o peso real dela. Vive sozinho em apartamento pequeno perto de onde a agência o realoca, ainda sem raiz fixa.',
+      perfil: { idade: '—', altura: '—', peso: '—' },
+      perfilFisico: 'A definir.',
+      comoChegou: 'A definir.',
+      historico: 'A definir.',
       historia: {
-        temperamento: 'Contido, tentando parecer mais controlado do que realmente é — raiva e insegurança vazam sob pressão, compensa com protocolo decorado, não instinto de campo (ainda não teve tempo de desenvolver instinto).',
-        marca: 'Guarda a arma do mentor morto, nunca usa, nunca menciona. Se perguntado sobre o caso, repete resposta decorada, sempre igual — ensaiou tanto que virou automática.',
-        contradicao: 'Quer seguir regra à risca porque não confia no próprio julgamento ainda, mas foi decisão fora do manual (por afeto, não corrupção) que causou a morte do mentor. Rigidez atual é medo disfarçado de disciplina.',
-        tique: 'Verifica arma travada 2x antes de guardar, mesmo sem necessidade — ritual novo, ainda inseguro se fez certo.'
+        temperamento: 'A definir.',
+        marca: 'A definir.',
+        contradicao: 'A definir.',
+        tique: 'A definir.'
       },
-      primarios: ['IMP', 'REF'],
-      secundario: 'INS',
-      saves: ['IMP', 'INS'],
-      sugestao: { IMP: 14, REF: 14, RES: 13, COG: 10, INS: 12, INF: 9 },
-      pericias: ['Investigação', 'Intimidação', 'Percepção', 'Intuição'],
-      periciaLivre: 'Escolha livre (1): qualquer uma da lista geral — Persuasão recomendada se for jogar a subclasse Negociador.',
+      primarios: ['FOR', 'DES'],
+      secundario: 'SAB',
+      saves: ['FOR', 'SAB'],
+      sugestao: { FOR: 14, DES: 14, CON: 13, INT: 10, SAB: 12, CAR: 9 },
+      pericias: [],
+      periciaLivre: '',
       proficiencias: {
-        categoria: 'Armas simples + marciais completas. Armadura leve/média.',
-        loadout: 'Loadout inicial, além da arma assinatura: 1 arma de fogo secundária (Pistola Padrão, SMG Compacta, Rifle de Assalto ou Espingarda Tática) + 1 arma corpo a corpo simples (Faca de Combate ou Bastão Retrátil Elétrico).'
+        categoria: '',
+        loadout: ''
       },
       equipamento: {
         armaLabel: 'Arma assinatura',
-        arma: 'Pistola de Serviço "Distintivo" — 1d8 perfurante, 15 cartuchos. Trava biométrica: só dispara na mão do dono, imune a desarme/roubo por terceiro.',
-        habilidadeUnica: 'Mandado de Emergência — 1x por descanso longo, declara busca/apreensão institucional instantânea; NPC de baixo escalão é obrigado a cooperar (sem teste, autoridade automática). Nível 13: funciona até em NPC de escalão médio.',
-        gadget: 'Algemas de choque — aplicam Atordoado por 1 turno se o alvo já estiver Agarrado.'
+        arma: '',
+        habilidadeUnica: '',
+        gadget: ''
       },
-      featureNivel1: 'Mandado Federal — acesso a banco de dados, abertura de porta institucional.',
-      progressao: [
-        [1, 'Mandado Federal — acesso a banco de dados, abertura de porta institucional'],
-        [2, 'Fôlego Tático — recupera recursos curtos, ação bônus para reposicionar'],
-        [3, 'Especialização: Negociador ou Assalto (subclasse)'],
-        [4, 'Melhoria de atributo'],
-        [5, 'Ataque Extra — 2 ataques por ação'],
-        [6, 'Melhoria de atributo'],
-        [7, 'Leitura de Cena — vantagem em Investigação em cena de crime'],
-        [8, 'Melhoria de atributo'],
-        [9, 'Indomável — reroll de teste falho, 1x por descanso longo'],
-        [11, 'Ataque Extra (2) — 3 ataques'],
-        [13, 'Autoridade Federal — intimida NPC institucional automaticamente'],
-        [15, 'Indomável melhora — 2x por descanso'],
-        [17, 'Ação Decisiva — ação extra 1x por combate'],
-        [20, 'Ataque Extra (3) — 4 ataques por ação']
-      ]
+      featureNivel1: '',
+      progressao: []
     },
 
     narcoticos: {
       id: 'narcoticos',
       nome: 'Narcóticos',
       arquetipo: 'Rogue — infiltrado',
-      personagem: 'Ryan Sheppard',
-      palette: { bg: '#2A0D14', deep: '#17060B', surface: '#5B2333', accent: '#F24333', accent2: '#BA1B1D', light: '#F7F4F3', muted: '#A08A85' },
-      img: 'img/ryan-cut.png',
+      personagem: 'Personagem 2',
+      palette: { bg: '#2B1D17', deep: '#1D120D', surface: '#5C3D2C', accent: '#E0574C', accent2: '#A8322B', light: '#F6E8D2', muted: '#BBA48A' },
+      img: '',
       dadoVida: 8,
-      perfil: { idade: '25 anos', altura: '1,76 m', peso: '68 kg' },
-      perfilFisico: 'Magro, rosto ainda jovem demais pro papel que finge nas ruas — compensa com postura estudada, copiada de gente mais velha que observou. Sem tatuagem funcional ainda além de uma, recente.',
-      comoChegou: 'Entrou na polícia aos 21, dois anos de patrulha comum antes de ser notado por um talento raro: se misturar e mentir com naturalidade. Recrutado pra narcóticos undercover aos 23 — primeira operação de infiltração de verdade, em andamento há pouco mais de um ano quando o caso atual cruza o caminho dele. Não são anos de disfarces acumulados: é a primeira máscara que ele usou por tempo longo, e já sente ela grudando.',
-      historico: 'Infiltrado há pouco mais de um ano em gangue cibernética das docas — já começa a sentir a linha entre personagem e pessoa real embaçar, cedo demais pra alguém tão novo no ofício. Contato de confiança dentro da gangue morreu recente (overdose suspeita ou execução), história bate com o caso atual. Motivação: descobrir se foi acidente ou se alguém descobriu ele — medo pessoal, não só dever.',
+      perfil: { idade: '—', altura: '—', peso: '—' },
+      perfilFisico: 'A definir.',
+      comoChegou: 'A definir.',
+      historico: 'A definir.',
       historia: {
-        temperamento: 'Caloroso fácil demais — dom natural de simpatia, não treino longo, e ele mesmo ainda não sabe controlar quando é genuíno e quando é personagem.',
-        marca: '1 nome tatuado, da identidade atual que usa há um ano — primeira vez usando disfarce por tanto tempo, já começa a sentir que esquece o nome de nascença em certos dias.',
-        contradicao: 'Despreza violência gratuita (viu de perto recente, ainda choca ele), mas já foi obrigado a machucar alguém pra manter o disfarce — não processou o que isso significa sobre si mesmo ainda.',
-        tique: 'Troca de sotaque/gíria sem perceber — ainda meio deliberado, ainda praticando, não virou automático de verdade como seria em alguém mais experiente.'
+        temperamento: 'A definir.',
+        marca: 'A definir.',
+        contradicao: 'A definir.',
+        tique: 'A definir.'
       },
-      primarios: ['REF', 'INF'],
-      secundario: 'INS',
-      saves: ['REF', 'INF'],
-      sugestao: { IMP: 9, REF: 15, RES: 12, COG: 10, INS: 12, INF: 14 },
-      pericias: ['Furtividade', 'Enganação', 'Intuição', 'Sobrevivência (rua)'],
-      periciaLivre: 'Escolha livre (1): Persuasão recomendada — o dom natural de simpatia dele pede esse reforço.',
+      primarios: ['DES', 'CAR'],
+      secundario: 'SAB',
+      saves: ['DES', 'CAR'],
+      sugestao: { FOR: 9, DES: 15, CON: 12, INT: 10, SAB: 12, CAR: 14 },
+      pericias: [],
+      periciaLivre: '',
       proficiencias: {
-        categoria: 'Armas simples + faca/pistola especializada. Sem armadura pesada (furtividade).',
-        loadout: 'Loadout inicial, além da arma assinatura: 1 arma de fogo leve (Pistola Padrão ou SMG Compacta) + 1 arma corpo a corpo com Acuidade além da faca fixa — Lâmina Monofilamento (opcional, upgrade posterior).'
+        categoria: '',
+        loadout: ''
       },
       equipamento: {
         armaLabel: 'Arma assinatura',
-        arma: 'Faca "Sombra das Docas" + pistola improvisada — faca 1d4 cortante, Acuidade. Arma "não-oficial", não rastreável, não aparece em scanner metálico padrão.',
-        habilidadeUnica: 'Identidade Queimada — 1x por descanso curto, assume disfarce completo (aparência + voz + histórico falso) sob escrutínio leve/médio sem teste. Vantagem automática em Enganação nesse uso.',
-        gadget: 'Dardo rastreador subcutâneo — ataque à distância sem dano, marca a localização do alvo por 24h.'
+        arma: '',
+        habilidadeUnica: '',
+        gadget: ''
       },
-      featureNivel1: 'Ataque Furtivo (1d6), Especialista — dobra o bônus em 1 perícia.',
-      progressao: [
-        [1, 'Ataque Furtivo (1d6), Especialista — dobra o bônus em 1 perícia'],
-        [2, 'Ação Ardilosa — Disfarçar/Esconder/Desengajar como ação bônus'],
-        [3, 'Arquétipo: Infiltrado ou Contato de Rua'],
-        [4, 'Melhoria de atributo'],
-        [5, 'Ataque Furtivo (3d6), Esquiva Sobrenatural'],
-        [7, 'Evasão — teste de Reflexo falho vira sucesso parcial'],
-        [9, 'Ataque Furtivo (5d6)'],
-        [11, 'Golpe Confiável — reroll de 1 dado de ataque por turno'],
-        [13, 'Ataque Furtivo (7d6)'],
-        [15, 'Mente Escorregadia — imune a Assustado/Enfeitiçado'],
-        [17, 'Ataque Furtivo (9d6)'],
-        [20, 'Golpe de Sorte — converte falha em sucesso, 1x por descanso longo']
-      ]
+      featureNivel1: '',
+      progressao: []
     },
 
     cia: {
       id: 'cia',
       nome: 'CIA',
       arquetipo: 'Ranger/Assassin (subclasse Rogue)',
-      personagem: 'Nero Vox',
-      palette: { bg: '#120A18', deep: '#080510', surface: '#5B2A62', accent: '#BF40FA', accent2: '#4928C2', light: '#E3D9FC', muted: '#94819F' },
-      img: 'img/nero-cut.png',
+      personagem: 'Personagem 3',
+      palette: { bg: '#2B1D17', deep: '#1D120D', surface: '#5C3D2C', accent: '#9B59C7', accent2: '#5E2D80', light: '#F6E8D2', muted: '#BBA48A' },
+      img: '',
       dadoVida: 8,
-      perfil: { idade: '26 anos', altura: '1,78 m', peso: '73 kg' },
-      perfilFisico: 'Atlético, mas ainda com a magreza de treino recente, não o volume de anos de operação real. Sem marca visível ainda — corpo "limpo" mais por falta de tempo de campo que por design deliberado.',
-      comoChegou: 'Recrutado direto de programa militar de elite aos 23, passou a maior parte do tempo em treinamento intensivo, não em operação real — teoria e simulação, pouca experiência de campo de fato. O caso atual é uma das primeiras missões de extração reais da carreira dele. Foi escolhido mais por potencial testado em simulação que por histórico comprovado: a agência está, na prática, testando ele.',
-      historico: 'Nunca foi investigador — foi treinado como extrator/eliminador, mas ainda verde em execução real. Mandado pro caso não por justiça: a agência quer algo específico recuperado ou silenciado antes que o time investigativo chegue lá. Lealdade dividida: obedece ordem porque não tem experiência pra questionar abertamente ainda, mas começa a notar coisas que não batem, inseguro se deve reportar ou ficar quieto.',
+      perfil: { idade: '—', altura: '—', peso: '—' },
+      perfilFisico: 'A definir.',
+      comoChegou: 'A definir.',
+      historico: 'A definir.',
       historia: {
-        temperamento: 'Frio na superfície, mas é disciplina de treino recente, não frieza natural de anos — por dentro processa mais do que deixa transparecer, ainda aprendendo a esconder bem. Fala em frases curtas, mais por instrução de treinamento que hábito genuíno.',
-        marca: 'Começou uma lista mental de alvos, mas a lista ainda é curta — cada nome pesa mais por ser recente, não tem calo emocional de veterano.',
-        contradicao: 'Treinado pra obedecer sem questionar, mas o caso atual já gera a primeira dúvida real da carreira dele — não sabe se é sinal de fraqueza ou de que está certo em desconfiar.',
-        tique: 'Sempre se posiciona de costas pra porta/janela em qualquer ambiente — treino recente, ainda deliberado, ainda percebe conscientemente fazendo isso.'
+        temperamento: 'A definir.',
+        marca: 'A definir.',
+        contradicao: 'A definir.',
+        tique: 'A definir.'
       },
-      primarios: ['REF', 'INS'],
-      secundario: 'COG',
-      saves: ['REF', 'COG'],
-      sugestao: { IMP: 10, REF: 15, RES: 12, COG: 12, INS: 13, INF: 8 },
-      pericias: ['Furtividade', 'Investigação', 'Intimidação', 'Atletismo'],
-      periciaLivre: 'Escolha livre (1): Persuasão ou Percepção — depende se quer reforçar o campo social ou o tático.',
+      primarios: ['DES', 'SAB'],
+      secundario: 'INT',
+      saves: ['DES', 'INT'],
+      sugestao: { FOR: 10, DES: 15, CON: 12, INT: 12, SAB: 13, CAR: 8 },
+      pericias: [],
+      periciaLivre: '',
       proficiencias: {
-        categoria: 'Armas de precisão (rifle, pistola silenciada). Armadura leve só.',
-        loadout: 'Loadout inicial, além da arma assinatura: 1 arma de fogo secundária (Pistola Padrão ou Pistola Pesada) + 1 arma corpo a corpo simples (Faca de Combate).'
+        categoria: '',
+        loadout: ''
       },
       equipamento: {
         armaLabel: 'Arma assinatura',
-        arma: 'Rifle de Precisão Protótipo "Silêncio" — 2d10 perfurante, 5 cartuchos, alcance dobrado. Sem estampido nem fogo de boca: nenhuma testemunha percebe a direção do tiro, só o impacto.',
-        habilidadeUnica: 'Extração Limpa — 1x por descanso longo, após matar/neutralizar alvo prioritário, desaparece da cena; a próxima tentativa de rastreá-lo tem desvantagem por 1 cena inteira.',
-        gadget: 'Micro-drone camuflado — reconhecimento silencioso, 10 min de bateria, vídeo em tempo real.'
+        arma: '',
+        habilidadeUnica: '',
+        gadget: ''
       },
-      featureNivel1: 'Marca do Caçador (dano extra em alvo marcado, 1d6), Sentidos de Campo.',
-      progressao: [
-        [1, 'Marca do Caçador (dano extra em alvo marcado, 1d6), Sentidos de Campo'],
-        [2, 'Estilo de Combate: Precisão ou Duas Armas'],
-        [3, 'Arquétipo: Atirador de Elite ou Extrator'],
-        [5, 'Ataque Extra'],
-        [6, 'Marca do Caçador melhora — 2 alvos'],
-        [7, 'Evasão'],
-        [9, 'Golpe Fatal — crítico automático em alvo surpreendido'],
-        [11, 'Marca do Caçador (3d6)'],
-        [13, 'Camuflagem Adaptativa — vantagem em Furtividade parado'],
-        [15, 'Sentidos Aguçados — imune a surpresa'],
-        [17, 'Marca do Caçador (4d6)'],
-        [20, 'Execução Perfeita — crítico automático se o alvo estiver abaixo de 50% do HP']
-      ]
+      featureNivel1: '',
+      progressao: []
     },
 
     netrunner: {
       id: 'netrunner',
       nome: 'Netrunner',
       arquetipo: 'Wizard — tech em vez de magia',
-      personagem: 'Zane Corvus',
-      palette: { bg: '#04220C', deep: '#021407', surface: '#1D6B26', accent: '#25E970', accent2: '#98C43D', light: '#FBFFF2', muted: '#7FA487' },
-      img: 'img/zane-cut.png',
+      personagem: 'Personagem 4',
+      palette: { bg: '#2B1D17', deep: '#1D120D', surface: '#5C3D2C', accent: '#2BB3B3', accent2: '#17787C', light: '#F6E8D2', muted: '#BBA48A' },
+      img: '',
       dadoVida: 6,
-      perfil: { idade: '27 anos', altura: '1,74 m', peso: '68 kg' },
-      perfilFisico: 'Magro, postura curvada de quem passa mais tempo sentado em terminal que em pé. Óculos com HUD integrado, mão esquerda com implante visível de porta neural.',
-      comoChegou: 'Nasceu na própria cidade onde a história se passa, classe média baixa, autodidata em tech desde criança (os pais não entendiam o que ele fazia, só sabiam que era bom). Contratado por megacorp aos 20, ascensão rápida em segurança de sistemas. Aos 25, descobriu irregularidade em um dado que a corp queria enterrado — foi demitido, histórico apagado, ameaçado veladamente.',
-      historico: 'Vive desde então na periferia digital e física da cidade, sobrevivendo de freelance ilegal, sempre a um passo de ser encontrado por quem o apagou. Não confia em nenhuma instituição — tudo que aprendeu sobre poder e corp veio da própria demissão.',
+      perfil: { idade: '—', altura: '—', peso: '—' },
+      perfilFisico: 'A definir.',
+      comoChegou: 'A definir.',
+      historico: 'A definir.',
       historia: {
-        temperamento: 'Sarcástico como defesa, ansiedade alta disfarçada de piada. Fala demais quando nervoso, quieto quando confortável (inverso do esperado).',
-        marca: 'A corp que o expulsou apagou o histórico dele dos sistemas — oficialmente "não existe" há anos. Virou obsessão: provar que existe, deixar rastro em tudo que hackeia.',
-        contradicao: 'Não confia em ninguém institucional, mas é o mais leal do grupo informalmente — trata os colegas como família substituta sem admitir.',
-        tique: 'Fala sozinho enquanto hackeia, narra passo a passo — hábito de quando trabalhava sozinho por anos.'
+        temperamento: 'A definir.',
+        marca: 'A definir.',
+        contradicao: 'A definir.',
+        tique: 'A definir.'
       },
-      primarios: ['COG'],
-      secundario: 'REF',
-      saves: ['COG', 'REF'],
-      sugestao: { IMP: 8, REF: 13, RES: 10, COG: 15, INS: 12, INF: 10 },
-      pericias: ['Investigação', 'Tecnologia', 'Enganação', 'Sociedade Digital'],
-      periciaLivre: 'Escolha livre (1): Persuasão recomendada — contrabalança o sarcasmo defensivo quando precisa convencer alguém de verdade.',
+      primarios: ['INT'],
+      secundario: 'DES',
+      saves: ['INT', 'DES'],
+      sugestao: { FOR: 8, DES: 13, CON: 10, INT: 15, SAB: 12, CAR: 10 },
+      pericias: [],
+      periciaLivre: '',
       proficiencias: {
-        categoria: 'Pistola básica só. Sem armadura (foco em "conjuração" tech).',
-        loadout: 'Loadout inicial, além do foco: 1 arma de fogo — Pistola Padrão (única opção da categoria) + 1 arma corpo a corpo simples pra emergência (Faca de Combate).'
+        categoria: '',
+        loadout: ''
       },
-      recursoClasse: 'Slots de magia viram Ciclos de Processamento — recarregam em descanso curto, não longo (reflete cooldown de hardware).',
       equipamento: {
         armaLabel: 'Foco assinatura',
-        arma: 'Deck de Invasão "Fantasma" — não é arma convencional, é foco de conjuração tech. Permite exploits à distância sem contato físico com o sistema alvo (o padrão exige proximidade/cabo).',
-        habilidadeUnica: 'Backdoor Persistente — ao invadir um sistema com sucesso 1x, mantém acesso oculto permanente (sem novo teste) até alguém fazer varredura de segurança ativa contra ele especificamente.',
-        gadget: 'Drone-familiar "Rato" — voa/rasteja, câmera + microfone, controlado via deck, carrega item pequeno.'
+        arma: '',
+        habilidadeUnica: '',
+        gadget: ''
       },
-      featureNivel1: 'Grimório Digital (biblioteca de exploits), 2 Ciclos de Processamento.',
-      progressao: [
-        [1, 'Grimório Digital (biblioteca de exploits), 2 Ciclos'],
-        [2, 'Recuperação de Sistema — recupera ciclos em descanso curto'],
-        [3, 'Especialização: Ataque (malware ofensivo) ou Suporte (hackeia ambiente/drones)'],
-        [4, 'Melhoria de atributo'],
-        [5, '3º nível de exploit — travar veículo, cegar câmera de área'],
-        [6, 'Firewall Pessoal — resistência a dano de EMP/hack reverso'],
-        [9, '5º nível de exploit — controle de drone hostil, apagar registro'],
-        [11, 'Exploit Aprimorado — 1 exploit com dano extra 1d8'],
-        [13, '7º nível de exploit — invadir sistema de segurança de prédio inteiro'],
-        [17, '9º nível de exploit — desligar grid elétrico de um quarteirão'],
-        [20, 'Mestre de Sistema — 1 exploit por descanso curto sem custo']
-      ]
+      featureNivel1: '',
+      progressao: []
     },
 
     'corp-security': {
       id: 'corp-security',
       nome: 'Corp Security',
       arquetipo: 'Barbarian/Fighter — tanque',
-      personagem: 'David Hasselhoff',
-      palette: { bg: '#0B1435', deep: '#060C22', surface: '#3D518C', accent: '#7692FF', accent2: '#1B2CC1', light: '#ABD2FA', muted: '#7E8CB2' },
-      img: 'img/david-cut.png',
+      personagem: 'Personagem 5',
+      palette: { bg: '#2B1D17', deep: '#1D120D', surface: '#5C3D2C', accent: '#A9AD2A', accent2: '#6E7312', light: '#F6E8D2', muted: '#BBA48A' },
+      img: '',
       dadoVida: 12,
-      perfil: { idade: '36 anos', altura: '1,92 m', peso: '104 kg' },
-      perfilFisico: 'Maior do grupo, construção pesada reforçada por implante muscular corp-financiado. Postura ereta, quase rígida, treino militar entranhado.',
-      comoChegou: 'Nasceu em cidade pequena do interior, família de origem humilde, alistou-se cedo pra ajudar em casa financeiramente. Serviu 8 anos em unidade de combate, saiu com honras mas sem perspectiva civil clara. Recrutado por megacorp de segurança privada — salário muito acima do que qualquer emprego "normal" pagaria, motivo real de aceitar.',
-      historico: 'Ainda na folha de pagamento da corp, mandado "colaborar" com a investigação — na real, espionar por dentro e reportar o que acham. A família (mãe, irmã, sobrinho) ainda depende desse dinheiro. Ele sabe que a corp não é boa, mas trocar de emprego significa família passar necessidade — dilema que carrega em silêncio, todos os dias.',
+      perfil: { idade: '—', altura: '—', peso: '—' },
+      perfilFisico: 'A definir.',
+      comoChegou: 'A definir.',
+      historico: 'A definir.',
       historia: {
-        temperamento: 'Disciplinado, educado, quase gentil — o treino militar não apagou a raiz de origem simples, ele lembra de onde veio mesmo vestindo uniforme corp caro.',
-        marca: 'A família dele ainda depende financeiramente do salário corp — motivo real por trás de espionar o grupo pra empresa. Não é vilania: é sobrevivência de outras pessoas.',
-        contradicao: 'Descobre aos poucos que a corp que sustenta ele/família é parte do problema investigado. Dilema real, não drama forçado: lealdade x ética, sem resposta fácil.',
-        tique: 'Chama todo mundo por sobrenome/cargo mesmo em ambiente informal, resquício militar.'
+        temperamento: 'A definir.',
+        marca: 'A definir.',
+        contradicao: 'A definir.',
+        tique: 'A definir.'
       },
-      primarios: ['IMP', 'RES'],
-      secundario: 'INS',
-      saves: ['IMP', 'RES'],
-      sugestao: { IMP: 15, REF: 10, RES: 15, COG: 8, INS: 11, INF: 9 },
-      pericias: ['Atletismo', 'Intimidação', 'Comando Tático'],
-      periciaLivre: 'Escolha livre (1): Persuasão recomendada — contrabalança a rigidez militar quando precisa convencer sem ameaçar.',
+      primarios: ['FOR', 'CON'],
+      secundario: 'SAB',
+      saves: ['FOR', 'CON'],
+      sugestao: { FOR: 15, DES: 10, CON: 15, INT: 8, SAB: 11, CAR: 9 },
+      pericias: [],
+      periciaLivre: '',
       proficiencias: {
-        categoria: 'Todas as armas. Armadura pesada/escudo.',
-        loadout: 'Loadout inicial, além do braço assinatura: acesso liberado a qualquer arma da tabela completa, inclusive categoria pesada — Machado de Demolição Servo-Assistido ou Metralhadora Montada, se quiser especializar em dano bruto.'
+        categoria: '',
+        loadout: ''
       },
       equipamento: {
         armaLabel: 'Arma assinatura',
-        arma: 'Braço Servo-Assistido "Sentinela" — soqueira de impacto cinético 1d8 concussão + escudo de energia deployável (ação bônus, +2 CA por 1 minuto, 1x por descanso curto).',
-        habilidadeUnica: 'Protocolo de Contenção — 1x por descanso longo, gera pulso de força que empurra todos num raio de 3m (teste de Impacto ou caem), sem dano. Feito pra conter, não pra matar (reflete a origem corp: relatório limpo).',
-        gadget: 'Espuma de contenção tática — imobiliza alvo humano, não funciona em blindado/exo.'
+        arma: '',
+        habilidadeUnica: '',
+        gadget: ''
       },
-      featureNivel1: 'Modo Combate (Fúria adaptada) — +dano corpo a corpo, resistência a dano físico, custo de recursos.',
-      progressao: [
-        [1, 'Modo Combate (Fúria adaptada) — +dano corpo a corpo, resistência a dano físico, custo de recursos'],
-        [2, 'Ataque Descuidado / Defesa Reflexiva (escolha por turno)'],
-        [3, 'Especialização: Exo-Blindado ou Linha de Frente'],
-        [5, 'Ataque Extra, Movimento Rápido'],
-        [7, 'Instinto de Perigo — vantagem em teste de Reflexo'],
-        [9, 'Crítico Brutal — dado extra em crítico corpo a corpo'],
-        [11, 'Modo Combate Incansável — imune a Exaustão durante o modo ativo'],
-        [13, 'Crítico Brutal (2 dados extra)'],
-        [15, 'Fúria Persistente — não termina o modo combate exceto inconsciente'],
-        [17, 'Crítico Brutal (3 dados extra)'],
-        [20, 'Força Primitiva Cibernética — Impacto/Resistência viram 25 automaticamente durante o Modo Combate']
-      ]
+      featureNivel1: '',
+      progressao: []
     }
   };
 
@@ -1276,13 +1479,13 @@
     var RC = window.RPGCalc;
     var ORDER = Object.keys(RC.CLASSES);
 
-    // estado independente por classe — começa na sugestão de point-buy da ficha
+    // estado independente por classe — pontos zerados (tudo em 8, o mínimo do point-buy);
+    // RC.CLASSES[id].sugestao segue nos dados caso queira restaurar a distribuição antiga
     var stateByClass = {};
     ORDER.forEach(function (id) {
-      stateByClass[id] = {
-        name: RC.CLASSES[id].personagem || '',
-        scores: Object.assign({}, RC.CLASSES[id].sugestao)
-      };
+      var base = {};
+      RC.ATTRS.forEach(function (a) { base[a] = 8; });
+      stateByClass[id] = { name: RC.CLASSES[id].personagem || '', scores: base };
     });
     var activeId = 'federal';
     var splitInstance = null;
@@ -1371,8 +1574,8 @@
       var c = cls();
       var s = st();
       setHeroName(s.name || c.nome);
-      document.getElementById('char-cursive-name').textContent = c.nome.toUpperCase();
-      document.getElementById('char-class-tag').textContent = c.nome + ' · ' + c.arquetipo;
+      document.getElementById('char-cursive-name').textContent = ''; // classe ainda não definida
+      document.getElementById('char-class-tag').textContent = '';
 
       var img = document.getElementById('hero-portrait');
       var fallback = document.getElementById('hero-fallback');
@@ -1406,8 +1609,8 @@
       RC.ATTRS.forEach(function (attr) {
         var score = s.scores[attr];
         var mod = RC.abilityModifier(score);
-        var isPrimary = c.primarios.indexOf(attr) !== -1;
-        var isSecondary = c.secundario === attr;
+        var isPrimary = false; // classes ainda não definidas
+        var isSecondary = false;
 
         var row = document.createElement('div');
         row.className = 'attr-row' +
@@ -1419,6 +1622,13 @@
         label.className = 'attr-label';
         label.textContent = RC.ATTR_LABELS[attr];
         row.appendChild(label);
+
+        var bar = document.createElement('span');
+        bar.className = 'attr-bar';
+        var fill = document.createElement('i');
+        fill.style.width = Math.max(8, Math.min(100, score / 20 * 100)) + '%';
+        bar.appendChild(fill);
+        row.appendChild(bar);
 
         var controls = document.createElement('div');
         controls.className = 'attr-controls';
@@ -1439,21 +1649,17 @@
     }
 
     function renderStatline() {
-      var c = cls();
-      var s = st();
-      var hp = RC.calcHP(c.dadoVida, s.scores.RES);
-      document.getElementById('char-hp-value').textContent = 'HP ' + hp + ' · d' + c.dadoVida;
-      document.getElementById('char-saves-value').textContent =
-        'Saves ' + c.saves.map(function (a) { return RC.ATTR_LABELS[a]; }).join(' / ');
-      document.getElementById('char-primaries-value').textContent =
-        c.primarios.map(function (a) { return a + ' ' + s.scores[a]; }).join(' · ');
+      // HP/saves/primários dependem da classe — seção em branco até definir
+      ['char-hp-value', 'char-saves-value', 'char-primaries-value'].forEach(function (id) {
+        document.getElementById(id).textContent = '—';
+      });
     }
 
     function renderBuilder() {
       var s = st();
       var input = document.getElementById('char-name-input');
       if (document.activeElement !== input) input.value = s.name;
-      document.getElementById('builder-title').textContent = 'Atributos — ' + cls().nome;
+      document.getElementById('builder-title').textContent = 'Atributos';
       renderAttrRows();
       renderStatline();
       renderPrintSheet();
@@ -1461,8 +1667,8 @@
 
     // ícones de linha por tipo (sem lib, recolorem via stroke: var(--c-accent))
     var INV_ICONS = {
-      arma: '<svg viewBox="0 0 24 24"><path d="M3 8h13v4h-4l-2 4H7l1-4H3z"/><path d="M16 8h4v3h-4"/></svg>',
-      gadget: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M18 6l-2 2M8 16l-2 2"/></svg>',
+      arma: '',
+      gadget: '',
       municao: '<svg viewBox="0 0 24 24"><path d="M8 3h3l1 5v10H7V8z"/><path d="M14 6h3v9h-3z"/></svg>',
       racao: '<svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="14" rx="1"/><path d="M6 9h12"/></svg>',
       agua: '<svg viewBox="0 0 24 24"><path d="M10 2h4v3l2 3v12H8V8l2-3z"/><path d="M8 13h8"/></svg>',
@@ -1470,37 +1676,8 @@
       prova: '<svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 15h6M9 18h4"/></svg>'
     };
     // itens de sobrevivência compartilhados + equipamento por classe (nome, tipo, qtd)
-    var INV_BASE = [
-      { n: 'Ração de campo', t: 'racao', q: 3 },
-      { n: 'Água purificada', t: 'agua', q: 2 },
-      { n: 'Munição', t: 'municao', q: 2 },
-      { n: 'Kit médico', t: 'medico', q: 1 }
-    ];
-    var INV_EXTRA = {
-      federal: [
-        { n: 'Pistola "Distintivo"', t: 'arma' }, { n: 'Algemas de choque', t: 'gadget' },
-        { n: 'SMG Compacta', t: 'arma' }, { n: 'Faca de Combate', t: 'arma' },
-        { n: 'Foto da incisão', t: 'prova', p: true }
-      ],
-      narcoticos: [
-        { n: 'Faca "Sombra das Docas"', t: 'arma' }, { n: 'Dardo rastreador', t: 'gadget' },
-        { n: 'Pistola Padrão', t: 'arma' }, { n: 'Lâmina Monofilamento', t: 'arma' },
-        { n: 'Celular descartável', t: 'prova', p: true }
-      ],
-      cia: [
-        { n: 'Rifle "Silêncio"', t: 'arma' }, { n: 'Micro-drone', t: 'gadget' },
-        { n: 'Pistola Pesada', t: 'arma' }, { n: 'Faca de Combate', t: 'arma' }
-      ],
-      netrunner: [
-        { n: 'Deck "Fantasma"', t: 'gadget' }, { n: 'Drone "Rato"', t: 'gadget' },
-        { n: 'Pistola Padrão', t: 'arma' }, { n: 'Faca de Combate', t: 'arma' },
-        { n: 'Código financeiro', t: 'prova', p: true }
-      ],
-      'corp-security': [
-        { n: 'Braço "Sentinela"', t: 'arma' }, { n: 'Espuma de contenção', t: 'gadget' },
-        { n: 'Machado de Demolição', t: 'arma' }, { n: 'Metralhadora Montada', t: 'municao' }
-      ]
-    };
+    var INV_BASE = [];
+    var INV_EXTRA = {};
 
     function renderInventario() {
       var items = INV_BASE.concat(INV_EXTRA[activeId] || []);
@@ -1522,22 +1699,18 @@
         grid.appendChild(slot);
       });
       // completa a última fila de 4 com slots vazios pra grade não ficar torta
-      var pad = (4 - (items.length % 4)) % 4;
+      var total = Math.max(12, Math.ceil(items.length / 4) * 4), pad = total - items.length;
       for (var i = 0; i < pad; i++) {
         var e = document.createElement('div');
         e.className = 'inv-slot empty';
         grid.appendChild(e);
       }
-      document.getElementById('inv-count').textContent = items.length + '/' + (items.length + pad);
+      document.getElementById('inv-count').textContent = items.length + '/' + total;
     }
 
     // ---- Relações (grafo) ----
     // NPCs — não jogáveis, satélites do personagem a quem estão ligados (of)
-    var NPCS = {
-      'mentor-mipin': { nome: 'Mentor Morto', tag: 'NPC · a arma dele fica guardada', of: 'federal' },
-      'ab-diretor': { nome: 'Diretor da A.B.', tag: 'NPC · dono da subsidiária', of: 'corp-security' },
-      'contato-zane': { nome: 'Contato Anônimo', tag: 'NPC · canal irrastreável', of: 'netrunner' }
-    };
+    var NPCS = {};
     var NPC_ORDER = Object.keys(NPCS);
     function entityInfo(id) {
       if (RC.CLASSES[id]) {
@@ -1552,17 +1725,7 @@
       var initials = info.nome.split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase();
       return '<div class="rel-npc-avatar" style="--rc:' + info.accent + '">' + initials + '</div>';
     }
-    var REL_EDGES = [
-      ['federal', 'cia', 'método oposto: mandado × execução'],
-      ['narcoticos', 'netrunner', 'furtividade física + digital'],
-      ['corp-security', 'federal', 'músculo institucional, desconfiança'],
-      ['corp-security', 'cia', 'corp × agência, interesses cruzados'],
-      ['netrunner', 'cia', 'o dado que a CIA quer sumir passou por Zane'],
-      ['corp-security', 'narcoticos', 'a corp vigia o submundo das docas'],
-      ['federal', 'mentor-mipin', 'guarda a arma dele, nunca usa, nunca menciona o caso'],
-      ['corp-security', 'ab-diretor', 'dono da subsidiária por trás do sedativo neural — Kessler responde a ele'],
-      ['netrunner', 'contato-zane', 'canal que jura ser impossível de rastrear — foi quem puxou Zane pro caso']
-    ];
+    var REL_EDGES = [];
     function renderRelacoes() {
       document.getElementById('stat-relacoes').textContent = (ORDER.length + NPC_ORDER.length) + ' personagens · ' + REL_EDGES.length + ' conexões';
       var svg = document.getElementById('graph');
@@ -1574,7 +1737,7 @@
         pos[id] = { x: cx + R * Math.cos(a), y: cy + R * Math.sin(a) };
       });
       NPC_ORDER.forEach(function (id) {
-        var a = ang[NPCS[id].of];
+        var a = ang[NPCS[id].of] + (NPCS[id].da || 0); // da: gira o satélite pra fugir do rótulo do vizinho
         pos[id] = { x: cx + R2 * Math.cos(a), y: cy + R2 * Math.sin(a) };
       });
       var svgns = 'http://www.w3.org/2000/svg';
@@ -1636,7 +1799,7 @@
         role.setAttribute('x', p.x); role.setAttribute('y', p.y + RAD + 34);
         role.setAttribute('text-anchor', 'middle');
         role.setAttribute('fill', c.palette.accent);
-        role.textContent = c.nome;
+        role.textContent = '';
         g.appendChild(role);
         svg.appendChild(g);
       });
@@ -1670,14 +1833,16 @@
         g.appendChild(ring);
 
         var t = document.createElementNS(svgns, 'text');
-        t.setAttribute('x', p.x); t.setAttribute('y', p.y + RAD_NPC + 18);
-        t.setAttribute('text-anchor', 'middle');
+        // NPC no topo (colado no nó principal): rótulo ao lado, não embaixo
+        var side = Math.abs(p.x - cx) < 30;
+        t.setAttribute('x', side ? p.x + RAD_NPC + 10 : p.x); t.setAttribute('y', side ? p.y - 2 : p.y + RAD_NPC + 18);
+        t.setAttribute('text-anchor', side ? 'start' : 'middle');
         t.textContent = info.nome;
         g.appendChild(t);
         var role = document.createElementNS(svgns, 'text');
         role.setAttribute('class', 'gn-role');
-        role.setAttribute('x', p.x); role.setAttribute('y', p.y + RAD_NPC + 32);
-        role.setAttribute('text-anchor', 'middle');
+        role.setAttribute('x', side ? p.x + RAD_NPC + 10 : p.x); role.setAttribute('y', side ? p.y + 14 : p.y + RAD_NPC + 32);
+        role.setAttribute('text-anchor', side ? 'start' : 'middle');
         role.setAttribute('fill', info.accent);
         role.textContent = 'NPC';
         g.appendChild(role);
@@ -1687,6 +1852,7 @@
       // lista de relações escritas — o que deixa os textos legíveis
       var list = document.getElementById('rel-list');
       list.innerHTML = '';
+      if (!REL_EDGES.length) list.innerHTML = '<p class="rel-empty">Nenhuma relação definida ainda.</p>';
       REL_EDGES.forEach(function (e) {
         var ia = entityInfo(e[0]), ib = entityInfo(e[1]);
         var row = document.createElement('div');
@@ -1706,35 +1872,19 @@
 
     // ---- Linha do tempo (rascunho do caso) ----
     // id = chave estável do localStorage (não muda se a ordem mudar); local = cena/lugar
-    var TL_EVENTS = [
-      { id: 'ev-madrugada', w: 'Madrugada', local: 'Chamados separadamente', t: 'Corpo encontrado no Cais 47. Cinco pessoas — Mipin, Ryan, Nero, Zane e David — são chamadas separadamente, sem se conhecerem antes.', who: null,
-        ctx: 'Um corpo foi encontrado no Cais 47. Cinco pessoas, de agências e origens completamente diferentes, foram chamadas separadamente, sem se conhecerem antes: Mipin (FBI), Ryan (Narcóticos, tirado de operação undercover em andamento), Nero (agência federal, primeira missão real dele), Zane (contatado por canal que ele jura ser impossível de rastrear), e David (mandado pela própria corp de segurança onde trabalha "representar os interesses da empresa").' },
-      { id: 'ev-cais47', w: 'Cais 47', local: 'Píer, sob o viaduto', t: 'A cena do crime: mulher morta, sentada contra um pilar — postura calma demais, como se tivesse sido arrumada depois de morta.', who: null,
-        ctx: 'No píer, sob o viaduto, encontraram o corpo de uma mulher, cerca de trinta anos, sentada contra um pilar de concreto — postura calma demais, mãos cruzadas no colo, como se tivesse sido arrumada depois de morta. O que o grupo levantou até agora:\n\n• Chip de identificação dela estava queimado deliberadamente — sem nome oficial ainda\n• Crachá arrancado às pressas do blazer, marca do clipe ainda visível\n• Um celular descartável barato no bolso, com um único número discado repetidamente nas últimas 48h antes da morte — número desconectado agora\n• Uma marca circular pequena na nuca, sugerindo algum tipo de procedimento neural — natureza exata ainda não confirmada\n• Um símbolo de gangue pichado no pilar ao lado — Ryan reconheceu que é uma variante desatualizada, abandonada há uns 2 anos pela gangue real das docas, o que sugere forjado\n• Marcas de arrasto no chão molhado, indicando que o corpo foi morto em outro ponto do píer e movido até a posição em que foi encontrado\n• Uma câmera de segurança supostamente desligada, mas com bateria residual — Zane conseguiu recuperar um fragmento de gravação corrompida mostrando duas silhuetas diferentes, agindo em momentos diferentes, sem indicação de que se conheciam\n• Um morador de rua nas proximidades relatou ter visto "alguém de terno" saindo apressado horas antes do horário estimado de morte, carregando uma bolsa pequena preta — não viu o rosto\n• Escondida na bainha do blazer da vítima, uma nota física com uma sequência alfanumérica que parece ordem de operação financeira — corretora, algo como um ticker, e uma data/hora futura. Significado completo ainda não decifrado' },
-      { id: 'ev-base', w: 'A formação da base', local: 'Galpão do Zane', t: 'Sem lugar institucional seguro pra todos, Zane oferece seu esconderijo pessoal como base do grupo.', who: 'netrunner',
-        ctx: 'Sem lugar institucional seguro pra todos (cada um tinha motivo pra recusar prédio federal, delegacia, ou qualquer coisa oficial), Zane ofereceu seu próprio esconderijo — um galpão reformado, fora de qualquer sistema de registro, que ele nunca tinha dividido com ninguém antes. Vira a base de operações do grupo.' },
-      { id: 'ev-relogio', w: 'A descoberta do relógio', local: 'Base', t: 'A data/hora anexada ao código da nota não é aleatória — é uma contagem regressiva de ~36 horas a partir de agora.', who: null,
-        ctx: 'Reexaminando a nota da bainha com mais calma, perceberam que a data/hora anexada ao código não é aleatória — é uma contagem regressiva, prazo de aproximadamente 36 horas a partir de então. O grupo decidiu se dividir pra investigar mais rápido.' },
-      { id: 'ev-fio1', w: 'Fio 1 — o arquivo morto', local: 'Porão de arquivos da delegacia', t: 'Mipin e Ryan vasculham registros antigos atrás do número do celular descartável — e quase são flagrados pelo detetive Marlowe.', who: 'federal',
-        ctx: 'Mipin e Ryan foram atrás de registros antigos que pudessem explicar o número do celular descartável. No porão de arquivos da delegacia, um zelador antigo (Otis) confirmou lembrar de uma caixa de processo que "sumiu e voltou" incompleta anos atrás — entregou uma página avulsa que sobrou, com o nome do agente responsável redigido, mas uma assinatura parcial visível no rodapé: três letras, "...ER". No meio da busca, quase foram flagrados por um detetive da própria delegacia (Marlowe), que apareceu "por acaso" atrás de outro arquivo — situação tensa, mas contornada.' },
-      { id: 'ev-fio2', w: 'Fio 2 — retorno ao Cais 47', local: 'Cais 47, à noite', t: 'Zane e Nero voltam pra extrair mais da câmera e são emboscados por mercenários — capturam um vivo.', who: 'netrunner',
-        ctx: 'Zane e Nero voltaram ao Cais 47 à noite pra tentar extrair mais da câmera. Foram emboscados por dois mercenários bem equipados, que pareciam mais interessados em destruir a gravação do que necessariamente eliminar o grupo. Depois de um combate no píer (usando contêineres, um guindaste velho, e um poste de luz danificado como parte da tática), conseguiram nocautear e capturar um dos mercenários vivo, além de recuperar mais 15 segundos de gravação — mostrando que a segunda silhueta se move com padrão de treinamento profissional muito específico, algo que Nero reconheceu na hora como familiar demais.' },
-      { id: 'ev-fio3', w: 'Fio 3 — o laboratório', local: 'Instalação farmacêutica', t: 'David confirma que o composto do corpo é um sedativo neural experimental ligado à sigla "A.B."', who: 'corp-security',
-        ctx: 'Convocado por Kessler (chefe dele) pra investigar uma instalação farmacêutica ligada de alguma forma ao caso, David conseguiu, sob pressão, que um gerente nervoso confirmasse que o composto tóxico encontrado no corpo é um sedativo neural experimental, produzido sob contrato exclusivo pra uma subsidiária identificada só pela sigla "A.B.". Também presenciou uma van sendo esvaziada às pressas na doca de carga, e — dependendo de como a cena se resolveu — pode ter conseguido um cartão de acesso físico que abre outro endereço na cidade, ainda não identificado.' },
-      { id: 'ev-atual', w: 'Onde vocês pararam', local: 'Base', t: 'O mercenário capturado está inconsciente na base. Os três fios se reencontram — o prazo de 36h continua correndo.', who: null,
-        ctx: 'O mercenário capturado está na base, ainda inconsciente. Os três grupos estão se reencontrando pra comparar tudo que cada fio trouxe — a página com a assinatura parcial, a gravação recuperada, a sigla "A.B.", e o que mais tiver sido levantado no laboratório. O prazo de 36 horas do código financeiro continua correndo.' }
-    ];
+    var TL_EVENTS = [];
     function tlCtx(id) { try { return localStorage.getItem('tl-ctx-' + id) || ''; } catch (e) { return ''; } }
     function renderTimeline() {
       document.getElementById('stat-timeline').textContent = TL_EVENTS.length + ' eventos';
       var tl = document.getElementById('tl');
       tl.innerHTML = '';
+      if (!TL_EVENTS.length) { tl.innerHTML = '<p class="tl-empty">Nenhum evento ainda.</p>'; return; }
       TL_EVENTS.forEach(function (ev, i) {
         var item = document.createElement('div');
         item.className = 'tl-item';
         item.dataset.i = i;
         if (ev.who) item.style.setProperty('--dot', RC.CLASSES[ev.who].palette.accent);
-        var who = ev.who ? '<div class="tl-who">' + RC.CLASSES[ev.who].nome + ' · ' + (stateByClass[ev.who].name || '') + '</div>' : '';
+        var who = ev.who ? '<div class="tl-who">' + (stateByClass[ev.who].name || '') + '</div>' : '';
         var has = tlCtx(ev.id) ? '<b>contexto editado</b> · ' : (ev.ctx ? '<b>contexto</b> · ' : '');
         item.innerHTML = '<div class="tl-card"><div class="tl-when">' + ev.w + '</div><div class="tl-what"></div>' + who +
           '<div class="tl-badge">' + has + (ev.local || '') + ' · clique para contexto</div></div>';
@@ -1751,7 +1901,7 @@
       document.getElementById('ctx-when').textContent = ev.w + (ev.local ? ' · ' + ev.local : '');
       document.getElementById('ctx-title').textContent = ev.t;
       document.getElementById('ctx-meta').textContent = ev.who
-        ? (RC.CLASSES[ev.who].nome + ' — ' + (stateByClass[ev.who].name || '')) : 'Evento do mundo';
+        ? (stateByClass[ev.who].name || '') : 'Evento do mundo';
       document.getElementById('ctx-text').value = tlCtx(ev.id) || ev.ctx || '';
       document.getElementById('ctx-saved').classList.remove('show');
       document.getElementById('ctx-overlay').classList.add('open');
@@ -1764,6 +1914,94 @@
       var s = document.getElementById('ctx-saved'); s.classList.add('show');
       setTimeout(function () { s.classList.remove('show'); }, 1600);
       renderTimeline();
+    }
+
+    // ---- Zonas (mapa da campanha) ----
+    // sem conteúdo definido ainda: 4 zonas de exemplo, editáveis; salvo em localStorage
+    var ZONAS_KEY = 'ficha-zonas-v1';
+    var ZONA_STATUS = { bloqueada: 'Bloqueada', aberta: 'Aberta', atual: 'Atual' };
+    var LOCK_SVG = '<svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>';
+    var zonas = loadZonas(), zonaSel = 0;
+    function loadZonas() {
+      try {
+        var r = JSON.parse(localStorage.getItem(ZONAS_KEY));
+        if (Array.isArray(r) && r.length) return r;
+      } catch (e) {}
+      return [1, 2, 3, 4].map(function (n) {
+        return { id: 'z' + n, nome: 'Zona ' + n, desc: '', status: n === 1 ? 'atual' : 'bloqueada' };
+      });
+    }
+    function saveZonas() { try { localStorage.setItem(ZONAS_KEY, JSON.stringify(zonas)); } catch (e) {} }
+    function setZonaStatus(i, st) {
+      if (st === 'atual') zonas.forEach(function (z) { if (z.status === 'atual') z.status = 'aberta'; });
+      zonas[i].status = st;
+      saveZonas(); renderZonas();
+    }
+    function renderZonas() {
+      if (zonaSel >= zonas.length) zonaSel = zonas.length - 1;
+      var abertas = zonas.filter(function (z) { return z.status !== 'bloqueada'; }).length;
+      document.getElementById('stat-zonas').textContent = zonas.length + ' zonas · ' + abertas + ' abertas';
+
+      var map = document.getElementById('zmap');
+      map.innerHTML = '';
+      zonas.forEach(function (z, i) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'zn is-' + z.status + (i === zonaSel ? ' is-sel' : '');
+        b.innerHTML = '<span class="zn-hex"><b>' + (z.status === 'bloqueada' ? LOCK_SVG : (i + 1)) + '</b></span><span class="zn-name"></span>';
+        b.querySelector('.zn-name').textContent = z.nome || 'Sem nome';
+        b.addEventListener('click', function () { zonaSel = i; renderZonas(); });
+        map.appendChild(b);
+      });
+      var add = document.createElement('button');
+      add.type = 'button'; add.className = 'zn zn-add';
+      add.innerHTML = '<span class="zn-hex"><b>+</b></span><span class="zn-name">Nova zona</span>';
+      add.addEventListener('click', function () {
+        if (zonas.length >= 12) return;
+        zonas.push({ id: 'z' + Date.now(), nome: 'Zona ' + (zonas.length + 1), desc: '', status: 'bloqueada' });
+        zonaSel = zonas.length - 1; saveZonas(); renderZonas();
+      });
+      if (zonas.length < 12) map.appendChild(add);
+
+      var z = zonas[zonaSel], d = document.getElementById('zdetail');
+      d.innerHTML = '';
+      if (!z) return;
+      var card = document.createElement('div');
+      card.className = 'zcard is-' + z.status;
+      card.innerHTML =
+        '<div class="zcard-tag">Zona ' + (zonaSel + 1) + ' · ' + ZONA_STATUS[z.status] + '</div>' +
+        '<input class="zcard-name" maxlength="40" placeholder="Nome da zona" aria-label="Nome da zona">' +
+        '<div class="ztoggle" role="group" aria-label="Estado da zona"></div>' +
+        '<label>Descrição / ambiente / perigos</label>' +
+        '<textarea class="zcard-desc" placeholder="O que o grupo encontra aqui: clima, facções, locais, perigos, recompensas..."></textarea>' +
+        '<div class="zcard-actions"><button type="button" class="zbtn-sel">Selecionar zona</button><button type="button" class="zbtn-del">Excluir</button></div>';
+      var nome = card.querySelector('.zcard-name');
+      nome.value = z.nome;
+      nome.addEventListener('input', function () {
+        z.nome = nome.value; saveZonas();
+        var n = document.querySelectorAll('#zmap .zn')[zonaSel];
+        if (n) n.querySelector('.zn-name').textContent = z.nome || 'Sem nome';
+      });
+      var desc = card.querySelector('.zcard-desc');
+      desc.value = z.desc;
+      desc.addEventListener('input', function () { z.desc = desc.value; saveZonas(); });
+      var tg = card.querySelector('.ztoggle');
+      Object.keys(ZONA_STATUS).forEach(function (k) {
+        var tb = document.createElement('button');
+        tb.type = 'button'; tb.textContent = ZONA_STATUS[k];
+        tb.className = z.status === k ? 'on' : '';
+        tb.addEventListener('click', function () { setZonaStatus(zonaSel, k); });
+        tg.appendChild(tb);
+      });
+      card.querySelector('.zbtn-sel').addEventListener('click', function () { setZonaStatus(zonaSel, 'atual'); });
+      card.querySelector('.zbtn-del').addEventListener('click', function () {
+        if (zonas.length <= 1 || !confirm('Excluir "' + (z.nome || 'esta zona') + '"?')) return;
+        zonas.splice(zonaSel, 1); saveZonas(); renderZonas();
+      });
+      d.appendChild(card);
+    }
+    function scrollZonas(dir) {
+      document.getElementById('zmap').scrollBy({ left: dir * 320, behavior: 'smooth' });
     }
 
     // ---- Cards de entidade (personagens + provas) ----
@@ -1782,7 +2020,7 @@
         card.innerHTML = '<div class="ec-img">' + (c.img ? '<img src="' + c.img + '" alt="">' : '') + '</div>' +
           '<div class="ec-body"><h4></h4><div class="ec-tag"></div></div>';
         card.querySelector('h4').textContent = s.name || c.nome;
-        card.querySelector('.ec-tag').textContent = c.nome + ' · ' + c.arquetipo;
+        card.querySelector('.ec-tag').textContent = '';
         card.addEventListener('click', function () { activeId = id; switchClass(); setView('ficha'); });
         wrap.appendChild(card);
       });
@@ -1796,7 +2034,7 @@
           card.className = 'ent-card ent-prova';
           card.style.setProperty('--k', c.palette.accent);
           card.innerHTML = '<div class="ec-img">' + (INV_ICONS.prova) + '</div>' +
-            '<div class="ec-body"><h4></h4><div class="ec-tag">Prova · ' + c.nome + '</div></div>';
+            '<div class="ec-body"><h4></h4><div class="ec-tag">Prova · ' + (stateByClass[id].name || '') + '</div></div>';
           card.querySelector('h4').textContent = it.n;
           wrap.appendChild(card);
         });
@@ -1818,18 +2056,16 @@
       document.getElementById('historia-contradicao').textContent = c.historia.contradicao;
       document.getElementById('historia-tique').textContent = c.historia.tique;
 
-      document.getElementById('char-pericias-value').textContent = c.pericias.join(', ') + '.';
+      document.getElementById('char-pericias-value').textContent = c.pericias.length ? c.pericias.join(', ') + '.' : '—';
       document.getElementById('char-pericia-livre').textContent = c.periciaLivre;
-      document.getElementById('char-defesas-value').textContent =
-        'Dado de vida d' + c.dadoVida + '. Saves proficientes: ' +
-        c.saves.map(function (a) { return RC.ATTR_LABELS[a]; }).join(' + ') + '.';
-      document.getElementById('char-prof-categoria').textContent = c.proficiencias.categoria;
+      document.getElementById('char-defesas-value').textContent = '—';
+      document.getElementById('char-prof-categoria').textContent = c.proficiencias.categoria || '—';
       document.getElementById('char-prof-loadout').textContent = c.proficiencias.loadout;
 
       document.getElementById('equip-arma-label').textContent = c.equipamento.armaLabel;
-      document.getElementById('equip-arma').textContent = c.equipamento.arma;
-      document.getElementById('equip-hab').textContent = c.equipamento.habilidadeUnica;
-      document.getElementById('equip-gadget').textContent = c.equipamento.gadget;
+      document.getElementById('equip-arma').textContent = c.equipamento.arma || '—';
+      document.getElementById('equip-hab').textContent = c.equipamento.habilidadeUnica || '—';
+      document.getElementById('equip-gadget').textContent = c.equipamento.gadget || '—';
 
       var recurso = document.getElementById('recurso-classe');
       if (c.recursoClasse) {
@@ -1841,6 +2077,7 @@
 
       var body = document.getElementById('prog-body');
       body.innerHTML = '';
+      if (!c.progressao.length) body.innerHTML = '<tr class="prog-empty"><td>Progressão a definir.</td></tr>';
       c.progressao.forEach(function (row) {
         var tr = document.createElement('tr');
         if (row[0] === 1) tr.className = 'is-current';
@@ -1866,7 +2103,7 @@
     function renderPrintSheet() {
       var c = cls();
       var s = st();
-      var hp = RC.calcHP(c.dadoVida, s.scores.RES);
+      var hp = RC.calcHP(c.dadoVida, s.scores.CON);
       var sheet = document.getElementById('print-sheet');
       sheet.innerHTML = '';
 
@@ -1894,7 +2131,7 @@
 
       var sub = document.createElement('div');
       sub.className = 'ps-class';
-      sub.textContent = c.nome + ' — ' + c.arquetipo + ' · Nível 1 · HP ' + hp + ' (d' + c.dadoVida + ')';
+      sub.textContent = 'HP ' + hp + ' (d' + c.dadoVida + ')';
       sheet.appendChild(sub);
 
       heading('Atributos');
@@ -1918,23 +2155,21 @@
       defList([
         ['Saves proficientes', c.saves.map(function (a) { return RC.ATTR_LABELS[a]; }).join(' + ')],
         ['Atributos primários', c.primarios.map(function (a) { return RC.ATTR_LABELS[a]; }).join(' / ')],
-        ['Perícias automáticas', c.pericias.join(', ')],
-        [c.periciaLivre.split(':')[0], c.periciaLivre.split(':').slice(1).join(':').trim()],
-        ['Armas e armadura', c.proficiencias.categoria],
-        ['Loadout inicial', c.proficiencias.loadout]
+        ['Perícias automáticas', c.pericias.join(', ') || '—'],
+        ['Perícia livre', c.periciaLivre || '—'],
+        ['Armas e armadura', c.proficiencias.categoria || '—'],
+        ['Loadout inicial', c.proficiencias.loadout || '—']
       ]);
 
       heading('Equipamento assinatura');
       var equip = [
-        [c.equipamento.armaLabel, c.equipamento.arma],
-        ['Habilidade única', c.equipamento.habilidadeUnica],
-        ['Gadget', c.equipamento.gadget]
+        [c.equipamento.armaLabel, c.equipamento.arma || '—'],
+        ['Habilidade única', c.equipamento.habilidadeUnica || '—'],
+        ['Gadget', c.equipamento.gadget || '—']
       ];
       if (c.recursoClasse) equip.push(['Recurso de classe', c.recursoClasse]);
       defList(equip);
 
-      heading('Nível 1');
-      defList([['Feature', c.featureNivel1]]);
     }
 
     function render() {
@@ -1946,6 +2181,7 @@
       renderSections();
       renderRelacoes();
       renderTimeline();
+      renderZonas();
       renderCards();
     }
 
@@ -2034,6 +2270,9 @@
 
     document.getElementById('ctx-save').addEventListener('click', saveCtx);
     document.getElementById('ctx-close').addEventListener('click', closeCtx);
+    document.getElementById('zmap-prev').addEventListener('click', function () { scrollZonas(-1); });
+    document.getElementById('zmap-next').addEventListener('click', function () { scrollZonas(1); });
+    document.getElementById('ctx-x').addEventListener('click', closeCtx);
     document.getElementById('ctx-overlay').addEventListener('click', function (e) {
       if (e.target === this) closeCtx();
     });

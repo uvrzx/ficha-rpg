@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { loadSandbox } from './helpers.mjs';
 
-const ZERO = { IMP: 8, REF: 8, RES: 8, COG: 8, INS: 8, INF: 8 };
+const ZERO = { FOR: 8, DES: 8, CON: 8, INT: 8, SAB: 8, CAR: 8 };
 
 test('costForScore matches the approved point-buy table', () => {
   const { RPGCalc } = loadSandbox().window;
@@ -26,7 +26,7 @@ test('totalPointCost sums cost across all six attributes', () => {
   const { RPGCalc } = loadSandbox().window;
   assert.equal(RPGCalc.totalPointCost(ZERO), 0);
 
-  const optimalSpread = { IMP: 15, REF: 14, RES: 13, COG: 12, INS: 10, INF: 8 };
+  const optimalSpread = { FOR: 15, DES: 14, CON: 13, INT: 12, SAB: 10, CAR: 8 };
   assert.equal(RPGCalc.totalPointCost(optimalSpread), 27);
 });
 
@@ -48,34 +48,34 @@ test('calcHP adds hit die max to the Resistencia modifier', () => {
 
 test('canIncrease blocks raising a score past 15 or past the 27-point budget', () => {
   const { RPGCalc } = loadSandbox().window;
-  const nearMax = { ...ZERO, IMP: 15 };
-  assert.equal(RPGCalc.canIncrease(nearMax, 'IMP'), false, 'already at MAX_SCORE');
+  const nearMax = { ...ZERO, FOR: 15 };
+  assert.equal(RPGCalc.canIncrease(nearMax, 'FOR'), false, 'already at MAX_SCORE');
 
-  const spentAllPoints = { IMP: 15, REF: 14, RES: 13, COG: 12, INS: 10, INF: 8 };
-  assert.equal(RPGCalc.canIncrease(spentAllPoints, 'INF'), false, 'no points left in the 27 budget');
+  const spentAllPoints = { FOR: 15, DES: 14, CON: 13, INT: 12, SAB: 10, CAR: 8 };
+  assert.equal(RPGCalc.canIncrease(spentAllPoints, 'CAR'), false, 'no points left in the 27 budget');
 
-  assert.equal(RPGCalc.canIncrease(ZERO, 'IMP'), true);
+  assert.equal(RPGCalc.canIncrease(ZERO, 'FOR'), true);
 });
 
 test('canIncrease allows a step that lands exactly on the 27-point budget', () => {
   const { RPGCalc } = loadSandbox().window;
-  // 26 gastos: subir INF de 8 pra 9 custa 1 e fecha exatamente em 27
-  const twoShort = { IMP: 15, REF: 14, RES: 13, COG: 12, INS: 9, INF: 8 };
+  // 26 gastos: subir CAR de 8 pra 9 custa 1 e fecha exatamente em 27
+  const twoShort = { FOR: 15, DES: 14, CON: 13, INT: 12, SAB: 9, CAR: 8 };
   assert.equal(RPGCalc.totalPointCost(twoShort), 26);
-  assert.equal(RPGCalc.canIncrease(twoShort, 'INF'), true);
+  assert.equal(RPGCalc.canIncrease(twoShort, 'CAR'), true);
 });
 
 test('canDecrease blocks lowering a score past 8', () => {
   const { RPGCalc } = loadSandbox().window;
-  assert.equal(RPGCalc.canDecrease(ZERO, 'IMP'), false);
-  assert.equal(RPGCalc.canDecrease({ ...ZERO, IMP: 9 }, 'IMP'), true);
+  assert.equal(RPGCalc.canDecrease(ZERO, 'FOR'), false);
+  assert.equal(RPGCalc.canDecrease({ ...ZERO, FOR: 9 }, 'FOR'), true);
 });
 
 test('ATTRS and ATTR_LABELS cover the six sheet attributes in order', () => {
   const { RPGCalc } = loadSandbox().window;
-  assert.deepEqual(RPGCalc.ATTRS, ['IMP', 'REF', 'RES', 'COG', 'INS', 'INF']);
+  assert.deepEqual(RPGCalc.ATTRS, ['FOR', 'DES', 'CON', 'INT', 'SAB', 'CAR']);
   assert.deepEqual(
     RPGCalc.ATTRS.map((a) => RPGCalc.ATTR_LABELS[a]),
-    ['Impacto', 'Reflexo', 'Resistência', 'Cognição', 'Instinto', 'Influência']
+    ['Força', 'Destreza', 'Constituição', 'Inteligência', 'Sabedoria', 'Carisma']
   );
 });
