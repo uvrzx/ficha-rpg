@@ -25,11 +25,10 @@ from rembg import new_session, remove
 from scipy.ndimage import distance_transform_edt
 
 SOURCES = [
-    ("img/mipin.webp", "img/mipin-cut.png"),
-    ("img/nero.webp", "img/nero-cut.png"),
-    ("img/ryan.png", "img/ryan-cut.png"),
-    ("img/zane.png", "img/zane-cut.png"),
-    ("img/david.png", "img/david-cut.png"),
+    ("img/guerreiro.png", "img/guerreiro-cut.png"),
+    ("img/barbaro.webp", "img/barbaro-cut.png"),
+    ("img/ladino.webp", "img/ladino-cut.png"),
+    ("img/druida.webp", "img/druida-cut.png"),
 ]
 
 ERODE_PX = 1.0      # anel externo descartado

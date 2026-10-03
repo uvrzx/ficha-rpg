@@ -2,10 +2,10 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { loadSandbox } from './helpers.mjs';
 
-const EXPECTED_IDS = ['federal', 'narcoticos', 'cia', 'netrunner', 'corp-security'];
+const EXPECTED_IDS = ['guerreiro', 'barbaro', 'ladino', 'druida'];
 const VALID_HIT_DICE = [6, 8, 10, 12];
 
-test('CLASSES has exactly the five documented class ids (perito removido)', () => {
+test('CLASSES has exactly the four documented class ids', () => {
   const { RPGCalc } = loadSandbox().window;
   assert.deepEqual(Object.keys(RPGCalc.CLASSES).sort(), [...EXPECTED_IDS].sort());
 });
@@ -99,18 +99,18 @@ test('progressao (quando preenchida) comeca no nivel 1 e sobe sem repetir nivel'
   }
 });
 
-test('Federal: mecânica bate com a ficha em PDF', () => {
+test('Guerreiro: primarios FOR/DES, saves FOR/CON, d10', () => {
   const { RPGCalc } = loadSandbox().window;
-  const federal = RPGCalc.CLASSES.federal;
-  assert.deepEqual(federal.primarios, ['FOR', 'DES']);
-  assert.deepEqual(federal.saves, ['FOR', 'SAB']);
-  assert.equal(federal.dadoVida, 10);
-  assert.deepEqual(federal.sugestao, { FOR: 14, DES: 14, CON: 13, INT: 10, SAB: 12, CAR: 9 });
+  const g = RPGCalc.CLASSES.guerreiro;
+  assert.deepEqual(g.primarios, ['FOR', 'DES']);
+  assert.deepEqual(g.saves, ['FOR', 'CON']);
+  assert.equal(g.dadoVida, 10);
 });
 
-test('Netrunner tem um unico atributo primario', () => {
+test('Bárbaro d12, Ladino d8 com DES primário, Druida d8 com um único primário (SAB)', () => {
   const { RPGCalc } = loadSandbox().window;
-  const netrunner = RPGCalc.CLASSES.netrunner;
-  assert.deepEqual(netrunner.primarios, ['INT']);
-  assert.equal(netrunner.dadoVida, 6);
+  assert.equal(RPGCalc.CLASSES.barbaro.dadoVida, 12);
+  assert.deepEqual(RPGCalc.CLASSES.ladino.primarios, ['DES']);
+  assert.deepEqual(RPGCalc.CLASSES.druida.primarios, ['SAB']);
+  assert.equal(RPGCalc.CLASSES.druida.dadoVida, 8);
 });

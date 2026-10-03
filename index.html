@@ -1032,7 +1032,7 @@
             </svg>
           </div>
         </div>
-        <div class="hero-meta" style="display:none">
+        <div class="hero-meta">
           <span class="meta-k">Classe</span>
           <span class="meta-v" id="char-class-tag">—</span>
         </div>
@@ -1282,13 +1282,13 @@
   // ANCHOR: PURE_FUNCTIONS
 
   window.RPGCalc.CLASSES = {
-    federal: {
-      id: 'federal',
-      nome: 'Federal',
-      arquetipo: 'Fighter — versátil, institucional',
+    guerreiro: {
+      id: 'guerreiro',
+      nome: 'Guerreiro',
+      arquetipo: 'Combatente — armaduras pesadas e armas marciais',
       personagem: 'Personagem 1',
-      palette: { bg: '#2B1D17', deep: '#1D120D', surface: '#5C3D2C', accent: '#F2B632', accent2: '#B8791A', light: '#F6E8D2', muted: '#BBA48A' },
-      img: '',
+      palette: { bg: '#2B1D17', deep: '#1D120D', surface: '#5C3D2C', accent: '#2BB3B3', accent2: '#17787C', light: '#F6E8D2', muted: '#BBA48A' },
+      img: 'img/guerreiro-cut.png',
       dadoVida: 10,
       perfil: { idade: '—', altura: '—', peso: '—' },
       perfilFisico: 'A definir.',
@@ -1301,9 +1301,9 @@
         tique: 'A definir.'
       },
       primarios: ['FOR', 'DES'],
-      secundario: 'SAB',
-      saves: ['FOR', 'SAB'],
-      sugestao: { FOR: 14, DES: 14, CON: 13, INT: 10, SAB: 12, CAR: 9 },
+      secundario: 'CON',
+      saves: ['FOR', 'CON'],
+      sugestao: { FOR: 15, DES: 14, CON: 13, INT: 10, SAB: 12, CAR: 8 },
       pericias: [],
       periciaLivre: '',
       proficiencias: {
@@ -1320,127 +1320,13 @@
       progressao: []
     },
 
-    narcoticos: {
-      id: 'narcoticos',
-      nome: 'Narcóticos',
-      arquetipo: 'Rogue — infiltrado',
+    barbaro: {
+      id: 'barbaro',
+      nome: 'Bárbaro',
+      arquetipo: 'Fúria e resistência bruta',
       personagem: 'Personagem 2',
       palette: { bg: '#2B1D17', deep: '#1D120D', surface: '#5C3D2C', accent: '#E0574C', accent2: '#A8322B', light: '#F6E8D2', muted: '#BBA48A' },
-      img: '',
-      dadoVida: 8,
-      perfil: { idade: '—', altura: '—', peso: '—' },
-      perfilFisico: 'A definir.',
-      comoChegou: 'A definir.',
-      historico: 'A definir.',
-      historia: {
-        temperamento: 'A definir.',
-        marca: 'A definir.',
-        contradicao: 'A definir.',
-        tique: 'A definir.'
-      },
-      primarios: ['DES', 'CAR'],
-      secundario: 'SAB',
-      saves: ['DES', 'CAR'],
-      sugestao: { FOR: 9, DES: 15, CON: 12, INT: 10, SAB: 12, CAR: 14 },
-      pericias: [],
-      periciaLivre: '',
-      proficiencias: {
-        categoria: '',
-        loadout: ''
-      },
-      equipamento: {
-        armaLabel: 'Arma assinatura',
-        arma: '',
-        habilidadeUnica: '',
-        gadget: ''
-      },
-      featureNivel1: '',
-      progressao: []
-    },
-
-    cia: {
-      id: 'cia',
-      nome: 'CIA',
-      arquetipo: 'Ranger/Assassin (subclasse Rogue)',
-      personagem: 'Personagem 3',
-      palette: { bg: '#2B1D17', deep: '#1D120D', surface: '#5C3D2C', accent: '#9B59C7', accent2: '#5E2D80', light: '#F6E8D2', muted: '#BBA48A' },
-      img: '',
-      dadoVida: 8,
-      perfil: { idade: '—', altura: '—', peso: '—' },
-      perfilFisico: 'A definir.',
-      comoChegou: 'A definir.',
-      historico: 'A definir.',
-      historia: {
-        temperamento: 'A definir.',
-        marca: 'A definir.',
-        contradicao: 'A definir.',
-        tique: 'A definir.'
-      },
-      primarios: ['DES', 'SAB'],
-      secundario: 'INT',
-      saves: ['DES', 'INT'],
-      sugestao: { FOR: 10, DES: 15, CON: 12, INT: 12, SAB: 13, CAR: 8 },
-      pericias: [],
-      periciaLivre: '',
-      proficiencias: {
-        categoria: '',
-        loadout: ''
-      },
-      equipamento: {
-        armaLabel: 'Arma assinatura',
-        arma: '',
-        habilidadeUnica: '',
-        gadget: ''
-      },
-      featureNivel1: '',
-      progressao: []
-    },
-
-    netrunner: {
-      id: 'netrunner',
-      nome: 'Netrunner',
-      arquetipo: 'Wizard — tech em vez de magia',
-      personagem: 'Personagem 4',
-      palette: { bg: '#2B1D17', deep: '#1D120D', surface: '#5C3D2C', accent: '#2BB3B3', accent2: '#17787C', light: '#F6E8D2', muted: '#BBA48A' },
-      img: '',
-      dadoVida: 6,
-      perfil: { idade: '—', altura: '—', peso: '—' },
-      perfilFisico: 'A definir.',
-      comoChegou: 'A definir.',
-      historico: 'A definir.',
-      historia: {
-        temperamento: 'A definir.',
-        marca: 'A definir.',
-        contradicao: 'A definir.',
-        tique: 'A definir.'
-      },
-      primarios: ['INT'],
-      secundario: 'DES',
-      saves: ['INT', 'DES'],
-      sugestao: { FOR: 8, DES: 13, CON: 10, INT: 15, SAB: 12, CAR: 10 },
-      pericias: [],
-      periciaLivre: '',
-      proficiencias: {
-        categoria: '',
-        loadout: ''
-      },
-      equipamento: {
-        armaLabel: 'Foco assinatura',
-        arma: '',
-        habilidadeUnica: '',
-        gadget: ''
-      },
-      featureNivel1: '',
-      progressao: []
-    },
-
-    'corp-security': {
-      id: 'corp-security',
-      nome: 'Corp Security',
-      arquetipo: 'Barbarian/Fighter — tanque',
-      personagem: 'Personagem 5',
-      palette: { bg: '#2B1D17', deep: '#1D120D', surface: '#5C3D2C', accent: '#A9AD2A', accent2: '#6E7312', light: '#F6E8D2', muted: '#BBA48A' },
-      img: '',
+      img: 'img/barbaro-cut.png',
       dadoVida: 12,
       perfil: { idade: '—', altura: '—', peso: '—' },
       perfilFisico: 'A definir.',
@@ -1452,10 +1338,86 @@
         contradicao: 'A definir.',
         tique: 'A definir.'
       },
-      primarios: ['FOR', 'CON'],
-      secundario: 'SAB',
+      primarios: ['FOR'],
+      secundario: 'CON',
       saves: ['FOR', 'CON'],
-      sugestao: { FOR: 15, DES: 10, CON: 15, INT: 8, SAB: 11, CAR: 9 },
+      sugestao: { FOR: 15, DES: 13, CON: 14, INT: 8, SAB: 12, CAR: 10 },
+      pericias: [],
+      periciaLivre: '',
+      proficiencias: {
+        categoria: '',
+        loadout: ''
+      },
+      equipamento: {
+        armaLabel: 'Arma assinatura',
+        arma: '',
+        habilidadeUnica: '',
+        gadget: ''
+      },
+      featureNivel1: '',
+      progressao: []
+    },
+
+    ladino: {
+      id: 'ladino',
+      nome: 'Ladino',
+      arquetipo: 'Furtividade e golpes precisos',
+      personagem: 'Personagem 3',
+      palette: { bg: '#2B1D17', deep: '#1D120D', surface: '#5C3D2C', accent: '#9B59C7', accent2: '#5E2D80', light: '#F6E8D2', muted: '#BBA48A' },
+      img: 'img/ladino-cut.png',
+      dadoVida: 8,
+      perfil: { idade: '—', altura: '—', peso: '—' },
+      perfilFisico: 'A definir.',
+      comoChegou: 'A definir.',
+      historico: 'A definir.',
+      historia: {
+        temperamento: 'A definir.',
+        marca: 'A definir.',
+        contradicao: 'A definir.',
+        tique: 'A definir.'
+      },
+      primarios: ['DES'],
+      secundario: 'CAR',
+      saves: ['DES', 'INT'],
+      sugestao: { FOR: 8, DES: 15, CON: 14, INT: 12, SAB: 10, CAR: 13 },
+      pericias: [],
+      periciaLivre: '',
+      proficiencias: {
+        categoria: '',
+        loadout: ''
+      },
+      equipamento: {
+        armaLabel: 'Arma assinatura',
+        arma: '',
+        habilidadeUnica: '',
+        gadget: ''
+      },
+      featureNivel1: '',
+      progressao: []
+    },
+
+    druida: {
+      id: 'druida',
+      nome: 'Druida',
+      arquetipo: 'Magia da natureza e forma selvagem',
+      personagem: 'Personagem 4',
+      palette: { bg: '#2B1D17', deep: '#1D120D', surface: '#5C3D2C', accent: '#A9AD2A', accent2: '#6E7312', light: '#F6E8D2', muted: '#BBA48A' },
+      img: 'img/druida-cut.png',
+      dadoVida: 8,
+      perfil: { idade: '—', altura: '—', peso: '—' },
+      perfilFisico: 'A definir.',
+      comoChegou: 'A definir.',
+      historico: 'A definir.',
+      historia: {
+        temperamento: 'A definir.',
+        marca: 'A definir.',
+        contradicao: 'A definir.',
+        tique: 'A definir.'
+      },
+      primarios: ['SAB'],
+      secundario: 'CON',
+      saves: ['INT', 'SAB'],
+      sugestao: { FOR: 8, DES: 13, CON: 14, INT: 12, SAB: 15, CAR: 10 },
       pericias: [],
       periciaLivre: '',
       proficiencias: {
@@ -1479,15 +1441,15 @@
     var RC = window.RPGCalc;
     var ORDER = Object.keys(RC.CLASSES);
 
-    // estado independente por classe — pontos zerados (tudo em 8, o mínimo do point-buy);
-    // RC.CLASSES[id].sugestao segue nos dados caso queira restaurar a distribuição antiga
+    // estado independente por classe — começa na distribuição sugerida (point-buy de 27)
     var stateByClass = {};
     ORDER.forEach(function (id) {
-      var base = {};
-      RC.ATTRS.forEach(function (a) { base[a] = 8; });
-      stateByClass[id] = { name: RC.CLASSES[id].personagem || '', scores: base };
+      stateByClass[id] = {
+        name: RC.CLASSES[id].personagem || '',
+        scores: Object.assign({}, RC.CLASSES[id].sugestao)
+      };
     });
-    var activeId = 'federal';
+    var activeId = 'guerreiro';
     var splitInstance = null;
 
     function cls() { return RC.CLASSES[activeId]; }
@@ -1574,8 +1536,8 @@
       var c = cls();
       var s = st();
       setHeroName(s.name || c.nome);
-      document.getElementById('char-cursive-name').textContent = ''; // classe ainda não definida
-      document.getElementById('char-class-tag').textContent = '';
+      document.getElementById('char-cursive-name').textContent = c.nome.toUpperCase();
+      document.getElementById('char-class-tag').textContent = c.nome + ' · ' + c.arquetipo;
 
       var img = document.getElementById('hero-portrait');
       var fallback = document.getElementById('hero-fallback');
@@ -1609,8 +1571,8 @@
       RC.ATTRS.forEach(function (attr) {
         var score = s.scores[attr];
         var mod = RC.abilityModifier(score);
-        var isPrimary = false; // classes ainda não definidas
-        var isSecondary = false;
+        var isPrimary = c.primarios.indexOf(attr) !== -1;
+        var isSecondary = c.secundario === attr;
 
         var row = document.createElement('div');
         row.className = 'attr-row' +
@@ -1649,17 +1611,21 @@
     }
 
     function renderStatline() {
-      // HP/saves/primários dependem da classe — seção em branco até definir
-      ['char-hp-value', 'char-saves-value', 'char-primaries-value'].forEach(function (id) {
-        document.getElementById(id).textContent = '—';
-      });
+      var c = cls();
+      var s = st();
+      var hp = RC.calcHP(c.dadoVida, s.scores.CON);
+      document.getElementById('char-hp-value').textContent = 'HP ' + hp + ' · d' + c.dadoVida;
+      document.getElementById('char-saves-value').textContent =
+        'Saves ' + c.saves.map(function (a) { return RC.ATTR_LABELS[a]; }).join(' / ');
+      document.getElementById('char-primaries-value').textContent =
+        c.primarios.map(function (a) { return a + ' ' + s.scores[a]; }).join(' · ');
     }
 
     function renderBuilder() {
       var s = st();
       var input = document.getElementById('char-name-input');
       if (document.activeElement !== input) input.value = s.name;
-      document.getElementById('builder-title').textContent = 'Atributos';
+      document.getElementById('builder-title').textContent = 'Atributos — ' + cls().nome;
       renderAttrRows();
       renderStatline();
       renderPrintSheet();
@@ -1799,7 +1765,7 @@
         role.setAttribute('x', p.x); role.setAttribute('y', p.y + RAD + 34);
         role.setAttribute('text-anchor', 'middle');
         role.setAttribute('fill', c.palette.accent);
-        role.textContent = '';
+        role.textContent = c.nome;
         g.appendChild(role);
         svg.appendChild(g);
       });
@@ -2020,7 +1986,7 @@
         card.innerHTML = '<div class="ec-img">' + (c.img ? '<img src="' + c.img + '" alt="">' : '') + '</div>' +
           '<div class="ec-body"><h4></h4><div class="ec-tag"></div></div>';
         card.querySelector('h4').textContent = s.name || c.nome;
-        card.querySelector('.ec-tag').textContent = '';
+        card.querySelector('.ec-tag').textContent = c.nome + ' · ' + c.arquetipo;
         card.addEventListener('click', function () { activeId = id; switchClass(); setView('ficha'); });
         wrap.appendChild(card);
       });
@@ -2131,7 +2097,7 @@
 
       var sub = document.createElement('div');
       sub.className = 'ps-class';
-      sub.textContent = 'HP ' + hp + ' (d' + c.dadoVida + ')';
+      sub.textContent = c.nome + ' — ' + c.arquetipo + ' · HP ' + hp + ' (d' + c.dadoVida + ')';
       sheet.appendChild(sub);
 
       heading('Atributos');
