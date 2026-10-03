@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FICHA RPG</title>
+<title>D&amp;D Clássico</title>
 <style>
   @font-face {
     font-family: 'Evil Empire';
@@ -939,19 +939,19 @@
   .builder-card h2 { padding-left: 46px; }
 
   :root[data-tema="guerreiro"] {
-    --seal-a: #a9cbe3; --seal-b: #3F7FAF; --seal-c: #26506F;
+    --seal-a: #7cc2f0; --seal-b: #367ADF; --seal-c: #394988;
     --card-radius: 6px 6px 6px 6px;
     --bg-tex: repeating-linear-gradient(0deg, transparent 0 74px, rgba(0,0,0,.2) 74px 76px), repeating-linear-gradient(90deg, transparent 0 150px, rgba(0,0,0,.24) 150px 152px);
     --grain: repeating-linear-gradient(90deg, transparent 0 120px, rgba(0,0,0,.3) 120px 123px), radial-gradient(circle at 10px 12px, rgba(255,255,255,.24) 0 2.5px, transparent 3.5px) 0 0 / 120px 100%;
   }
   :root[data-tema="barbaro"] {
-    --seal-a: #f28a7a; --seal-b: #C5372E; --seal-c: #7E1B16;
+    --seal-a: #ED8001; --seal-b: #B85A01; --seal-c: #7F2F01;
     --card-radius: 12px 3px 14px 2px / 3px 12px 2px 14px;
     --bg-tex: repeating-linear-gradient(115deg, transparent 0 90px, rgba(0,0,0,.24) 90px 94px, transparent 94px 100px);
     --grain: repeating-linear-gradient(115deg, transparent 0 70px, rgba(0,0,0,.3) 70px 74px);
   }
   :root[data-tema="ladino"] {
-    --seal-a: #c9a6ee; --seal-b: #7B3FA0; --seal-c: #47206A;
+    --seal-a: #ff6b7a; --seal-b: #F10222; --seal-c: #892325;
     --card-radius: 2px 20px 2px 20px;
     --bg-tex: repeating-linear-gradient(135deg, transparent 0 14px, rgba(255,255,255,.035) 14px 15px), repeating-linear-gradient(90deg, transparent 0 150px, rgba(0,0,0,.26) 150px 152px);
     --grain: repeating-linear-gradient(135deg, transparent 0 10px, rgba(255,255,255,.05) 10px 11px);
@@ -1010,8 +1010,6 @@
   /* barra de carga em neon com trilho de pedra */
   :root[data-tema="druida"] .attr-bar { background: #011705; border: 2px solid var(--paper-edge); }
   :root[data-tema="druida"] .attr-bar i { background: linear-gradient(180deg, rgba(255,255,255,.55), transparent 55%), var(--k); box-shadow: 0 0 8px var(--k); }
-  /* herói: musgo e folhas no chão */
-  :root[data-tema="druida"] .hero-img::after { content: ""; position: absolute; left: 50%; bottom: 0; width: 86%; height: 56px; transform: translateX(-50%); z-index: -1; background: radial-gradient(40px 22px at 12% 70%, #238926 0 70%, transparent 72%), radial-gradient(52px 28px at 34% 62%, #25E970 0 66%, transparent 68%), radial-gradient(46px 24px at 58% 72%, #238926 0 70%, transparent 72%), radial-gradient(56px 30px at 82% 64%, #25E970 0 66%, transparent 68%); filter: drop-shadow(0 3px 0 #022509); }
   :root[data-tema="druida"] .hero-emblem { opacity: .22; }
   :root[data-tema="druida"] .sec .sec-head h2, :root[data-tema="druida"] .view-head h2 { background: var(--wood-tex); color: var(--paper); text-shadow: 0 3px 0 #022509; }
 
@@ -1029,6 +1027,89 @@
   .stat-hex .sh-l { font-size: 15px; color: var(--c-light); text-shadow: 0 2px 0 rgba(0,0,0,.55); }
   .stat-hex small { font-size: 13px; color: var(--c-light); opacity: 1; text-shadow: 0 1px 0 rgba(0,0,0,.6); }
   .view-head p { color: var(--c-light); text-shadow: 0 1px 0 rgba(0,0,0,.5); }
+
+  #print-btn { background: var(--k); color: var(--wood-dark); border-bottom-color: var(--k-dark); text-shadow: none; }
+  #print-btn:hover { background: color-mix(in srgb, var(--k) 85%, #fff); color: var(--wood-dark); }
+
+  /* ---- GUERREIRO: pôster cinza granulado + destaque único, sombras duras, torre ---- */
+  :root[data-tema="guerreiro"] {
+    --card-radius: 0;
+    --bg-tex: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'220'%20height%3D'220'%3E%3Cfilter%20id%3D'n'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'.85'%20numOctaves%3D'2'%20stitchTiles%3D'stitch'%2F%3E%3CfeColorMatrix%20values%3D'0%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%20.55%200'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20filter%3D'url(%23n)'%20opacity%3D'.22'%2F%3E%3C%2Fsvg%3E") 0 0 / 220px 220px;
+    --grain: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'220'%20height%3D'220'%3E%3Cfilter%20id%3D'n'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'.85'%20numOctaves%3D'2'%20stitchTiles%3D'stitch'%2F%3E%3CfeColorMatrix%20values%3D'0%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%20.55%200'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20filter%3D'url(%23n)'%20opacity%3D'.22'%2F%3E%3C%2Fsvg%3E") 0 0 / 220px 220px, repeating-linear-gradient(90deg, transparent 0 140px, rgba(0,0,0,.35) 140px 143px);
+    --paper-tex: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'220'%20height%3D'220'%3E%3Cfilter%20id%3D'n'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'.8'%20numOctaves%3D'2'%20stitchTiles%3D'stitch'%2F%3E%3CfeColorMatrix%20values%3D'0%200%200%200%200%20%200%200%200%200%200%20%200%200%200%200%200%20%200%200%200%20.7%200'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20filter%3D'url(%23n)'%20opacity%3D'.2'%2F%3E%3C%2Fsvg%3E") 0 0 / 220px 220px, linear-gradient(180deg, var(--paper), var(--paper-2));
+  }
+  :root[data-tema="guerreiro"] .profile-strip, :root[data-tema="guerreiro"] .card, :root[data-tema="guerreiro"] .duo-grid .field,
+  :root[data-tema="guerreiro"] .equip-dl > div, :root[data-tema="guerreiro"] .resource-note, :root[data-tema="guerreiro"] .rel-row,
+  :root[data-tema="guerreiro"] .ent-card, :root[data-tema="guerreiro"] .arma-row, :root[data-tema="guerreiro"] .zcard,
+  :root[data-tema="guerreiro"] .sec p.lead, :root[data-tema="guerreiro"] .prog-table tr, :root[data-tema="guerreiro"] .tl-card {
+    border-radius: 0; border-width: 2px; border-color: var(--c-deep); box-shadow: 6px 6px 0 var(--k);
+  }
+  :root[data-tema="guerreiro"] .prog-table tr, :root[data-tema="guerreiro"] .arma-row { border-color: #141416; }
+  :root[data-tema="guerreiro"] .sec .sec-head h2, :root[data-tema="guerreiro"] .view-head h2, :root[data-tema="guerreiro"] .inv-bar .inv-title {
+    border-radius: 0; background: #141416; color: #F4F4F0; border-bottom: 0; box-shadow: 6px 6px 0 var(--k);
+  }
+  :root[data-tema="guerreiro"] .sec .sec-head h2::before, :root[data-tema="guerreiro"] .sec .sec-head h2::after,
+  :root[data-tema="guerreiro"] .view-head h2::before, :root[data-tema="guerreiro"] .view-head h2::after { display: none; }
+  :root[data-tema="guerreiro"] .inv-frame, :root[data-tema="guerreiro"] .zmap-wrap { border-radius: 0; box-shadow: 8px 8px 0 var(--k); }
+  /* o "sol" do pôster atrás do cavaleiro, com a torre; retrato em tons de cinza */
+  :root[data-tema="guerreiro"] .hero-img img { filter: grayscale(.92) contrast(1.2) drop-shadow(0 16px 30px rgba(0,0,0,.55)); }
+  :root[data-tema="guerreiro"] .word-back { -webkit-text-stroke: 2px color-mix(in srgb, #F4F4F0 55%, transparent); }
+  :root[data-tema="guerreiro"] .name-rule { clip-path: none; border-top-width: 0; box-shadow: 4px 4px 0 #141416; }
+
+  /* ---- BÁRBARO: pôster preto granulado, palavra gigante, auréola dourada, riscos ---- */
+  :root[data-tema="barbaro"] {
+    --card-radius: 0;
+    --seal-a: #FEDC01; --seal-b: #FDB500; --seal-c: #ED8001;
+    --bg-tex: linear-gradient(112deg, transparent 49.85%, rgba(255,255,255,.28) 50%, transparent 50.2%), linear-gradient(74deg, transparent 61.8%, rgba(255,255,255,.18) 61.95%, transparent 62.1%), linear-gradient(0deg, transparent 11.9%, rgba(255,255,255,.3) 12%, transparent 12.14%), url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'220'%20height%3D'220'%3E%3Cfilter%20id%3D'n'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'.85'%20numOctaves%3D'2'%20stitchTiles%3D'stitch'%2F%3E%3CfeColorMatrix%20values%3D'0%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%20.55%200'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20filter%3D'url(%23n)'%20opacity%3D'.24'%2F%3E%3C%2Fsvg%3E") 0 0 / 220px 220px;
+    --grain: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'220'%20height%3D'220'%3E%3Cfilter%20id%3D'n'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'.85'%20numOctaves%3D'2'%20stitchTiles%3D'stitch'%2F%3E%3CfeColorMatrix%20values%3D'0%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%20.55%200'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20filter%3D'url(%23n)'%20opacity%3D'.24'%2F%3E%3C%2Fsvg%3E") 0 0 / 220px 220px, repeating-linear-gradient(90deg, transparent 0 140px, rgba(255,255,255,.05) 140px 142px);
+    --paper-tex: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'220'%20height%3D'220'%3E%3Cfilter%20id%3D'n'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'.8'%20numOctaves%3D'2'%20stitchTiles%3D'stitch'%2F%3E%3CfeColorMatrix%20values%3D'0%200%200%200%200%20%200%200%200%200%200%20%200%200%200%200%200%20%200%200%200%20.7%200'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20filter%3D'url(%23n)'%20opacity%3D'.2'%2F%3E%3C%2Fsvg%3E") 0 0 / 220px 220px, linear-gradient(180deg, var(--paper), var(--paper-2));
+  }
+  :root[data-tema="barbaro"] .profile-strip, :root[data-tema="barbaro"] .card, :root[data-tema="barbaro"] .duo-grid .field, :root[data-tema="barbaro"] .equip-dl > div, :root[data-tema="barbaro"] .resource-note, :root[data-tema="barbaro"] .rel-row,
+  :root[data-tema="barbaro"] .ent-card, :root[data-tema="barbaro"] .arma-row, :root[data-tema="barbaro"] .zcard, :root[data-tema="barbaro"] .sec p.lead, :root[data-tema="barbaro"] .prog-table tr, :root[data-tema="barbaro"] .tl-card {
+    border-radius: 0; border-width: 2px; border-color: #050403; box-shadow: 6px 6px 0 var(--k);
+  }
+  :root[data-tema="barbaro"] .sec .sec-head h2, :root[data-tema="barbaro"] .view-head h2, :root[data-tema="barbaro"] .inv-bar .inv-title { border-radius: 0; background: #050403; color: #FBF4BD; border-bottom: 0; box-shadow: 6px 6px 0 var(--k); }
+  :root[data-tema="barbaro"] .sec .sec-head h2::before, :root[data-tema="barbaro"] .sec .sec-head h2::after, :root[data-tema="barbaro"] .view-head h2::before, :root[data-tema="barbaro"] .view-head h2::after { display: none; }
+  :root[data-tema="barbaro"] .inv-frame, :root[data-tema="barbaro"] .zmap-wrap { border-radius: 0; box-shadow: 8px 8px 0 var(--k); }
+  :root[data-tema="barbaro"] .name-rule { clip-path: none; border-top-width: 0; box-shadow: 4px 4px 0 #050403; }
+  /* palavra gigante esticada atrás do personagem (como o DOMINION do pôster) */
+  :root[data-tema="barbaro"] .word-back { left: 0; right: 0; top: 2vh; text-align: center; font-size: clamp(120px, 21vw, 320px); line-height: .95; letter-spacing: .03em; color: transparent; -webkit-text-stroke: 3px #F4EFE0; opacity: .95; scale: 1 2.3; transform-origin: 50% 0; }
+  :root[data-tema="barbaro"] .hero-emblem { display: none; }
+  :root[data-tema="barbaro"] .hero-img img { filter: grayscale(.6) contrast(1.22) sepia(.2) drop-shadow(0 16px 30px rgba(0,0,0,.6)); }
+  /* auréola dourada atrás da cabeça */
+  :root[data-tema="barbaro"] .hero-img::after { content: ""; position: absolute; left: 54%; top: 0.5%; width: 32%; aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; z-index: -1;
+    border: 4px solid color-mix(in srgb, var(--k) 78%, #6b4a10); box-shadow: inset 0 0 0 7px rgba(0,0,0,.55), inset 0 0 0 9px color-mix(in srgb, var(--k) 60%, transparent), 0 0 24px color-mix(in srgb, var(--k) 35%, transparent); }
+
+  /* ---- LADINO: pôster "CHOSEN" — palavra manchada, topo preto/base vinho, barras, estrelas ---- */
+  :root[data-tema="ladino"] {
+    --card-radius: 0;
+    --seal-a: #ff6b7a; --seal-b: #F10222; --seal-c: #892325;
+    --bg-tex: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'220'%20height%3D'220'%3E%3Cfilter%20id%3D'n'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'.85'%20numOctaves%3D'2'%20stitchTiles%3D'stitch'%2F%3E%3CfeColorMatrix%20values%3D'0%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%20.55%200'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20filter%3D'url(%23n)'%20opacity%3D'.2'%2F%3E%3C%2Fsvg%3E") 0 0 / 220px 220px;
+    --grain: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'220'%20height%3D'220'%3E%3Cfilter%20id%3D'n'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'.85'%20numOctaves%3D'2'%20stitchTiles%3D'stitch'%2F%3E%3CfeColorMatrix%20values%3D'0%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%20.55%200'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20filter%3D'url(%23n)'%20opacity%3D'.2'%2F%3E%3C%2Fsvg%3E") 0 0 / 220px 220px, repeating-linear-gradient(90deg, transparent 0 140px, rgba(0,0,0,.3) 140px 143px);
+    --paper-tex: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'220'%20height%3D'220'%3E%3Cfilter%20id%3D'n'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'.8'%20numOctaves%3D'2'%20stitchTiles%3D'stitch'%2F%3E%3CfeColorMatrix%20values%3D'0%200%200%200%200%20%200%200%200%200%200%20%200%200%200%200%200%20%200%200%200%20.7%200'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20filter%3D'url(%23n)'%20opacity%3D'.2'%2F%3E%3C%2Fsvg%3E") 0 0 / 220px 220px, linear-gradient(180deg, var(--paper), var(--paper-2));
+  }
+  :root[data-tema="ladino"] .hero-glow { background: var(--bg-tex), linear-gradient(180deg, #030101 0%, #0a0404 36%, #2a0808 68%, #5c1013 100%); }
+  /* palavra gigante manchada, cortada no topo, atrás do personagem */
+  :root[data-tema="ladino"] .word-back { left: 0; right: 0; top: -3vh; text-align: center; white-space: nowrap; font-size: clamp(130px, 25vw, 380px); line-height: .9; letter-spacing: 0;
+    color: transparent; -webkit-text-stroke: 3px #E8DCC4; opacity: .95; scale: 1 1.75; transform-origin: 50% 0; }
+  :root[data-tema="ladino"] .hero-emblem { display: none; }
+  :root[data-tema="ladino"] .stage::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2040%2040'%3E%3Cpath%20d%3D'M20%200C21.5%2012%2028%2018.5%2040%2020C28%2021.5%2021.5%2028%2020%2040C18.5%2028%2012%2021.5%200%2020C12%2018.5%2018.5%2012%2020%200Z'%20fill%3D'%23F4EDE0'%2F%3E%3C%2Fsvg%3E") 4% 34% / 30px no-repeat, url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2040%2040'%3E%3Cpath%20d%3D'M20%200C21.5%2012%2028%2018.5%2040%2020C28%2021.5%2021.5%2028%2020%2040C18.5%2028%2012%2021.5%200%2020C12%2018.5%2018.5%2012%2020%200Z'%20fill%3D'%23F4EDE0'%2F%3E%3C%2Fsvg%3E") 20% 38% / 22px no-repeat, url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2040%2040'%3E%3Cpath%20d%3D'M20%200C21.5%2012%2028%2018.5%2040%2020C28%2021.5%2021.5%2028%2020%2040C18.5%2028%2012%2021.5%200%2020C12%2018.5%2018.5%2012%2020%200Z'%20fill%3D'%23F4EDE0'%2F%3E%3C%2Fsvg%3E") 92% 12% / 18px no-repeat; }
+  :root[data-tema="ladino"] .hero-img img { filter: contrast(1.12) saturate(.92) sepia(.12) drop-shadow(0 16px 30px rgba(0,0,0,.6)); }
+  /* faixa vinho na base do herói, com código de barras */
+  :root[data-tema="ladino"] .hero-inner::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 6vh; z-index: 4; pointer-events: none;
+    background: linear-gradient(0deg, #892325, #6d181a); }
+  :root[data-tema="ladino"] .hero-meta { bottom: calc(6vh + 14px); }
+  :root[data-tema="ladino"] .scroll-hint { display: none; }
+  :root[data-tema="ladino"] .name-rule { clip-path: none; border-top-width: 0; background: #892325; color: #F4EDE0; box-shadow: none; }
+  :root[data-tema="ladino"] .profile-strip, :root[data-tema="ladino"] .card, :root[data-tema="ladino"] .duo-grid .field, :root[data-tema="ladino"] .equip-dl > div, :root[data-tema="ladino"] .resource-note, :root[data-tema="ladino"] .rel-row,
+  :root[data-tema="ladino"] .ent-card, :root[data-tema="ladino"] .arma-row, :root[data-tema="ladino"] .zcard, :root[data-tema="ladino"] .sec p.lead, :root[data-tema="ladino"] .prog-table tr, :root[data-tema="ladino"] .tl-card {
+    border-radius: 0; border: 2px solid #250202; box-shadow: 6px 6px 0 #892325;
+  }
+  /* títulos: barra vinho com texto creme + código de barras, como o rodapé do pôster */
+  :root[data-tema="ladino"] .sec .sec-head h2, :root[data-tema="ladino"] .view-head h2, :root[data-tema="ladino"] .inv-bar .inv-title { border-radius: 0; background: #892325; color: #F4EDE0; border-bottom: 0; box-shadow: 6px 6px 0 #050202; }
+  :root[data-tema="ladino"] .sec .sec-head h2::before, :root[data-tema="ladino"] .view-head h2::before, :root[data-tema="ladino"] .sec .sec-head h2::after, :root[data-tema="ladino"] .view-head h2::after { display: none; }
+  :root[data-tema="ladino"] .inv-frame, :root[data-tema="ladino"] .zmap-wrap { border-radius: 0; box-shadow: 8px 8px 0 #892325; }
 
   /* ================= RESPONSIVO ================= */
   @media (max-width: 900px) {
@@ -1127,7 +1208,7 @@
 </head>
 <body class="is-ficha">
 <nav class="app-nav" id="app-nav" aria-label="Seções">
-  <div class="brand">FICHA RPG</div>
+  <div class="brand">D&amp;D Clássico</div>
   <button type="button" class="active" data-view="ficha"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v4h4M9 12h7M9 16h7"/></svg>Ficha</button>
   <button type="button" data-view="relacoes"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="8" r="2.5"/><circle cx="10" cy="18" r="2.5"/><path d="M8 7l8 1M8 8l1 8M16 10l-5 7"/></svg>Relações</button>
   <button type="button" data-view="timeline"><svg viewBox="0 0 24 24"><path d="M5 4v16"/><circle cx="5" cy="8" r="2"/><circle cx="5" cy="16" r="2"/><path d="M9 8h11M9 16h11"/></svg>Linha do tempo</button>
@@ -1138,7 +1219,7 @@
 <section id="calculator-section">
 
   <header class="topbar">
-    <div class="wordmark">FICHA RPG</div>
+    <div class="wordmark">D&amp;D Clássico</div>
     <nav class="class-select" id="class-select" aria-label="Classes"></nav>
   </header>
 
@@ -1300,7 +1381,7 @@
       </table>
     </section>
 
-    <footer>FICHA RPG</footer>
+    <footer>D&amp;D Clássico</footer>
   </div>
   </div><!-- /view-ficha -->
 
@@ -1443,7 +1524,7 @@
       nome: 'Guerreiro',
       arquetipo: 'Tanque e dano constante — armadura pesada, espada longa e escudo',
       personagem: 'Personagem 1',
-      palette: { bg: '#1F262C', deep: '#141A1F', surface: '#4B5A67', light: '#F6E8D2', muted: '#A9B4BC', accent: '#2BB3B3', accent2: '#17787C', paper: '#E7E4D6', paper2: '#D0CDBB', edge: '#8F9AA0', ink: '#26333D', inksoft: '#566673' },
+      palette: { bg: '#2A2B2E', deep: '#141416', surface: '#44464C', light: '#F4F4F0', muted: '#C9CCD2', accent: '#4FACE5', accent2: '#394988', paper: '#EDEDE8', paper2: '#D2D3CE', edge: '#8D9097', ink: '#141416', inksoft: '#4A4D55' },
       img: 'img/guerreiro-cut.png',
       raca: 'Humano',
       racaTxt: 'Humano (+1 em todos os atributos)',
@@ -1511,7 +1592,7 @@
       nome: 'Bárbaro',
       arquetipo: 'Dano bruto e resistência via Fúria, sem armadura',
       personagem: 'Personagem 2',
-      palette: { bg: '#2B1411', deep: '#1A0B09', surface: '#6E3025', light: '#F6E8D2', muted: '#C4A08C', accent: '#E0574C', accent2: '#A8322B', paper: '#F0D8BC', paper2: '#DDBC96', edge: '#B07A56', ink: '#4A2017', inksoft: '#7E4936' },
+      palette: { bg: '#0C0A08', deep: '#050403', surface: '#2C2217', light: '#FBF4BD', muted: '#EBD98F', accent: '#FEDC01', accent2: '#7F2F01', paper: '#FBF4BD', paper2: '#F3DE8A', edge: '#D4A017', ink: '#2A1203', inksoft: '#7F2F01' },
       img: 'img/barbaro-cut.png',
       raca: 'Meio-Orc',
       racaTxt: 'Meio-Orc (+2 FOR, +1 CON)',
@@ -1579,7 +1660,7 @@
       nome: 'Ladino',
       arquetipo: 'Perícias e Ataque Furtivo, foco em Destreza',
       personagem: 'Personagem 3',
-      palette: { bg: '#1C1526', deep: '#110C18', surface: '#4E3C63', light: '#F6E8D2', muted: '#B3A5C4', accent: '#9B59C7', accent2: '#5E2D80', paper: '#E7DDE8', paper2: '#D2C3D3', edge: '#9A84A6', ink: '#33274A', inksoft: '#675780' },
+      palette: { bg: '#0A0404', deep: '#050202', surface: '#892325', light: '#F4EDE0', muted: '#E9C9C9', accent: '#F10222', accent2: '#892325', paper: '#EFE3CF', paper2: '#DCCBB0', edge: '#B8545C', ink: '#250202', inksoft: '#892325' },
       img: 'img/ladino-cut.png',
       raca: 'Halfling Pés-Leves',
       racaTxt: 'Halfling Pés-Leves (+2 DES, +1 CAR)',
