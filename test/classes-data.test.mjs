@@ -99,10 +99,10 @@ test('progressao (quando preenchida) comeca no nivel 1 e sobe sem repetir nivel'
   }
 });
 
-test('Guerreiro: primarios FOR/DES, saves FOR/CON, d10', () => {
+test('Guerreiro: primario FOR, saves FOR/CON, d10', () => {
   const { RPGCalc } = loadSandbox().window;
   const g = RPGCalc.CLASSES.guerreiro;
-  assert.deepEqual(g.primarios, ['FOR', 'DES']);
+  assert.deepEqual(g.primarios, ['FOR']);
   assert.deepEqual(g.saves, ['FOR', 'CON']);
   assert.equal(g.dadoVida, 10);
 });
@@ -113,4 +113,23 @@ test('Bárbaro d12, Ladino d8 com DES primário, Druida d8 com um único primár
   assert.deepEqual(RPGCalc.CLASSES.ladino.primarios, ['DES']);
   assert.deepEqual(RPGCalc.CLASSES.druida.primarios, ['SAB']);
   assert.equal(RPGCalc.CLASSES.druida.dadoVida, 8);
+});
+
+test('atributos finais batem com a ficha padrão D&D 5e (PDF)', () => {
+  const { RPGCalc } = loadSandbox().window;
+  const esperado = {
+    guerreiro: { FOR: 16, DES: 14, CON: 15, INT: 11, SAB: 13, CAR: 9 },
+    barbaro:   { FOR: 17, DES: 13, CON: 15, INT: 8, SAB: 12, CAR: 10 },
+    ladino:    { FOR: 8, DES: 17, CON: 14, INT: 10, SAB: 13, CAR: 13 },
+    druida:    { FOR: 8, DES: 15, CON: 14, INT: 12, SAB: 16, CAR: 10 },
+  };
+  for (const [id, attrs] of Object.entries(esperado)) {
+    assert.deepEqual(RPGCalc.CLASSES[id].atributos, attrs, `${id} atributos`);
+  }
+  // PV nível 1 = dado de vida + mod CON (PDF: 12, 14, 10, 10)
+  const pv = { guerreiro: 12, barbaro: 14, ladino: 10, druida: 10 };
+  for (const [id, hp] of Object.entries(pv)) {
+    const c = RPGCalc.CLASSES[id];
+    assert.equal(RPGCalc.calcHP(c.dadoVida, c.atributos.CON), hp, `${id} PV`);
+  }
 });

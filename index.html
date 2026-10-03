@@ -682,9 +682,13 @@
      papel (.paper-scope) as variáveis --c-* são remapeadas pra tinta/papel,
      então as regras antigas continuam valendo sem reescrever uma por uma. */
   :root {
-    --ink: #4A2F22; --ink-soft: #7F6149;
-    --paper: #F0DEC0; --paper-2: #E0C8A4; --paper-edge: #B58F68;
-    --wood: #5C3D2C; --wood-dark: #35221A; --wood-light: #7E5639;
+    --ink: var(--c-ink, #4A2F22); --ink-soft: var(--c-inksoft, #7F6149);
+    --paper: var(--c-paper, #F0DEC0); --paper-2: var(--c-paper2, #E0C8A4); --paper-edge: var(--c-edge, #B58F68);
+    --wood: var(--c-surface, #5C3D2C); --wood-dark: color-mix(in srgb, var(--c-surface, #5C3D2C) 52%, #000); --wood-light: color-mix(in srgb, var(--c-surface, #5C3D2C) 78%, #fff);
+    --seal-a: #ef7b70; --seal-b: var(--red); --seal-c: var(--red-dark);
+    --card-radius: 14px 8px 16px 6px / 8px 14px 6px 16px;
+    --bg-tex: repeating-linear-gradient(90deg, transparent 0 150px, rgba(0,0,0,.2) 150px 152px);
+    --grain: repeating-linear-gradient(90deg, transparent 0 96px, rgba(0,0,0,.22) 96px 98px);
     --red: #D9534A; --red-dark: #A63A33;
     --teal: #2AA7A9; --teal-dark: #1B7679;
     --mustard: #F2B632; --mustard-dark: #B98616;
@@ -692,9 +696,9 @@
     --hex: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
     --torn: polygon(0 1.2%, 5% 0, 11% 1.4%, 18% .3%, 26% 1.6%, 35% .2%, 44% 1.4%, 53% 0, 62% 1.5%, 71% .3%, 80% 1.4%, 89% 0, 95% 1.3%, 100% .4%, 100% 98.6%, 94% 100%, 86% 98.4%, 77% 99.9%, 68% 98.5%, 59% 100%, 50% 98.6%, 41% 99.9%, 31% 98.4%, 22% 100%, 13% 98.5%, 6% 99.8%, 0 98.7%);
     --paper-tex: radial-gradient(120% 90% at 25% 8%, rgba(255,255,255,.4), transparent 60%), linear-gradient(180deg, var(--paper), var(--paper-2));
-    --wood-tex: repeating-linear-gradient(90deg, transparent 0 96px, rgba(0,0,0,.22) 96px 98px), linear-gradient(180deg, rgba(255,255,255,.07), rgba(0,0,0,.2)), var(--wood);
+    --wood-tex: var(--grain), linear-gradient(180deg, rgba(255,255,255,.07), rgba(0,0,0,.2)), var(--wood);
   }
-  body { background: repeating-linear-gradient(90deg, transparent 0 150px, rgba(0,0,0,.2) 150px 152px), var(--c-bg); }
+  body { background: var(--bg-tex), var(--c-bg); }
   ::-webkit-scrollbar-track { background: var(--wood-dark); }
   ::-webkit-scrollbar-thumb { background: var(--wood-light); border-radius: 6px; }
 
@@ -728,7 +732,7 @@
   .app-nav button.active { color: var(--ink); background: var(--paper-tex); border-left: none; box-shadow: inset 7px 0 0 var(--k), 0 4px 0 var(--wood-dark); }
 
   /* ---- hero ---- */
-  .hero-glow { background: radial-gradient(54% 46% at 66% 80%, color-mix(in srgb, var(--k) 22%, transparent), transparent 72%), repeating-linear-gradient(90deg, transparent 0 150px, rgba(0,0,0,.2) 150px 152px), linear-gradient(180deg, var(--c-bg), var(--c-deep)); }
+  .hero-glow { background: radial-gradient(54% 46% at 66% 80%, color-mix(in srgb, var(--k) 22%, transparent), transparent 72%), var(--bg-tex), linear-gradient(180deg, var(--c-bg), var(--c-deep)); }
   .word-back { -webkit-text-stroke: 2px color-mix(in srgb, var(--wood-light) 70%, transparent); }
   .hero-name { color: var(--paper); -webkit-text-stroke: 9px var(--wood-dark); paint-order: stroke fill; text-shadow: 0 7px 0 rgba(0,0,0,.35); }
   /* faixa pendurada (fita) com o nível */
@@ -742,7 +746,7 @@
   .builder-card { background: var(--paper-tex); color: var(--ink); clip-path: var(--torn); box-shadow: none; padding: 30px 26px 30px; }
   .builder-card h2 { background: var(--wood-tex); color: var(--paper); border-radius: 8px; border-bottom: 5px solid var(--wood-dark); padding: 10px 14px 8px 30px; margin: 0 -4px 22px; position: relative; text-shadow: 0 2px 0 var(--wood-dark); }
   .builder-card h2::before { content: ""; position: absolute; left: 10px; top: 50%; width: 9px; height: 9px; border-radius: 50%; transform: translateY(-50%); background: radial-gradient(circle at 35% 35%, #e6d9bb, #6b5a44); }
-  .builder-card h2 .lvl { width: 56px; height: 56px; margin: -16px -6px -16px 0; border-radius: 50%; display: grid; place-items: center; text-align: center; line-height: 1.05; white-space: normal; padding: 0 6px; color: #fff2dc; background: radial-gradient(circle at 35% 30%, #ef7b70, var(--red) 55%, var(--red-dark)); box-shadow: inset 0 0 0 4px rgba(0,0,0,.14), 0 4px 0 rgba(0,0,0,.4); }
+  .builder-card h2 .lvl { width: 56px; height: 56px; margin: -16px -6px -16px 0; border-radius: 50%; display: grid; place-items: center; text-align: center; line-height: 1.05; white-space: normal; padding: 0 6px; color: #fff2dc; background: radial-gradient(circle at 35% 30%, var(--seal-a), var(--seal-b) 55%, var(--seal-c)); box-shadow: inset 0 0 0 4px rgba(0,0,0,.14), 0 4px 0 rgba(0,0,0,.4); }
   .builder-card label { color: var(--ink-soft); }
   #char-name-input { background: #FFF6E4; border: 3px solid var(--wood); border-radius: 10px; color: var(--ink); }
   .attr-row { border: 3px solid var(--paper-edge); border-radius: 999px; background: var(--paper-2); margin-bottom: 8px; padding: 5px 8px 5px 16px; gap: 10px; }
@@ -768,20 +772,20 @@
   .scroll-hint { color: var(--paper-2); }
 
   /* ---- seções: placa de madeira + selo de cera ---- */
-  .sections-wrap { background: repeating-linear-gradient(90deg, transparent 0 150px, rgba(0,0,0,.2) 150px 152px), var(--c-deep); }
+  .sections-wrap { background: var(--bg-tex), var(--c-deep); }
   .sec .sec-head { border: 0; padding: 0; gap: 16px; align-items: center; }
-  .sec .sec-head .num { order: 2; width: 52px; height: 52px; margin-left: -6px; border-radius: 50%; display: grid; place-items: center; color: #fff2dc; font-size: 17px; background: radial-gradient(circle at 35% 30%, #ef7b70, var(--red) 55%, var(--red-dark)); box-shadow: inset 0 0 0 4px rgba(0,0,0,.14), 0 4px 0 rgba(0,0,0,.4); }
+  .sec .sec-head .num { order: 2; width: 52px; height: 52px; margin-left: -6px; border-radius: 50%; display: grid; place-items: center; color: #fff2dc; font-size: 17px; background: radial-gradient(circle at 35% 30%, var(--seal-a), var(--seal-b) 55%, var(--seal-c)); box-shadow: inset 0 0 0 4px rgba(0,0,0,.14), 0 4px 0 rgba(0,0,0,.4); }
   .sec .sec-head h2, .view-head h2 { position: relative; display: inline-block; background: var(--wood-tex); color: var(--paper); padding: 10px 32px 8px; border-radius: 8px; border-bottom: 6px solid var(--wood-dark); text-shadow: 0 3px 0 rgba(0,0,0,.4); box-shadow: 0 8px 14px -6px rgba(0,0,0,.5); }
   .sec .sec-head h2 { font-size: clamp(28px, 4vw, 46px); }
   .sec .sec-head h2::before, .sec .sec-head h2::after, .view-head h2::before, .view-head h2::after { content: ""; position: absolute; top: 50%; width: 9px; height: 9px; border-radius: 50%; transform: translateY(-50%); background: radial-gradient(circle at 35% 35%, #e6d9bb, #6b5a44); }
   .sec .sec-head h2::before, .view-head h2::before { left: 11px; }
   .sec .sec-head h2::after, .view-head h2::after { right: 11px; }
-  .sec p.lead { background: var(--paper-tex); color: var(--ink); padding: 18px 22px; max-width: 72ch; border: 3px solid var(--paper-edge); border-radius: 14px 8px 16px 6px / 8px 14px 6px 16px; box-shadow: 0 6px 0 rgba(0,0,0,.35); }
+  .sec p.lead { background: var(--paper-tex); color: var(--ink); padding: 18px 22px; max-width: 72ch; border: 3px solid var(--paper-edge); border-radius: var(--card-radius); box-shadow: 0 6px 0 rgba(0,0,0,.35); }
 
   /* ---- blocos de papel ---- */
   .profile-strip, .card, .duo-grid .field, .equip-dl > div, .resource-note, .rel-row, .ent-card {
     background: var(--paper-tex); color: var(--ink);
-    border: 3px solid var(--paper-edge); border-radius: 14px 8px 16px 6px / 8px 14px 6px 16px;
+    border: 3px solid var(--paper-edge); border-radius: var(--card-radius);
     box-shadow: 0 6px 0 rgba(0,0,0,.35);
   }
   .profile-strip { padding: 4px 0; }
@@ -890,7 +894,7 @@
   #zmap-prev { left: 2px; }
   #zmap-next { right: 2px; }
   .zdetail { max-width: 1080px; margin: 34px auto 0; padding: 0 24px 60px; }
-  .zcard { background: var(--paper-tex); color: var(--ink); --c-light: var(--ink); --c-muted: var(--ink-soft); border: 3px solid var(--paper-edge); border-top: 8px solid var(--k); border-radius: 14px 8px 16px 6px / 8px 14px 6px 16px; box-shadow: 0 6px 0 rgba(0,0,0,.35); padding: 22px 24px 24px; display: grid; gap: 12px; }
+  .zcard { background: var(--paper-tex); color: var(--ink); --c-light: var(--ink); --c-muted: var(--ink-soft); border: 3px solid var(--paper-edge); border-top: 8px solid var(--k); border-radius: var(--card-radius); box-shadow: 0 6px 0 rgba(0,0,0,.35); padding: 22px 24px 24px; display: grid; gap: 12px; }
   .zcard.is-bloqueada { border-top-color: #9d8a72; }
   .zcard-tag { width: fit-content; background: var(--k); color: var(--wood-dark); padding: 3px 18px 3px 12px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; clip-path: polygon(0 0, 100% 0, calc(100% - 9px) 50%, 100% 100%, 0 100%); }
   .zcard-name { font-family: var(--font-display); font-size: clamp(26px, 4vw, 38px); color: var(--ink); background: transparent; border: 0; border-bottom: 3px dashed var(--paper-edge); padding: 2px 0; width: 100%; }
@@ -905,6 +909,126 @@
   .zbtn-sel { background: var(--red); color: #fff4e0; border-bottom: 5px solid var(--red-dark); }
   .zbtn-del { background: var(--paper-2); color: var(--ink); border-bottom: 5px solid var(--paper-edge); }
   .zcard-actions button:hover { filter: brightness(1.08); }
+
+  /* ---- combate / magias: hexágonos de estatística + armas ---- */
+  .stat-hexes { display: flex; flex-wrap: wrap; gap: 18px 26px; margin-bottom: 30px; }
+  .stat-hex { width: 138px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; color: var(--paper); }
+  .stat-hex .sh { position: relative; width: 96px; height: 86px; clip-path: var(--hex); background: var(--k-dark); display: grid; place-items: center; }
+  .stat-hex .sh::after { content: ""; position: absolute; inset: 6px; clip-path: var(--hex); background: var(--k); }
+  .stat-hex .sh b { position: relative; z-index: 1; font-family: var(--font-display); font-weight: 400; font-size: 30px; color: var(--wood-dark); line-height: 1; }
+  .stat-hex .sh-l { font-size: 14px; letter-spacing: .16em; text-transform: uppercase; color: var(--paper); }
+  .stat-hex small { font-size: 12px; line-height: 1.35; color: var(--paper-2); opacity: .85; max-width: 138px; }
+  .arma-list { display: grid; gap: 12px; }
+  .arma-row { display: grid; grid-template-columns: 1.4fr auto auto 1.6fr; gap: 14px; align-items: center; background: var(--paper-tex); color: var(--ink); border: 3px solid var(--paper-edge); border-radius: var(--card-radius); box-shadow: 0 6px 0 rgba(0,0,0,.35); padding: 12px 18px; }
+  .aw-n { font-family: var(--font-display); font-size: 21px; letter-spacing: .03em; }
+  .aw-chip { display: flex; flex-direction: column; align-items: center; background: var(--k); color: var(--wood-dark); border-radius: 8px; padding: 3px 12px; min-width: 70px; }
+  .aw-chip i { font-style: normal; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; opacity: .8; }
+  .aw-chip b { font-weight: 400; font-size: 16px; }
+  .aw-p { font-size: 14px; color: var(--ink-soft); line-height: 1.5; }
+  .prog-table .chips { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; max-width: 320px; }
+  .prog-table .chips span { background: var(--wood); color: var(--paper); font-size: 12px; letter-spacing: .08em; padding: 2px 10px; border-radius: 999px; white-space: nowrap; }
+  .prog-table tr { flex-wrap: wrap; }
+  .equip-dl dd.hint { margin-top: 6px; color: var(--ink-soft); font-size: 14px; }
+
+  /* ---- tema por personagem: textura, cantos, selo e emblema ---- */
+  .hero-emblem { position: absolute; right: 2%; top: 14vh; width: min(46vh, 38vw); z-index: 1; color: var(--k); opacity: .16; pointer-events: none; }
+  .hero-emblem svg { width: 100%; height: auto; display: block; filter: drop-shadow(0 0 18px color-mix(in srgb, var(--k) 40%, transparent)); }
+  .plank-emblem { position: absolute; left: 8px; top: 50%; width: 30px; height: 30px; transform: translateY(-50%); color: var(--paper); }
+  .plank-emblem svg { width: 100%; height: 100%; display: block; }
+  .builder-card h2::before { display: none; }
+  .builder-card h2 { padding-left: 46px; }
+
+  :root[data-tema="guerreiro"] {
+    --seal-a: #a9cbe3; --seal-b: #3F7FAF; --seal-c: #26506F;
+    --card-radius: 6px 6px 6px 6px;
+    --bg-tex: repeating-linear-gradient(0deg, transparent 0 74px, rgba(0,0,0,.2) 74px 76px), repeating-linear-gradient(90deg, transparent 0 150px, rgba(0,0,0,.24) 150px 152px);
+    --grain: repeating-linear-gradient(90deg, transparent 0 120px, rgba(0,0,0,.3) 120px 123px), radial-gradient(circle at 10px 12px, rgba(255,255,255,.24) 0 2.5px, transparent 3.5px) 0 0 / 120px 100%;
+  }
+  :root[data-tema="barbaro"] {
+    --seal-a: #f28a7a; --seal-b: #C5372E; --seal-c: #7E1B16;
+    --card-radius: 12px 3px 14px 2px / 3px 12px 2px 14px;
+    --bg-tex: repeating-linear-gradient(115deg, transparent 0 90px, rgba(0,0,0,.24) 90px 94px, transparent 94px 100px);
+    --grain: repeating-linear-gradient(115deg, transparent 0 70px, rgba(0,0,0,.3) 70px 74px);
+  }
+  :root[data-tema="ladino"] {
+    --seal-a: #c9a6ee; --seal-b: #7B3FA0; --seal-c: #47206A;
+    --card-radius: 2px 20px 2px 20px;
+    --bg-tex: repeating-linear-gradient(135deg, transparent 0 14px, rgba(255,255,255,.035) 14px 15px), repeating-linear-gradient(90deg, transparent 0 150px, rgba(0,0,0,.26) 150px 152px);
+    --grain: repeating-linear-gradient(135deg, transparent 0 10px, rgba(255,255,255,.05) 10px 11px);
+  }
+  :root[data-tema="druida"] {
+    --seal-a: #3fbf55; --seal-b: #1f7a2a; --seal-c: #0e4a17;
+    --card-radius: 28px 8px 28px 8px;
+    --bg-tex: repeating-linear-gradient(90deg, transparent 0 150px, rgba(0,0,0,.28) 150px 152px);
+    --grain: repeating-linear-gradient(90deg, transparent 0 96px, rgba(0,0,0,.24) 96px 98px);
+  }
+
+  /* ---- DRUIDA: paleta da referência + pedra, musgo, folhas e vidro neon ---- */
+  :root[data-tema="druida"] {
+    --red: #238926; --red-dark: #14601a;
+    --mustard: #E9FFCA; --mustard-dark: #7FBF63;
+    --teal: #25E970; --teal-dark: #14A04C;
+    --bg-tex: repeating-linear-gradient(90deg, transparent 0 150px, rgba(0,0,0,.28) 150px 152px);
+    --grain: repeating-linear-gradient(90deg, transparent 0 96px, rgba(0,0,0,.24) 96px 98px);
+    --paper-tex: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'260'%20height%3D'180'%20viewBox%3D'0%200%20260%20180'%3E%3Cg%20fill%3D'none'%20stroke%3D'%23022509'%20stroke-opacity%3D'.17'%20stroke-width%3D'1.3'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3Cpath%20d%3D'M30%200L44%2034L36%2058L58%2096L50%20124L72%20180'%2F%3E%3Cpath%20d%3D'M44%2034L78%2044L96%2070'%2F%3E%3Cpath%20d%3D'M190%200L176%2030L196%2062L186%2092L214%20130L206%20180'%2F%3E%3Cpath%20d%3D'M196%2062L232%2070'%2F%3E%3Cpath%20d%3D'M120%20180L132%20150L124%20128L146%20104'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") 0 0 / 260px 180px, radial-gradient(120% 90% at 25% 8%, rgba(255,255,255,.55), transparent 60%), linear-gradient(180deg, var(--paper), var(--paper-2));
+    --leaf: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2060%2044'%3E%3Cg%20stroke%3D'%23022509'%20stroke-width%3D'1.6'%20stroke-linejoin%3D'round'%3E%3Cpath%20d%3D'M4%2040C6%2024%2018%2012%2034%2010C34%2026%2022%2038%204%2040Z'%20fill%3D'%2325E970'%2F%3E%3Cpath%20d%3D'M22%2042C24%2026%2036%2016%2054%2016C52%2032%2040%2042%2022%2042Z'%20fill%3D'%23238926'%2F%3E%3Cpath%20d%3D'M30%2012C32%206%2038%202%2046%202C45%209%2040%2013%2030%2012Z'%20fill%3D'%23E9FFCA'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M6%2038L28%2018M26%2040L46%2024'%20stroke%3D'%23022509'%20stroke-width%3D'1.1'%20fill%3D'none'%2F%3E%3C%2Fsvg%3E");
+    --vine: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'80'%20height%3D'60'%20viewBox%3D'0%200%2080%2060'%3E%3Cpath%20d%3D'M2%2058C14%2040%206%2024%2024%2014C38%206%2040%2022%2054%2012C62%206%2070%208%2078%202'%20fill%3D'none'%20stroke%3D'%236b4a1f'%20stroke-width%3D'3'%20stroke-linecap%3D'round'%2F%3E%3Cg%20fill%3D'%2325E970'%20stroke%3D'%23022509'%20stroke-width%3D'1.2'%3E%3Cpath%20d%3D'M20%2018C14%2010%2020%204%2028%206C28%2012%2026%2016%2020%2018Z'%2F%3E%3Cpath%20d%3D'M50%2014C48%206%2056%202%2062%206C60%2012%2056%2015%2050%2014Z'%2F%3E%3Cpath%20d%3D'M10%2040C4%2036%206%2028%2014%2028C16%2034%2014%2038%2010%2040Z'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    --moss: radial-gradient(circle at 10px 14px, #25E970 0 8px, transparent 9px) 0 0 / 30px 14px repeat-x, radial-gradient(circle at 24px 14px, #238926 0 6px, transparent 7px) 0 0 / 30px 14px repeat-x;
+  }
+  /* musgo no topo e folhas no canto dos blocos de pedra */
+  :root[data-tema="druida"] .card, :root[data-tema="druida"] .profile-strip, :root[data-tema="druida"] .duo-grid .field,
+  :root[data-tema="druida"] .equip-dl > div, :root[data-tema="druida"] .arma-row, :root[data-tema="druida"] .zcard,
+  :root[data-tema="druida"] .rel-row, :root[data-tema="druida"] .sec p.lead, :root[data-tema="druida"] .ent-card { position: relative; }
+  :root[data-tema="druida"] .card::before, :root[data-tema="druida"] .profile-strip::before, :root[data-tema="druida"] .duo-grid .field::before,
+  :root[data-tema="druida"] .equip-dl > div::before, :root[data-tema="druida"] .arma-row::before, :root[data-tema="druida"] .zcard::before,
+  :root[data-tema="druida"] .sec p.lead::before { content: ""; position: absolute; left: 14px; right: 40px; top: -9px; height: 14px; background: var(--moss); pointer-events: none; }
+  :root[data-tema="druida"] .card::after, :root[data-tema="druida"] .profile-strip::after, :root[data-tema="druida"] .equip-dl > div::after,
+  :root[data-tema="druida"] .zcard::after, :root[data-tema="druida"] .sec p.lead::after { content: ""; position: absolute; right: -10px; top: -18px; width: 58px; height: 42px; background: var(--leaf) center / contain no-repeat; pointer-events: none; }
+  :root[data-tema="druida"] .arma-row::after, :root[data-tema="druida"] .rel-row::after { content: ""; position: absolute; left: -12px; bottom: -14px; width: 52px; height: 40px; background: var(--vine) center / contain no-repeat; pointer-events: none; transform: scaleY(-1); }
+  /* painéis grandes: moldura de vidro verde com contorno neon */
+  :root[data-tema="druida"] .inv-frame, :root[data-tema="druida"] .zmap-wrap, :root[data-tema="druida"] .graph-wrap {
+    background: linear-gradient(180deg, rgba(37,233,112,.16), rgba(35,137,38,.34)), var(--c-deep);
+    border: 2px solid var(--k); box-shadow: 0 0 22px color-mix(in srgb, var(--k) 45%, transparent), inset 0 0 28px rgba(37,233,112,.12);
+  }
+  :root[data-tema="druida"] .inv-slot { background: radial-gradient(circle at 50% 35%, #0b3a14, #022509); border-color: var(--wood-light); }
+  :root[data-tema="druida"] .inv-slot.empty { background: color-mix(in srgb, var(--paper-edge) 70%, #000); }
+  :root[data-tema="druida"] .inv-slot.empty::after { background: radial-gradient(circle at 50% 30%, var(--paper), var(--paper-2)); }
+  :root[data-tema="druida"] .inv-name { background: var(--paper-tex); }
+  /* botões de pedra */
+  :root[data-tema="druida"] .app-nav button, :root[data-tema="druida"] .zmap-arrow, :root[data-tema="druida"] .ztoggle, :root[data-tema="druida"] .zcard-actions button, :root[data-tema="druida"] .ctx-actions button {
+    background: var(--paper-tex); color: var(--ink); border: 2px solid var(--paper-edge); border-bottom-width: 5px; border-radius: 10px;
+  }
+  :root[data-tema="druida"] .app-nav button { color: var(--paper-2); background: color-mix(in srgb, var(--wood-dark) 70%, transparent); border-color: var(--wood-light); }
+  :root[data-tema="druida"] .app-nav button.active { color: var(--ink); background: var(--paper-tex); border-color: var(--k); box-shadow: 0 0 14px color-mix(in srgb, var(--k) 55%, transparent), inset 7px 0 0 var(--k); }
+  :root[data-tema="druida"] .ztoggle { padding: 0; overflow: hidden; }
+  :root[data-tema="druida"] .ztoggle button { background: transparent; border: 0; color: var(--ink-soft); }
+  :root[data-tema="druida"] .ztoggle button.on { background: var(--k); color: var(--c-deep); }
+  :root[data-tema="druida"] .ctx-actions .ctx-save, :root[data-tema="druida"] .view-stat, :root[data-tema="druida"] .zbtn-sel { color: var(--c-deep); }
+  :root[data-tema="druida"] .zbtn-sel { background: var(--k); border-color: var(--teal-dark); }
+  :root[data-tema="druida"] #print-btn { background: var(--k); color: var(--c-deep); border-bottom-color: var(--teal-dark); }
+  :root[data-tema="druida"] .ctx-x { background: var(--wood-dark); color: var(--k); border: 2px solid var(--k); }
+  /* barra de carga em neon com trilho de pedra */
+  :root[data-tema="druida"] .attr-bar { background: #011705; border: 2px solid var(--paper-edge); }
+  :root[data-tema="druida"] .attr-bar i { background: linear-gradient(180deg, rgba(255,255,255,.55), transparent 55%), var(--k); box-shadow: 0 0 8px var(--k); }
+  /* herói: musgo e folhas no chão */
+  :root[data-tema="druida"] .hero-img::after { content: ""; position: absolute; left: 50%; bottom: 0; width: 86%; height: 56px; transform: translateX(-50%); z-index: -1; background: radial-gradient(40px 22px at 12% 70%, #238926 0 70%, transparent 72%), radial-gradient(52px 28px at 34% 62%, #25E970 0 66%, transparent 68%), radial-gradient(46px 24px at 58% 72%, #238926 0 70%, transparent 72%), radial-gradient(56px 30px at 82% 64%, #25E970 0 66%, transparent 68%); filter: drop-shadow(0 3px 0 #022509); }
+  :root[data-tema="druida"] .hero-emblem { opacity: .22; }
+  :root[data-tema="druida"] .sec .sec-head h2, :root[data-tema="druida"] .view-head h2 { background: var(--wood-tex); color: var(--paper); text-shadow: 0 3px 0 #022509; }
+
+  /* ---- números centralizados, selos em hexágono, mais contraste ---- */
+  .stat-hex .sh b, .attr-score-value, .prog-table .lvl, .zn-hex b, .tl-item::before, .sec .sec-head .num, .builder-card h2 .lvl {
+    letter-spacing: 0; text-indent: 0; font-variant-numeric: tabular-nums;
+  }
+  .stat-hex .sh b { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; white-space: nowrap; transform: translateY(.045em); }
+  .stat-hex .sh b.long { font-size: 21px; }
+  .stat-hex .sg { font-family: 'Fredoka Display', var(--font-ui); font-size: .62em; margin-right: 2px; transform: translateY(-.06em); }
+  .attr-score-value, .zn-hex b { padding-top: .1em; }
+  .sec .sec-head .num, .builder-card h2 .lvl { border-radius: 0; clip-path: var(--hex); box-shadow: none; display: grid; place-items: center; text-align: center; }
+  .sec .sec-head .num { width: 64px; height: 57px; margin-left: -8px; font-size: 20px; line-height: 1; padding-top: 3px; text-shadow: 0 2px 0 rgba(0,0,0,.3); }
+  .builder-card h2 .lvl { width: 68px; height: 60px; margin: -18px -10px -18px 0; font-size: 12px; line-height: 1.1; padding: 0; text-shadow: 0 1px 0 rgba(0,0,0,.35); }
+  .stat-hex .sh-l { font-size: 15px; color: var(--c-light); text-shadow: 0 2px 0 rgba(0,0,0,.55); }
+  .stat-hex small { font-size: 13px; color: var(--c-light); opacity: 1; text-shadow: 0 1px 0 rgba(0,0,0,.6); }
+  .view-head p { color: var(--c-light); text-shadow: 0 1px 0 rgba(0,0,0,.5); }
 
   /* ================= RESPONSIVO ================= */
   @media (max-width: 900px) {
@@ -969,6 +1093,13 @@
     .zdetail { padding: 0 12px 60px; }
   }
 
+  @media (max-width: 900px) {
+    .arma-row { grid-template-columns: 1fr 1fr; }
+    .aw-n, .aw-p { grid-column: 1 / -1; }
+    .stat-hex { width: 30%; min-width: 104px; }
+    .prog-table .chips { max-width: none; justify-content: flex-start; }
+  }
+
   @media print {
     #print-btn,
     #points-locked-note,
@@ -1018,6 +1149,7 @@
       <div class="hero-glow" aria-hidden="true"></div>
 
       <div class="stage" id="character-panel">
+        <div class="hero-emblem" id="hero-emblem" aria-hidden="true"></div>
         <div class="word-back" id="char-cursive-name" aria-hidden="true">—</div>
         <div class="name-rule" id="name-rule">Nível —</div>
         <h1 class="hero-name" id="char-player-name"><span class="line">—</span></h1>
@@ -1040,7 +1172,7 @@
 
       <aside class="rail" id="calculator-panel" aria-label="Atributos">
         <div class="builder-card">
-          <h2><span id="builder-title">Atributos</span><span class="lvl">Nível —</span></h2>
+          <h2><span class="plank-emblem" id="plank-emblem" aria-hidden="true"></span><span id="builder-title">Atributos</span><span class="lvl">Nível —</span></h2>
           <label for="char-name-input">Nome do personagem</label>
           <input id="char-name-input" type="text" placeholder="Digite o nome" autocomplete="off">
           <div id="attr-rows"></div>
@@ -1075,6 +1207,15 @@
       </div>
     </section>
 
+    <section class="sec" id="combate-section">
+      <div class="sec-head">
+        <span class="num">02</span>
+        <h2>Combate</h2>
+      </div>
+      <div class="stat-hexes" id="combate-stats"></div>
+      <div class="arma-list" id="armas-list"></div>
+    </section>
+
     <section class="sec" id="historia-section">
       <div class="sec-head">
         <span class="num">02</span>
@@ -1101,7 +1242,7 @@
 
     <section class="sec" id="proficiencias-section">
       <div class="sec-head">
-        <span class="num">03</span>
+        <span class="num">04</span>
         <h2>Proficiências</h2>
       </div>
       <div class="card-grid">
@@ -1122,23 +1263,38 @@
       </div>
 
       <dl class="equip-dl" id="char-equipamento-value">
-        <div><dt id="equip-arma-label">Arma assinatura</dt><dd id="equip-arma">—</dd></div>
-        <div><dt>Habilidade única</dt><dd id="equip-hab">—</dd></div>
-        <div><dt>Gadget</dt><dd id="equip-gadget">—</dd></div>
+        <div><dt>Raça e antecedente</dt><dd id="info-raca">—</dd><dd class="hint" id="info-antecedente">—</dd></div>
+        <div><dt id="info-sub-label">Subclasse</dt><dd id="info-sub">—</dd><dd class="hint" id="info-sub-nota"></dd></div>
+        <div><dt>Equipamento inicial</dt><dd id="info-equip">—</dd></div>
       </dl>
+    </section>
 
-      <dl class="resource-note" id="recurso-classe" hidden>
-        <dt>Recurso de classe</dt>
-        <dd id="recurso-classe-txt">—</dd>
-      </dl>
+    <section class="sec" id="magias-section" hidden>
+      <div class="sec-head">
+        <span class="num">05</span>
+        <h2>Magias</h2>
+      </div>
+      <div class="stat-hexes" id="magias-stats"></div>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Truques</h3>
+          <p id="magias-truques">—</p>
+          <p class="hint" id="magias-truques-nota"></p>
+        </div>
+        <div class="card">
+          <h3>Magias de 1º nível (comuns)</h3>
+          <p id="magias-nivel1">—</p>
+          <p class="hint" id="magias-espacos"></p>
+        </div>
+      </div>
     </section>
 
     <section class="sec" id="progressao-section">
       <div class="sec-head">
-        <span class="num">04</span>
+        <span class="num">06</span>
         <h2>Progressão</h2>
       </div>
-      <p class="lead">Trilha de níveis a definir com o mestre.</p>
+      <p class="lead">Fichas no nível 1 (Livro do Jogador 5e, 2014). Na revisão de 2024 as subclasses entram no nível 3 e o bônus racial passa para o antecedente. AVA = +2 num atributo, +1 em dois, ou um talento (máx. 20).</p>
       <table class="prog-table">
         <tbody id="prog-body"></tbody>
       </table>
@@ -1285,50 +1441,17 @@
     guerreiro: {
       id: 'guerreiro',
       nome: 'Guerreiro',
-      arquetipo: 'Combatente — armaduras pesadas e armas marciais',
+      arquetipo: 'Tanque e dano constante — armadura pesada, espada longa e escudo',
       personagem: 'Personagem 1',
-      palette: { bg: '#2B1D17', deep: '#1D120D', surface: '#5C3D2C', accent: '#2BB3B3', accent2: '#17787C', light: '#F6E8D2', muted: '#BBA48A' },
+      palette: { bg: '#1F262C', deep: '#141A1F', surface: '#4B5A67', light: '#F6E8D2', muted: '#A9B4BC', accent: '#2BB3B3', accent2: '#17787C', paper: '#E7E4D6', paper2: '#D0CDBB', edge: '#8F9AA0', ink: '#26333D', inksoft: '#566673' },
       img: 'img/guerreiro-cut.png',
+      raca: 'Humano',
+      racaTxt: 'Humano (+1 em todos os atributos)',
       dadoVida: 10,
-      perfil: { idade: '—', altura: '—', peso: '—' },
-      perfilFisico: 'A definir.',
-      comoChegou: 'A definir.',
-      historico: 'A definir.',
-      historia: {
-        temperamento: 'A definir.',
-        marca: 'A definir.',
-        contradicao: 'A definir.',
-        tique: 'A definir.'
-      },
-      primarios: ['FOR', 'DES'],
-      secundario: 'CON',
-      saves: ['FOR', 'CON'],
-      sugestao: { FOR: 15, DES: 14, CON: 13, INT: 10, SAB: 12, CAR: 8 },
-      pericias: [],
-      periciaLivre: '',
-      proficiencias: {
-        categoria: '',
-        loadout: ''
-      },
-      equipamento: {
-        armaLabel: 'Arma assinatura',
-        arma: '',
-        habilidadeUnica: '',
-        gadget: ''
-      },
-      featureNivel1: '',
-      progressao: []
-    },
-
-    barbaro: {
-      id: 'barbaro',
-      nome: 'Bárbaro',
-      arquetipo: 'Fúria e resistência bruta',
-      personagem: 'Personagem 2',
-      palette: { bg: '#2B1D17', deep: '#1D120D', surface: '#5C3D2C', accent: '#E0574C', accent2: '#A8322B', light: '#F6E8D2', muted: '#BBA48A' },
-      img: 'img/barbaro-cut.png',
-      dadoVida: 12,
-      perfil: { idade: '—', altura: '—', peso: '—' },
+      ca: 19,
+      caNota: 'cota de malha 16 + escudo 2 + Estilo Defesa 1',
+      deslocamento: '9 m',
+      perfil: { idade: '—', altura: '~1,70 m', peso: '—' },
       perfilFisico: 'A definir.',
       comoChegou: 'A definir.',
       historico: 'A definir.',
@@ -1340,12 +1463,13 @@
       },
       primarios: ['FOR'],
       secundario: 'CON',
-      saves: ['FOR', 'CON'],
-      sugestao: { FOR: 15, DES: 13, CON: 14, INT: 8, SAB: 12, CAR: 10 },
-      pericias: [],
-      periciaLivre: '',
+      saves: ['FOR','CON'],
+      sugestao: { FOR: 15, DES: 13, CON: 14, INT: 10, SAB: 12, CAR: 8 },
+      atributos: { FOR: 16, DES: 14, CON: 15, INT: 11, SAB: 13, CAR: 9 },
+      pericias: ['Atletismo','Percepção'],
+      periciaLivre: 'Lista da classe: Acrobacia, Adestrar Animais, Atletismo, História, Intuição, Intimidação, Percepção, Sobrevivência.',
       proficiencias: {
-        categoria: '',
+        categoria: 'Todas as armaduras, escudos, armas simples e marciais.',
         loadout: ''
       },
       equipamento: {
@@ -1354,19 +1478,116 @@
         habilidadeUnica: '',
         gadget: ''
       },
-      featureNivel1: '',
-      progressao: []
+      equipInicial: ['Cota de malha','Espada longa','Escudo','Besta leve + 20 virotes','Pacote de aventureiro'],
+      subclasse: {'nivel':3,'titulo':'Arquétipo Marcial','opcoes':['Campeão','Mestre de Batalha','Cavaleiro Arcano']},
+      armas: [['Espada longa','+5','1d8+3 cortante','Versátil (1d10)'],['Besta leve (20 virotes)','+4','1d8+2 perfurante','Munição, 24/96 m, recarga, duas mãos'],['Machadinha (alternativa)','+5','1d6+3 cortante','Leve, arremesso 6/18 m']],
+      featureNivel1: 'Estilo de Luta (Defesa), Retomar o Fôlego',
+      progressao: [
+        [1,'Estilo de Luta, Retomar o Fôlego',['Prof +2']],
+        [2,'Surto de Ação (1 uso)',['Prof +2']],
+        [3,'Arquétipo Marcial (subclasse)',['Prof +2']],
+        [4,'Aumento de Valor de Atributo (AVA)',['Prof +2']],
+        [5,'Ataque Extra (2 ataques)',['Prof +3']],
+        [6,'Aumento de Valor de Atributo (AVA)',['Prof +3']],
+        [7,'Habilidade de Arquétipo',['Prof +3']],
+        [8,'Aumento de Valor de Atributo (AVA)',['Prof +3']],
+        [9,'Indomável (1 uso)',['Prof +4']],
+        [10,'Habilidade de Arquétipo',['Prof +4']],
+        [11,'Ataque Extra (3 ataques)',['Prof +4']],
+        [12,'Aumento de Valor de Atributo (AVA)',['Prof +4']],
+        [13,'Indomável (2 usos)',['Prof +5']],
+        [14,'Aumento de Valor de Atributo (AVA)',['Prof +5']],
+        [15,'Habilidade de Arquétipo',['Prof +5']],
+        [16,'Aumento de Valor de Atributo (AVA)',['Prof +5']],
+        [17,'Surto de Ação (2 usos), Indomável (3 usos)',['Prof +6']],
+        [18,'Habilidade de Arquétipo',['Prof +6']],
+        [19,'Aumento de Valor de Atributo (AVA)',['Prof +6']],
+        [20,'Ataque Extra (4 ataques)',['Prof +6']]
+      ]
+    },
+
+    barbaro: {
+      id: 'barbaro',
+      nome: 'Bárbaro',
+      arquetipo: 'Dano bruto e resistência via Fúria, sem armadura',
+      personagem: 'Personagem 2',
+      palette: { bg: '#2B1411', deep: '#1A0B09', surface: '#6E3025', light: '#F6E8D2', muted: '#C4A08C', accent: '#E0574C', accent2: '#A8322B', paper: '#F0D8BC', paper2: '#DDBC96', edge: '#B07A56', ink: '#4A2017', inksoft: '#7E4936' },
+      img: 'img/barbaro-cut.png',
+      raca: 'Meio-Orc',
+      racaTxt: 'Meio-Orc (+2 FOR, +1 CON)',
+      dadoVida: 12,
+      ca: 13,
+      caNota: 'Defesa sem Armadura: 10 + DES + CON',
+      deslocamento: '9 m',
+      perfil: { idade: '—', altura: '~1,75 m', peso: '—' },
+      perfilFisico: 'A definir.',
+      comoChegou: 'A definir.',
+      historico: 'A definir.',
+      historia: {
+        temperamento: 'A definir.',
+        marca: 'A definir.',
+        contradicao: 'A definir.',
+        tique: 'A definir.'
+      },
+      primarios: ['FOR'],
+      secundario: 'CON',
+      saves: ['FOR','CON'],
+      sugestao: { FOR: 15, DES: 13, CON: 14, INT: 8, SAB: 12, CAR: 10 },
+      atributos: { FOR: 17, DES: 13, CON: 15, INT: 8, SAB: 12, CAR: 10 },
+      pericias: ['Atletismo','Percepção','Intimidação (Meio-Orc)'],
+      periciaLivre: 'Lista da classe: Adestrar Animais, Atletismo, Intimidação, Natureza, Percepção, Sobrevivência.',
+      proficiencias: {
+        categoria: 'Armaduras leves e médias, escudos, armas simples e marciais.',
+        loadout: 'Meio-Orc dá a perícia Intimidação. Em Fúria: +2 no dano corpo a corpo com FOR.'
+      },
+      equipamento: {
+        armaLabel: 'Arma assinatura',
+        arma: '',
+        habilidadeUnica: '',
+        gadget: ''
+      },
+      equipInicial: ['Machado grande','2 machadinhas','4 azagaias','Pacote de explorador'],
+      subclasse: {'nivel':3,'titulo':'Caminho Primitivo','opcoes':['Caminho do Furioso','Caminho do Guerreiro Totêmico']},
+      armas: [['Machado grande','+5','1d12+3 cortante','Pesada, duas mãos'],['Machadinha (×2)','+5','1d6+3 cortante','Leve, arremesso 6/18 m'],['Azagaia (×4)','+5','1d6+3 perfurante','Arremesso 9/36 m']],
+      featureNivel1: 'Fúria (2 usos, +2 de dano), Defesa sem Armadura',
+      progressao: [
+        [1,'Fúria, Defesa sem Armadura',['Prof +2','2 fúrias','+2 dano']],
+        [2,'Ataque Descuidado, Sentido de Perigo',['Prof +2','2 fúrias','+2 dano']],
+        [3,'Caminho Primitivo (subclasse)',['Prof +2','3 fúrias','+2 dano']],
+        [4,'Aumento de Valor de Atributo (AVA)',['Prof +2','3 fúrias','+2 dano']],
+        [5,'Ataque Extra, Movimento Rápido (+3 m)',['Prof +3','3 fúrias','+2 dano']],
+        [6,'Habilidade de Caminho',['Prof +3','4 fúrias','+2 dano']],
+        [7,'Instinto Selvagem',['Prof +3','4 fúrias','+2 dano']],
+        [8,'Aumento de Valor de Atributo (AVA)',['Prof +3','4 fúrias','+2 dano']],
+        [9,'Crítico Brutal (1 dado)',['Prof +4','4 fúrias','+3 dano']],
+        [10,'Habilidade de Caminho',['Prof +4','4 fúrias','+3 dano']],
+        [11,'Fúria Implacável',['Prof +4','4 fúrias','+3 dano']],
+        [12,'Aumento de Valor de Atributo (AVA)',['Prof +4','5 fúrias','+3 dano']],
+        [13,'Crítico Brutal (2 dados)',['Prof +5','5 fúrias','+3 dano']],
+        [14,'Habilidade de Caminho',['Prof +5','5 fúrias','+3 dano']],
+        [15,'Fúria Persistente',['Prof +5','5 fúrias','+3 dano']],
+        [16,'Aumento de Valor de Atributo (AVA)',['Prof +5','5 fúrias','+4 dano']],
+        [17,'Crítico Brutal (3 dados)',['Prof +6','6 fúrias','+4 dano']],
+        [18,'Força Indomável',['Prof +6','6 fúrias','+4 dano']],
+        [19,'Aumento de Valor de Atributo (AVA)',['Prof +6','6 fúrias','+4 dano']],
+        [20,'Campeão Primitivo (+4 FOR e CON, máx. 24)',['Prof +6','Ilimitadas fúrias','+4 dano']]
+      ]
     },
 
     ladino: {
       id: 'ladino',
       nome: 'Ladino',
-      arquetipo: 'Furtividade e golpes precisos',
+      arquetipo: 'Perícias e Ataque Furtivo, foco em Destreza',
       personagem: 'Personagem 3',
-      palette: { bg: '#2B1D17', deep: '#1D120D', surface: '#5C3D2C', accent: '#9B59C7', accent2: '#5E2D80', light: '#F6E8D2', muted: '#BBA48A' },
+      palette: { bg: '#1C1526', deep: '#110C18', surface: '#4E3C63', light: '#F6E8D2', muted: '#B3A5C4', accent: '#9B59C7', accent2: '#5E2D80', paper: '#E7DDE8', paper2: '#D2C3D3', edge: '#9A84A6', ink: '#33274A', inksoft: '#675780' },
       img: 'img/ladino-cut.png',
+      raca: 'Halfling Pés-Leves',
+      racaTxt: 'Halfling Pés-Leves (+2 DES, +1 CAR)',
       dadoVida: 8,
-      perfil: { idade: '—', altura: '—', peso: '—' },
+      ca: 14,
+      caNota: 'armadura de couro 11 + DES',
+      deslocamento: '7,5 m',
+      perfil: { idade: '—', altura: '~0,91 m', peso: '—' },
       perfilFisico: 'A definir.',
       comoChegou: 'A definir.',
       historico: 'A definir.',
@@ -1377,14 +1598,15 @@
         tique: 'A definir.'
       },
       primarios: ['DES'],
-      secundario: 'CAR',
-      saves: ['DES', 'INT'],
-      sugestao: { FOR: 8, DES: 15, CON: 14, INT: 12, SAB: 10, CAR: 13 },
-      pericias: [],
-      periciaLivre: '',
+      secundario: 'CON',
+      saves: ['DES','INT'],
+      sugestao: { FOR: 8, DES: 15, CON: 14, INT: 10, SAB: 13, CAR: 12 },
+      atributos: { FOR: 8, DES: 17, CON: 14, INT: 10, SAB: 13, CAR: 13 },
+      pericias: ['Furtividade','Acrobacia','Percepção','Enganação'],
+      periciaLivre: 'Lista da classe: Acrobacia, Atletismo, Atuação, Enganação, Furtividade, Intimidação, Intuição, Investigação, Percepção, Persuasão, Prestidigitação.',
       proficiencias: {
-        categoria: '',
-        loadout: ''
+        categoria: 'Armaduras leves, armas simples, bestas de mão, espadas longas, rapieiras, espadas curtas.',
+        loadout: 'Ferramentas de ladrão. Especialização (dobra a proficiência): Furtividade e ferramentas de ladrão.'
       },
       equipamento: {
         armaLabel: 'Arma assinatura',
@@ -1392,19 +1614,48 @@
         habilidadeUnica: '',
         gadget: ''
       },
-      featureNivel1: '',
-      progressao: []
+      equipInicial: ['Rapieira','Arco curto + 20 flechas','2 adagas','Armadura de couro','Ferramentas de ladrão','Pacote de assaltante'],
+      subclasse: {'nivel':3,'titulo':'Arquétipo de Ladino','opcoes':['Ladrão','Assassino','Trapaceiro Arcano']},
+      armas: [['Rapieira','+5','1d8+3 perfurante','Acuidade'],['Arco curto (20 flechas)','+5','1d6+3 perfurante','Munição, 24/96 m, duas mãos'],['Adaga (×2)','+5','1d4+3 perfurante','Acuidade, leve, arremesso 6/18 m']],
+      featureNivel1: 'Especialização, Ataque Furtivo (1d6), Gíria de Ladrão',
+      progressao: [
+        [1,'Especialização, Ataque Furtivo, Gíria de Ladrão',['Prof +2','Furtivo 1d6']],
+        [2,'Ação Ardilosa',['Prof +2','Furtivo 1d6']],
+        [3,'Arquétipo de Ladino (subclasse)',['Prof +2','Furtivo 2d6']],
+        [4,'Aumento de Valor de Atributo (AVA)',['Prof +2','Furtivo 2d6']],
+        [5,'Esquiva Sobrenatural',['Prof +3','Furtivo 3d6']],
+        [6,'Especialização (+2 perícias)',['Prof +3','Furtivo 3d6']],
+        [7,'Evasão',['Prof +3','Furtivo 4d6']],
+        [8,'Aumento de Valor de Atributo (AVA)',['Prof +3','Furtivo 4d6']],
+        [9,'Habilidade de Arquétipo',['Prof +4','Furtivo 5d6']],
+        [10,'Aumento de Valor de Atributo (AVA)',['Prof +4','Furtivo 5d6']],
+        [11,'Talento Confiável',['Prof +4','Furtivo 6d6']],
+        [12,'Aumento de Valor de Atributo (AVA)',['Prof +4','Furtivo 6d6']],
+        [13,'Habilidade de Arquétipo',['Prof +5','Furtivo 7d6']],
+        [14,'Sentido Cego',['Prof +5','Furtivo 7d6']],
+        [15,'Mente Escorregadia (resistência de SAB)',['Prof +5','Furtivo 8d6']],
+        [16,'Aumento de Valor de Atributo (AVA)',['Prof +5','Furtivo 8d6']],
+        [17,'Habilidade de Arquétipo',['Prof +6','Furtivo 9d6']],
+        [18,'Elusivo',['Prof +6','Furtivo 9d6']],
+        [19,'Aumento de Valor de Atributo (AVA)',['Prof +6','Furtivo 10d6']],
+        [20,'Golpe de Sorte',['Prof +6','Furtivo 10d6']]
+      ]
     },
 
     druida: {
       id: 'druida',
       nome: 'Druida',
-      arquetipo: 'Magia da natureza e forma selvagem',
+      arquetipo: 'Conjurador divino da natureza com Forma Selvagem, foco em Sabedoria',
       personagem: 'Personagem 4',
-      palette: { bg: '#2B1D17', deep: '#1D120D', surface: '#5C3D2C', accent: '#A9AD2A', accent2: '#6E7312', light: '#F6E8D2', muted: '#BBA48A' },
+      palette: { bg: '#022509', deep: '#011705', surface: '#238926', light: '#FBFFF2', muted: '#D3EBD3', accent: '#25E970', accent2: '#238926', paper: '#FBFFF2', paper2: '#E9FFCA', edge: '#7FBF63', ink: '#022509', inksoft: '#2B6B31' },
       img: 'img/druida-cut.png',
+      raca: 'Elfo da Floresta',
+      racaTxt: 'Elfo da Floresta (+2 DES, +1 SAB)',
       dadoVida: 8,
-      perfil: { idade: '—', altura: '—', peso: '—' },
+      ca: 15,
+      caNota: 'couro 11 + DES 2 + escudo de madeira 2',
+      deslocamento: '10,5 m',
+      perfil: { idade: '—', altura: '~1,65 m', peso: '—' },
       perfilFisico: 'A definir.',
       comoChegou: 'A definir.',
       historico: 'A definir.',
@@ -1416,13 +1667,14 @@
       },
       primarios: ['SAB'],
       secundario: 'CON',
-      saves: ['INT', 'SAB'],
+      saves: ['INT','SAB'],
       sugestao: { FOR: 8, DES: 13, CON: 14, INT: 12, SAB: 15, CAR: 10 },
-      pericias: [],
-      periciaLivre: '',
+      atributos: { FOR: 8, DES: 15, CON: 14, INT: 12, SAB: 16, CAR: 10 },
+      pericias: ['Natureza','Medicina','Percepção (Elfo)'],
+      periciaLivre: 'Lista da classe: Arcanismo, Adestrar Animais, Intuição, Medicina, Natureza, Percepção, Religião, Sobrevivência.',
       proficiencias: {
-        categoria: '',
-        loadout: ''
+        categoria: 'Armaduras leves e médias, escudos (nada de metal), clava, adaga, dardo, azagaia, maça, bordão, cimitarra, foice, funda, lança.',
+        loadout: 'Kit de herbalismo. Elfo da Floresta soma espada longa, espada curta, arco curto e arco longo, e dá Percepção.'
       },
       equipamento: {
         armaLabel: 'Arma assinatura',
@@ -1430,8 +1682,33 @@
         habilidadeUnica: '',
         gadget: ''
       },
-      featureNivel1: '',
-      progressao: []
+      equipInicial: ['Escudo de madeira','Cimitarra','Armadura de couro','Foco druídico','Pacote de explorador'],
+      subclasse: {'nivel':2,'titulo':'Círculo Druídico','opcoes':['Círculo da Terra','Círculo da Lua'],'nota':'Círculo da Lua altera os limites de Forma Selvagem (ND 1 no nível 2, nível ÷ 3 a partir do 6).'},
+      armas: [['Cimitarra','+4','1d6+2 cortante','Acuidade, leve'],['Bordão com Bordão Místico','+5','1d8+3 concussão','Usa SAB, ação bônus'],['Produzir Chama (truque)','+5','1d8 fogo','Truque, 9 m']],
+      magias: {'cd':13,'ataque':'+5','preparadas':'4 (SAB + nível)','truquesQtd':2,'truques':['Produzir Chama'],'nivel1':['Curar Ferimentos','Constrição','Fogo das Fadas','Onda Trovejante','Bom Fruto'],'espacos1':2},
+      featureNivel1: 'Druídico, Conjuração (2 truques, 2 espaços de 1º nível)',
+      progressao: [
+        [1,'Druídico, Conjuração',['Prof +2','2 truques','espaços 2']],
+        [2,'Forma Selvagem (ND 1/4, sem nadar/voar), Círculo Druídico (subclasse)',['Prof +2','2 truques','espaços 3']],
+        [3,'Sem habilidade nova',['Prof +2','2 truques','espaços 4/2']],
+        [4,'Forma Selvagem (ND 1/2, nadar), Aumento de Valor de Atributo (AVA)',['Prof +2','3 truques','espaços 4/3']],
+        [5,'Sem habilidade nova',['Prof +3','3 truques','espaços 4/3/2']],
+        [6,'Habilidade de Círculo',['Prof +3','3 truques','espaços 4/3/3']],
+        [7,'Sem habilidade nova',['Prof +3','3 truques','espaços 4/3/3/1']],
+        [8,'Forma Selvagem (ND 1, voar), Aumento de Valor de Atributo (AVA)',['Prof +3','3 truques','espaços 4/3/3/2']],
+        [9,'Sem habilidade nova',['Prof +4','3 truques','espaços 4/3/3/3/1']],
+        [10,'Habilidade de Círculo',['Prof +4','4 truques','espaços 4/3/3/3/2']],
+        [11,'Sem habilidade nova',['Prof +4','4 truques','espaços 4/3/3/3/2/1']],
+        [12,'Aumento de Valor de Atributo (AVA)',['Prof +4','4 truques','espaços 4/3/3/3/2/1']],
+        [13,'Sem habilidade nova',['Prof +5','4 truques','espaços 4/3/3/3/2/1/1']],
+        [14,'Habilidade de Círculo',['Prof +5','4 truques','espaços 4/3/3/3/2/1/1']],
+        [15,'Sem habilidade nova',['Prof +5','4 truques','espaços 4/3/3/3/2/1/1/1']],
+        [16,'Aumento de Valor de Atributo (AVA)',['Prof +5','4 truques','espaços 4/3/3/3/2/1/1/1']],
+        [17,'Sem habilidade nova',['Prof +6','4 truques','espaços 4/3/3/3/2/1/1/1/1']],
+        [18,'Corpo Atemporal, Conjuração Bestial',['Prof +6','4 truques','espaços 4/3/3/3/3/1/1/1/1']],
+        [19,'Aumento de Valor de Atributo (AVA)',['Prof +6','4 truques','espaços 4/3/3/3/3/2/1/1/1']],
+        [20,'Arquidruida (Forma Selvagem ilimitada)',['Prof +6','4 truques','espaços 4/3/3/3/3/2/2/1/1']]
+      ]
     }
   };
 
@@ -1441,12 +1718,12 @@
     var RC = window.RPGCalc;
     var ORDER = Object.keys(RC.CLASSES);
 
-    // estado independente por classe — começa na distribuição sugerida (point-buy de 27)
+    // estado independente por classe — começa nos atributos finais da ficha padrão D&D 5e (array padrão + racial)
     var stateByClass = {};
     ORDER.forEach(function (id) {
       stateByClass[id] = {
         name: RC.CLASSES[id].personagem || '',
-        scores: Object.assign({}, RC.CLASSES[id].sugestao)
+        scores: Object.assign({}, RC.CLASSES[id].atributos)
       };
     });
     var activeId = 'guerreiro';
@@ -1455,7 +1732,21 @@
     function cls() { return RC.CLASSES[activeId]; }
     function st() { return stateByClass[activeId]; }
 
+    // emblema de cada classe (traço simples, usa currentColor)
+    var EMBLEMS = {
+      guerreiro: '<path d="M50 8L86 20V50C86 74 70 88 50 94C30 88 14 74 14 50V20Z"/><path d="M50 8V94M14 42H86"/>',
+      barbaro: '<path d="M50 10V92"/><path d="M50 22C30 12 12 22 10 42C26 44 40 40 50 34"/><path d="M50 22C70 12 88 22 90 42C74 44 60 40 50 34"/><path d="M44 92H56"/>',
+      ladino: '<path d="M50 6L62 54H38Z"/><path d="M27 54H73"/><path d="M50 54V86"/><circle cx="50" cy="92" r="4"/>',
+      druida: '<path d="M50 92V48"/><path d="M50 62C38 58 30 46 28 26"/><path d="M50 62C62 58 70 46 72 26"/><path d="M36 50C26 48 18 40 14 28"/><path d="M64 50C74 48 82 40 86 28"/><path d="M33 44L20 38M67 44L80 38"/>'
+    };
+    function emblemSvg(id) {
+      return '<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">' + (EMBLEMS[id] || '') + '</svg>';
+    }
     function applyPalette() {
+      document.documentElement.dataset.tema = activeId;
+      var he = document.getElementById('hero-emblem'), pe = document.getElementById('plank-emblem');
+      if (he) he.innerHTML = emblemSvg(activeId);
+      if (pe) pe.innerHTML = emblemSvg(activeId);
       var p = cls().palette;
       var root = document.documentElement.style;
       Object.keys(p).forEach(function (k) {
@@ -1633,8 +1924,16 @@
 
     // ícones de linha por tipo (sem lib, recolorem via stroke: var(--c-accent))
     var INV_ICONS = {
-      arma: '',
-      gadget: '',
+      espada: '<svg viewBox="0 0 24 24"><path d="M20 4l-1 5-9 9-4-4 9-9z"/><path d="M6 14l4 4M4 20l3-3"/></svg>',
+      machado: '<svg viewBox="0 0 24 24"><path d="M5 20L17 8"/><path d="M12 5c3-2 7 0 8 3l-4 1-4-4z"/></svg>',
+      azagaia: '<svg viewBox="0 0 24 24"><path d="M4 20L18 6M14 4h6v6z"/></svg>',
+      arco: '<svg viewBox="0 0 24 24"><path d="M6 4c9 2 14 8 12 16"/><path d="M6 4l12 16"/><path d="M12 12l5-5M15 7h2v2"/></svg>',
+      adaga: '<svg viewBox="0 0 24 24"><path d="M12 3l3 9-3 3-3-3z"/><path d="M8 15h8M12 15v6"/></svg>',
+      armadura: '<svg viewBox="0 0 24 24"><path d="M7 4l-4 4 3 3v9h12v-9l3-3-4-4-2 2h-6z"/></svg>',
+      escudo: '<svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 5-3 8-7 9-4-1-7-4-7-9V6z"/></svg>',
+      pacote: '<svg viewBox="0 0 24 24"><rect x="6" y="8" width="12" height="13" rx="3"/><path d="M9 8V6a3 3 0 016 0v2M9 14h6"/></svg>',
+      foco: '<svg viewBox="0 0 24 24"><path d="M5 19c0-8 6-14 15-14 0 9-6 15-14 15z"/><path d="M5 19L14 10"/></svg>',
+      ferramentas: '<svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><path d="M10 10l9 9M16 16l2-2M18 18l2-2"/></svg>',
       municao: '<svg viewBox="0 0 24 24"><path d="M8 3h3l1 5v10H7V8z"/><path d="M14 6h3v9h-3z"/></svg>',
       racao: '<svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="14" rx="1"/><path d="M6 9h12"/></svg>',
       agua: '<svg viewBox="0 0 24 24"><path d="M10 2h4v3l2 3v12H8V8l2-3z"/><path d="M8 13h8"/></svg>',
@@ -1643,7 +1942,20 @@
     };
     // itens de sobrevivência compartilhados + equipamento por classe (nome, tipo, qtd)
     var INV_BASE = [];
-    var INV_EXTRA = {};
+        var INV_EXTRA = {
+      guerreiro: [
+        { n: 'Cota de malha', t: 'armadura' }, { n: 'Espada longa', t: 'espada' }, { n: 'Escudo', t: 'escudo' }, { n: 'Besta leve', t: 'arco' }, { n: 'Virotes', t: 'municao', q: 20 }, { n: 'Pacote de aventureiro', t: 'pacote' }
+      ],
+      barbaro: [
+        { n: 'Machado grande', t: 'machado' }, { n: 'Machadinha', t: 'machado', q: 2 }, { n: 'Azagaia', t: 'azagaia', q: 4 }, { n: 'Pacote de explorador', t: 'pacote' }
+      ],
+      ladino: [
+        { n: 'Rapieira', t: 'espada' }, { n: 'Arco curto', t: 'arco' }, { n: 'Flechas', t: 'municao', q: 20 }, { n: 'Adaga', t: 'adaga', q: 2 }, { n: 'Armadura de couro', t: 'armadura' }, { n: 'Ferramentas de ladrão', t: 'ferramentas' }, { n: 'Pacote de assaltante', t: 'pacote' }
+      ],
+      druida: [
+        { n: 'Escudo de madeira', t: 'escudo' }, { n: 'Cimitarra', t: 'espada' }, { n: 'Armadura de couro', t: 'armadura' }, { n: 'Foco druídico', t: 'foco' }, { n: 'Pacote de explorador', t: 'pacote' }
+      ]
+    };
 
     function renderInventario() {
       var items = INV_BASE.concat(INV_EXTRA[activeId] || []);
@@ -2022,27 +2334,76 @@
       document.getElementById('historia-contradicao').textContent = c.historia.contradicao;
       document.getElementById('historia-tique').textContent = c.historia.tique;
 
+      var sc = st().scores;
+      var hp = RC.calcHP(c.dadoVida, sc.CON);
+      var modFmt = function (v) { var m = RC.abilityModifier(v); return (m >= 0 ? '+' : '') + m; };
+      var prof1 = c.progressao.length ? c.progressao[0][2][0].replace('Prof ', '') : '+2';
+
       document.getElementById('char-pericias-value').textContent = c.pericias.length ? c.pericias.join(', ') + '.' : '—';
       document.getElementById('char-pericia-livre').textContent = c.periciaLivre;
-      document.getElementById('char-defesas-value').textContent = '—';
+      document.getElementById('char-defesas-value').textContent =
+        'Testes de resistência: ' + c.saves.map(function (a) { return RC.ATTR_LABELS[a]; }).join(' e ') +
+        '. Dado de vida d' + c.dadoVida + ' · PV no nível 1: ' + hp + ' (d' + c.dadoVida + ' + CON).';
       document.getElementById('char-prof-categoria').textContent = c.proficiencias.categoria || '—';
       document.getElementById('char-prof-loadout').textContent = c.proficiencias.loadout;
 
-      document.getElementById('equip-arma-label').textContent = c.equipamento.armaLabel;
-      document.getElementById('equip-arma').textContent = c.equipamento.arma || '—';
-      document.getElementById('equip-hab').textContent = c.equipamento.habilidadeUnica || '—';
-      document.getElementById('equip-gadget').textContent = c.equipamento.gadget || '—';
+      document.getElementById('info-raca').textContent = c.racaTxt;
+      document.getElementById('info-antecedente').textContent = 'Antecedente em aberto: soma +2 perícias, 1–2 ferramentas/idiomas e equipamento próprio.';
+      document.getElementById('info-sub-label').textContent = c.subclasse.titulo + ' (nível ' + c.subclasse.nivel + ')';
+      document.getElementById('info-sub').textContent = c.subclasse.opcoes.join(' · ');
+      document.getElementById('info-sub-nota').textContent = c.subclasse.nota || '';
+      document.getElementById('info-equip').textContent = c.equipInicial.join(', ') + '.';
 
-      var recurso = document.getElementById('recurso-classe');
-      if (c.recursoClasse) {
-        document.getElementById('recurso-classe-txt').textContent = c.recursoClasse;
-        recurso.hidden = false;
-      } else {
-        recurso.hidden = true;
+      // combate: hexágonos de estatísticas + armas
+      function hexes(el, list) {
+        el.innerHTML = '';
+        list.forEach(function (it) {
+          var d = document.createElement('div');
+          d.className = 'stat-hex';
+          d.innerHTML = '<div class="sh"><b></b></div><span class="sh-l"></span><small></small>';
+          var b = d.querySelector('b'), val = String(it[1]);
+          var m = /^([+\-−])(.+)$/.exec(val);
+          if (m) { b.innerHTML = '<span class="sg"></span><span class="nv"></span>'; b.querySelector('.sg').textContent = m[1]; b.querySelector('.nv').textContent = m[2]; }
+          else b.textContent = val;
+          if (val.length > 4) b.classList.add('long');
+          d.querySelector('.sh-l').textContent = it[0];
+          d.querySelector('small').textContent = it[2] || '';
+          el.appendChild(d);
+        });
+      }
+      hexes(document.getElementById('combate-stats'), [
+        ['CA', c.ca, c.caNota], ['PV', hp, 'd' + c.dadoVida + ' + CON'], ['Deslocamento', c.deslocamento, ''],
+        ['Proficiência', prof1, 'nível 1'], ['Iniciativa', modFmt(sc.DES), 'mod. DES']
+      ]);
+      var al = document.getElementById('armas-list');
+      al.innerHTML = '';
+      c.armas.forEach(function (w) {
+        var r = document.createElement('div');
+        r.className = 'arma-row';
+        r.innerHTML = '<span class="aw-n"></span><span class="aw-chip"><i>Ataque</i><b></b></span><span class="aw-chip"><i>Dano</i><b></b></span><span class="aw-p"></span>';
+        r.querySelector('.aw-n').textContent = w[0];
+        var bs = r.querySelectorAll('.aw-chip b');
+        bs[0].textContent = w[1]; bs[1].textContent = w[2];
+        r.querySelector('.aw-p').textContent = w[3];
+        al.appendChild(r);
+      });
+
+      // magias (só quem conjura)
+      var mg = c.magias, ms = document.getElementById('magias-section');
+      ms.hidden = !mg;
+      if (mg) {
+        hexes(document.getElementById('magias-stats'), [
+          ['CD de magia', mg.cd, ''], ['Ataque de magia', mg.ataque, ''], ['Preparadas', mg.preparadas.split(' ')[0], mg.preparadas], ['Espaços 1º', mg.espacos1, '']
+        ]);
+        document.getElementById('magias-truques').textContent = mg.truques.join(', ') + '.';
+        document.getElementById('magias-truques-nota').textContent = 'Truques conhecidos no nível 1: ' + mg.truquesQtd + '.';
+        document.getElementById('magias-nivel1').textContent = mg.nivel1.join(', ') + '.';
+        document.getElementById('magias-espacos').textContent = 'Espaços de magia de 1º nível: ' + mg.espacos1 + '.';
       }
 
       var body = document.getElementById('prog-body');
       body.innerHTML = '';
+      Array.prototype.forEach.call(document.querySelectorAll('#view-ficha .sec:not([hidden]) .num'), function (n, i) { n.textContent = (i < 9 ? '0' : '') + (i + 1); });
       if (!c.progressao.length) body.innerHTML = '<tr class="prog-empty"><td>Progressão a definir.</td></tr>';
       c.progressao.forEach(function (row) {
         var tr = document.createElement('tr');
@@ -2056,6 +2417,11 @@
         var feat = document.createElement('td');
         feat.textContent = row[1];
         tr.appendChild(feat);
+
+        var chips = document.createElement('td');
+        chips.className = 'chips';
+        (row[2] || []).forEach(function (t) { var sp = document.createElement('span'); sp.textContent = t; chips.appendChild(sp); });
+        tr.appendChild(chips);
 
         var tag = document.createElement('td');
         tag.className = 'tag';
@@ -2117,25 +2483,39 @@
       table.appendChild(tr2);
       sheet.appendChild(table);
 
+      heading('Combate');
+      defList([
+        ['CA', c.ca + ' (' + c.caNota + ')'],
+        ['PV nível 1', String(hp) + ' (d' + c.dadoVida + ' + CON)'],
+        ['Deslocamento', c.deslocamento],
+        ['Iniciativa', (RC.abilityModifier(s.scores.DES) >= 0 ? '+' : '') + RC.abilityModifier(s.scores.DES)]
+      ].concat(c.armas.map(function (w) { return [w[0], w[1] + ' · ' + w[2] + ' · ' + w[3]]; })));
+
       heading('Perícias e proficiências');
       defList([
-        ['Saves proficientes', c.saves.map(function (a) { return RC.ATTR_LABELS[a]; }).join(' + ')],
-        ['Atributos primários', c.primarios.map(function (a) { return RC.ATTR_LABELS[a]; }).join(' / ')],
-        ['Perícias automáticas', c.pericias.join(', ') || '—'],
-        ['Perícia livre', c.periciaLivre || '—'],
+        ['Testes de resistência', c.saves.map(function (a) { return RC.ATTR_LABELS[a]; }).join(' + ')],
+        ['Atributo-chave', c.primarios.map(function (a) { return RC.ATTR_LABELS[a]; }).join(' / ')],
+        ['Perícias', c.pericias.join(', ') || '—'],
         ['Armas e armadura', c.proficiencias.categoria || '—'],
-        ['Loadout inicial', c.proficiencias.loadout || '—']
+        ['Outras proficiências', c.proficiencias.loadout || '—']
       ]);
 
-      heading('Equipamento assinatura');
-      var equip = [
-        [c.equipamento.armaLabel, c.equipamento.arma || '—'],
-        ['Habilidade única', c.equipamento.habilidadeUnica || '—'],
-        ['Gadget', c.equipamento.gadget || '—']
-      ];
-      if (c.recursoClasse) equip.push(['Recurso de classe', c.recursoClasse]);
-      defList(equip);
-
+      heading('Raça, subclasse e equipamento');
+      defList([
+        ['Raça', c.racaTxt],
+        [c.subclasse.titulo + ' (nível ' + c.subclasse.nivel + ')', c.subclasse.opcoes.join(' · ')],
+        ['Equipamento inicial', c.equipInicial.join(', ')],
+        ['Habilidades de nível 1', c.featureNivel1]
+      ]);
+      if (c.magias) {
+        heading('Magias');
+        defList([
+          ['CD / ataque', c.magias.cd + ' / ' + c.magias.ataque],
+          ['Preparadas', c.magias.preparadas],
+          ['Truques', c.magias.truques.join(', ')],
+          ['Nível 1', c.magias.nivel1.join(', ') + ' (' + c.magias.espacos1 + ' espaços)']
+        ]);
+      }
     }
 
     function render() {
