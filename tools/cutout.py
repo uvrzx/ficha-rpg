@@ -27,7 +27,7 @@ from scipy.ndimage import distance_transform_edt
 SOURCES = [
     ("img/guerreiro.png", "img/guerreiro-cut.png"),
     ("img/barbaro.webp", "img/barbaro-cut.png"),
-    ("img/ladino.webp", "img/ladino-cut.png"),
+    ("img/ladino.png", "img/ladino-cut.png"),
     ("img/druida.webp", "img/druida-cut.png"),
 ]
 
