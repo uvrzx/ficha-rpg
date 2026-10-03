@@ -1111,6 +1111,144 @@
   :root[data-tema="ladino"] .sec .sec-head h2::before, :root[data-tema="ladino"] .view-head h2::before, :root[data-tema="ladino"] .sec .sec-head h2::after, :root[data-tema="ladino"] .view-head h2::after { display: none; }
   :root[data-tema="ladino"] .inv-frame, :root[data-tema="ladino"] .zmap-wrap { border-radius: 0; box-shadow: 8px 8px 0 #892325; }
 
+  /* ---- GUERREIRO: aço rebitado — placas de madeira com moldura de metal (refs de UI de cavaleiro) ---- */
+  :root[data-tema="guerreiro"] {
+    --card-radius: 12px;
+    --steel: linear-gradient(135deg, #f4f5f7 0%, #9aa0a8 28%, #dde0e4 50%, #7c828a 74%, #c6cacf 100%);
+    --rivet: radial-gradient(circle at 50% 50%, #f1f3f5 0 1.6px, #8a9098 2.4px, #3b4046 3.3px, transparent 3.7px);
+    --rivets: var(--rivet) left 6px top 6px / 9px 9px no-repeat, var(--rivet) right 6px top 6px / 9px 9px no-repeat, var(--rivet) left 6px bottom 6px / 9px 9px no-repeat, var(--rivet) right 6px bottom 6px / 9px 9px no-repeat;
+    --wood-plaque: repeating-linear-gradient(0deg, rgba(0,0,0,.14) 0 2px, transparent 2px 7px), linear-gradient(180deg, #5d4936, #3a2c20);
+  }
+  /* caixas de conteúdo: miolo claro, moldura de aço, rebites nos cantos */
+  :root[data-tema="guerreiro"] .profile-strip, :root[data-tema="guerreiro"] .card, :root[data-tema="guerreiro"] .duo-grid .field, :root[data-tema="guerreiro"] .equip-dl > div, :root[data-tema="guerreiro"] .resource-note, :root[data-tema="guerreiro"] .rel-row, :root[data-tema="guerreiro"] .ent-card, :root[data-tema="guerreiro"] .arma-row, :root[data-tema="guerreiro"] .zcard, :root[data-tema="guerreiro"] .sec p.lead, :root[data-tema="guerreiro"] .prog-table tr, :root[data-tema="guerreiro"] .tl-card {
+    border: 4px solid transparent; border-radius: var(--card-radius);
+    background: var(--rivets), var(--paper-tex) padding-box, var(--steel) border-box;
+    box-shadow: 0 7px 0 rgba(0,0,0,.5);
+  }
+  :root[data-tema="guerreiro"] .prog-table tr { border-radius: 10px; }
+  /* títulos: placa de madeira escura com moldura de aço e cantos inferiores chanfrados */
+  :root[data-tema="guerreiro"] .sec .sec-head h2, :root[data-tema="guerreiro"] .view-head h2, :root[data-tema="guerreiro"] .inv-bar .inv-title {
+    border: 4px solid transparent; border-radius: 4px; color: #F4F4F0; box-shadow: none; text-shadow: 0 2px 0 rgba(0,0,0,.6);
+    background: var(--rivets), var(--wood-plaque) padding-box, var(--steel) border-box;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+  :root[data-tema="guerreiro"] .inv-frame, :root[data-tema="guerreiro"] .zmap-wrap {
+    border: 5px solid transparent; border-radius: 14px; box-shadow: 0 8px 0 rgba(0,0,0,.5);
+    background: var(--rivets), var(--wood-plaque) padding-box, var(--steel) border-box;
+  }
+  /* menu lateral: item ativo é a pílula vinho do menu de cavaleiro */
+  :root[data-tema="guerreiro"] .app-nav button { border-radius: 999px; border: 2px solid transparent; color: #C9CCD2; background: transparent; box-shadow: none; }
+  :root[data-tema="guerreiro"] .app-nav button:hover { background: rgba(255,255,255,.06); color: #fff; }
+  :root[data-tema="guerreiro"] .app-nav button.active { color: #fff; border-color: #d9a0a6; background: linear-gradient(180deg, #8f1527, #5a0a15); box-shadow: 0 3px 0 rgba(0,0,0,.45); }
+  :root[data-tema="guerreiro"] .app-nav .brand { border-radius: 4px; border: 4px solid transparent; background: var(--wood-plaque) padding-box, var(--steel) border-box; color: #F4F4F0; box-shadow: none; }
+  /* botões: placa de aço; Imprimir é a pílula vinho */
+  :root[data-tema="guerreiro"] .zmap-arrow, :root[data-tema="guerreiro"] .zcard-actions button, :root[data-tema="guerreiro"] .ctx-actions button, :root[data-tema="guerreiro"] .zbtn-del { border: 3px solid transparent; border-radius: 8px; color: #F4F4F0; background: linear-gradient(180deg, #4b4f57, #2b2e34) padding-box, var(--steel) border-box; text-shadow: 0 1px 0 rgba(0,0,0,.6); box-shadow: 0 4px 0 rgba(0,0,0,.45); }
+  :root[data-tema="guerreiro"] .ctx-actions .ctx-save, :root[data-tema="guerreiro"] .zbtn-sel { color: #fff; border: 2px solid #d9a0a6; background: linear-gradient(180deg, #8f1527, #5a0a15); }
+  :root[data-tema="guerreiro"] #print-btn { color: #fff; border: 2px solid #d9a0a6; border-radius: 999px; background: linear-gradient(180deg, #8f1527, #5a0a15); box-shadow: 0 4px 0 rgba(0,0,0,.45); text-shadow: 0 1px 0 rgba(0,0,0,.5); }
+  :root[data-tema="guerreiro"] .ctx-x { background: linear-gradient(180deg, #8f1527, #5a0a15); border: 2px solid #d9a0a6; }
+  /* inventário: cartões de item com moldura de aço; casas vazias são cadeados */
+  :root[data-tema="guerreiro"] .inv-slot { border: 4px solid transparent; border-radius: 12px; background: radial-gradient(circle at 50% 35%, #f5f6f4, #cfd2d0) padding-box, var(--steel) border-box; box-shadow: 0 4px 0 rgba(0,0,0,.45); }
+  :root[data-tema="guerreiro"] .inv-art svg { stroke: #2a2f38; }
+  :root[data-tema="guerreiro"] .inv-slot:hover { border-color: transparent; transform: translateY(-3px); }
+  :root[data-tema="guerreiro"] .inv-name { background: rgba(20,22,24,.86); color: #F4F4F0; border-radius: 6px; }
+  :root[data-tema="guerreiro"] .inv-qty { background: #8f1527; color: #fff; border-bottom-color: #5a0a15; }
+  :root[data-tema="guerreiro"] .inv-slot.empty { clip-path: none; border-radius: 12px; border: 4px solid transparent; background: radial-gradient(circle at 50% 35%, #e1e3e1, #b8bcba) padding-box, var(--steel) border-box; }
+  :root[data-tema="guerreiro"] .inv-slot.empty::after { inset: 0; clip-path: none; background: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2024%2024'%20fill%3D'none'%20stroke%3D'%235b616a'%20stroke-width%3D'1.8'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3Crect%20x%3D'5'%20y%3D'11'%20width%3D'14'%20height%3D'10'%20rx%3D'2'%20fill%3D'%23c9ccd1'%2F%3E%3Cpath%20d%3D'M8%2011V8a4%204%200%20018%200v3'%2F%3E%3Ccircle%20cx%3D'12'%20cy%3D'16'%20r%3D'1.2'%20fill%3D'%235b616a'%2F%3E%3C%2Fsvg%3E") center / 38% no-repeat; }
+
+  /* ---- BÁRBARO: tábuas rústicas, tiras de ferro com rebites, botões de madeira (refs de placas de madeira) ---- */
+  :root[data-tema="barbaro"] {
+    --card-radius: 5px 9px 4px 8px;
+    --board-tan: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'320'%20height%3D'170'%3E%3Cfilter%20id%3D'g'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'.007%20.22'%20numOctaves%3D'3'%20seed%3D'3'%2F%3E%3CfeColorMatrix%20values%3D'0%200%200%200%20.36%20%200%200%200%200%20.2%20%200%200%200%200%20.06%20%200%200%200%201.5%20-.5'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20filter%3D'url(%23g)'%2F%3E%3C%2Fsvg%3E") 0 0 / 320px 170px, repeating-linear-gradient(0deg, transparent 0 46px, rgba(70,38,8,.5) 46px 48px), linear-gradient(180deg, #E9C88F, #D3A55B);
+    --board-dark: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'320'%20height%3D'170'%3E%3Cfilter%20id%3D'g'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'.007%20.22'%20numOctaves%3D'3'%20seed%3D'9'%2F%3E%3CfeColorMatrix%20values%3D'0%200%200%200%20.62%20%200%200%200%200%20.42%20%200%200%200%200%20.24%20%200%200%200%201.2%20-.55'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20filter%3D'url(%23g)'%2F%3E%3C%2Fsvg%3E") 0 0 / 320px 170px, repeating-linear-gradient(0deg, transparent 0 40px, rgba(0,0,0,.55) 40px 42px), linear-gradient(180deg, #5b3e29, #38241a);
+    --strap: linear-gradient(90deg, #161311, #3b3531 45%, #161311);
+    --nail: radial-gradient(circle at 50% 50%, #f07a48 0 2px, #9a3414 2.8px, #4a1808 3.4px, transparent 3.8px);
+  }
+  :root[data-tema="barbaro"] .profile-strip, :root[data-tema="barbaro"] .card, :root[data-tema="barbaro"] .duo-grid .field, :root[data-tema="barbaro"] .equip-dl > div, :root[data-tema="barbaro"] .resource-note, :root[data-tema="barbaro"] .rel-row, :root[data-tema="barbaro"] .ent-card, :root[data-tema="barbaro"] .arma-row, :root[data-tema="barbaro"] .zcard, :root[data-tema="barbaro"] .sec p.lead, :root[data-tema="barbaro"] .prog-table tr, :root[data-tema="barbaro"] .tl-card {
+    position: relative; border: 3px solid #3a2410; border-radius: var(--card-radius); color: #2A1203;
+    background: var(--board-tan); box-shadow: 0 7px 0 rgba(0,0,0,.5);
+  }
+  :root[data-tema="barbaro"] .sec .sec-head h2, :root[data-tema="barbaro"] .view-head h2, :root[data-tema="barbaro"] .inv-bar .inv-title {
+    border: 3px solid #1d120a; border-radius: 4px 8px 3px 7px; color: #FBF4BD; text-shadow: 0 2px 0 rgba(0,0,0,.7);
+    background: var(--board-dark); box-shadow: 0 6px 0 rgba(0,0,0,.5); position: relative;
+  }
+  /* tiras de ferro verticais nas pontas, com rebites */
+  :root[data-tema="barbaro"] .profile-strip::before, :root[data-tema="barbaro"] .card::before, :root[data-tema="barbaro"] .duo-grid .field::before, :root[data-tema="barbaro"] .equip-dl > div::before, :root[data-tema="barbaro"] .resource-note::before, :root[data-tema="barbaro"] .rel-row::before, :root[data-tema="barbaro"] .ent-card::before, :root[data-tema="barbaro"] .arma-row::before, :root[data-tema="barbaro"] .zcard::before, :root[data-tema="barbaro"] .sec p.lead::before, :root[data-tema="barbaro"] .prog-table tr::before, :root[data-tema="barbaro"] .tl-card::before, :root[data-tema="barbaro"] .sec .sec-head h2::before, :root[data-tema="barbaro"] .view-head h2::before, :root[data-tema="barbaro"] .inv-bar .inv-title::before , :root[data-tema="barbaro"] .profile-strip::after, :root[data-tema="barbaro"] .card::after, :root[data-tema="barbaro"] .duo-grid .field::after, :root[data-tema="barbaro"] .equip-dl > div::after, :root[data-tema="barbaro"] .resource-note::after, :root[data-tema="barbaro"] .rel-row::after, :root[data-tema="barbaro"] .ent-card::after, :root[data-tema="barbaro"] .arma-row::after, :root[data-tema="barbaro"] .zcard::after, :root[data-tema="barbaro"] .sec p.lead::after, :root[data-tema="barbaro"] .prog-table tr::after, :root[data-tema="barbaro"] .tl-card::after, :root[data-tema="barbaro"] .sec .sec-head h2::after, :root[data-tema="barbaro"] .view-head h2::after, :root[data-tema="barbaro"] .inv-bar .inv-title::after {
+    content: ""; display: block; position: absolute; top: -5px; bottom: -5px; width: 11px; border-radius: 2px; pointer-events: none; transform: none;
+    background: var(--nail) center 8px / 8px 8px no-repeat, var(--nail) center calc(100% - 8px) / 8px 8px no-repeat, var(--strap);
+    box-shadow: 2px 2px 0 rgba(0,0,0,.45);
+  }
+  :root[data-tema="barbaro"] .profile-strip::before, :root[data-tema="barbaro"] .card::before, :root[data-tema="barbaro"] .duo-grid .field::before, :root[data-tema="barbaro"] .equip-dl > div::before, :root[data-tema="barbaro"] .resource-note::before, :root[data-tema="barbaro"] .rel-row::before, :root[data-tema="barbaro"] .ent-card::before, :root[data-tema="barbaro"] .arma-row::before, :root[data-tema="barbaro"] .zcard::before, :root[data-tema="barbaro"] .sec p.lead::before, :root[data-tema="barbaro"] .prog-table tr::before, :root[data-tema="barbaro"] .tl-card::before, :root[data-tema="barbaro"] .sec .sec-head h2::before, :root[data-tema="barbaro"] .view-head h2::before, :root[data-tema="barbaro"] .inv-bar .inv-title::before { left: -6px; right: auto; }
+  :root[data-tema="barbaro"] .profile-strip::after, :root[data-tema="barbaro"] .card::after, :root[data-tema="barbaro"] .duo-grid .field::after, :root[data-tema="barbaro"] .equip-dl > div::after, :root[data-tema="barbaro"] .resource-note::after, :root[data-tema="barbaro"] .rel-row::after, :root[data-tema="barbaro"] .ent-card::after, :root[data-tema="barbaro"] .arma-row::after, :root[data-tema="barbaro"] .zcard::after, :root[data-tema="barbaro"] .sec p.lead::after, :root[data-tema="barbaro"] .prog-table tr::after, :root[data-tema="barbaro"] .tl-card::after, :root[data-tema="barbaro"] .sec .sec-head h2::after, :root[data-tema="barbaro"] .view-head h2::after, :root[data-tema="barbaro"] .inv-bar .inv-title::after { right: -6px; left: auto; }
+  :root[data-tema="barbaro"] .inv-frame, :root[data-tema="barbaro"] .zmap-wrap { border: 4px solid #1d120a; border-radius: 6px; background: var(--board-dark); box-shadow: 0 8px 0 rgba(0,0,0,.5); }
+  /* menu: tábua ativa com tira de ferro à esquerda */
+  :root[data-tema="barbaro"] .app-nav button.active { color: #2A1203; background: var(--board-tan); border-left: 9px solid #1d120a; border-radius: 4px 10px 4px 10px; box-shadow: 0 3px 0 rgba(0,0,0,.5); }
+  :root[data-tema="barbaro"] .app-nav .brand { background: var(--board-dark); color: #FBF4BD; border: 3px solid #1d120a; border-radius: 4px 8px 3px 7px; box-shadow: 0 4px 0 rgba(0,0,0,.5); }
+  /* botões de madeira: redondos (✕ ◀ ▶) e ovais (ações) */
+  :root[data-tema="barbaro"] .ctx-x, :root[data-tema="barbaro"] .zmap-arrow { width: 46px; height: 46px; border-radius: 50%; color: #FEDC01; font-size: 18px; text-shadow: 0 2px 0 #4a1808; border: 3px solid #4a250a;
+    background: radial-gradient(circle at 35% 30%, #e8973a, #a8531a 72%); box-shadow: 0 4px 0 #2b1604; }
+  :root[data-tema="barbaro"] .ctx-x { top: 8px; margin: 0; }
+  :root[data-tema="barbaro"] .zmap-arrow { margin-top: -23px; }
+  :root[data-tema="barbaro"] #print-btn, :root[data-tema="barbaro"] .zbtn-sel, :root[data-tema="barbaro"] .ctx-actions .ctx-save { border: 3px solid #4a250a; border-radius: 999px; color: #FFF4C2; text-shadow: 0 2px 0 #4a1808;
+    background: radial-gradient(120% 140% at 50% 0%, #e8973a, #a8531a); box-shadow: 0 4px 0 #2b1604; }
+  :root[data-tema="barbaro"] .zcard-actions button, :root[data-tema="barbaro"] .ctx-actions button { border: 3px solid #1d120a; border-radius: 999px; color: #FBF4BD; background: var(--board-dark); box-shadow: 0 4px 0 rgba(0,0,0,.5); text-shadow: 0 2px 0 rgba(0,0,0,.6); }
+  :root[data-tema="barbaro"] .ctx-actions .ctx-save { color: #FFF4C2; }
+  :root[data-tema="barbaro"] .zbtn-sel { border-bottom-width: 3px; }
+  /* inventário: caixotes de madeira com duas tiras */
+  :root[data-tema="barbaro"] .inv-slot { border: 3px solid #1d120a; border-radius: 4px; box-shadow: 0 4px 0 rgba(0,0,0,.5);
+    background: linear-gradient(90deg, transparent 0 13%, #161311 13% 21%, transparent 21% 79%, #161311 79% 87%, transparent 87%), var(--board-dark); }
+  :root[data-tema="barbaro"] .inv-name { background: rgba(14,10,6,.88); color: #FBF4BD; border-radius: 3px; }
+  :root[data-tema="barbaro"] .inv-slot.empty { clip-path: none; border-radius: 4px; background: linear-gradient(180deg, #24160e, #170d08); box-shadow: inset 0 6px 14px rgba(0,0,0,.75), 0 3px 0 rgba(0,0,0,.4); }
+  :root[data-tema="barbaro"] .inv-slot.empty::after { display: none; }
+
+  /* ---- LADINO: placas de metal escuro ornamentadas, pontas afiladas, gemas âmbar (refs de molduras) ---- */
+  :root[data-tema="ladino"] {
+    --pewter: radial-gradient(ellipse at 50% 20%, #6d7078, #34353b 62%, #232428);
+    --chamfer: polygon(12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px), 0 12px);
+    --points: polygon(18px 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 18px 100%, 0 50%);
+  }
+  /* caixas: miolo claro com moldura de metal e cantos chanfrados; gemas âmbar nas laterais */
+  :root[data-tema="ladino"] .profile-strip, :root[data-tema="ladino"] .card, :root[data-tema="ladino"] .duo-grid .field, :root[data-tema="ladino"] .equip-dl > div, :root[data-tema="ladino"] .resource-note, :root[data-tema="ladino"] .rel-row, :root[data-tema="ladino"] .ent-card, :root[data-tema="ladino"] .arma-row, :root[data-tema="ladino"] .zcard, :root[data-tema="ladino"] .sec p.lead, :root[data-tema="ladino"] .prog-table tr, :root[data-tema="ladino"] .tl-card {
+    position: relative; border: 5px solid transparent; border-radius: 0; clip-path: var(--chamfer); box-shadow: none;
+    background: var(--paper-tex) padding-box, linear-gradient(135deg, #e9ebee, #7c7f87 30%, #d3d5da 52%, #5b5e66 76%, #aeb1b8) border-box;
+  }
+  :root[data-tema="ladino"] .profile-strip::before, :root[data-tema="ladino"] .card::before, :root[data-tema="ladino"] .duo-grid .field::before, :root[data-tema="ladino"] .equip-dl > div::before, :root[data-tema="ladino"] .resource-note::before, :root[data-tema="ladino"] .rel-row::before, :root[data-tema="ladino"] .ent-card::before, :root[data-tema="ladino"] .arma-row::before, :root[data-tema="ladino"] .zcard::before, :root[data-tema="ladino"] .sec p.lead::before, :root[data-tema="ladino"] .prog-table tr::before, :root[data-tema="ladino"] .tl-card::before, :root[data-tema="ladino"] .profile-strip::after, :root[data-tema="ladino"] .card::after, :root[data-tema="ladino"] .duo-grid .field::after, :root[data-tema="ladino"] .equip-dl > div::after, :root[data-tema="ladino"] .resource-note::after, :root[data-tema="ladino"] .rel-row::after, :root[data-tema="ladino"] .ent-card::after, :root[data-tema="ladino"] .arma-row::after, :root[data-tema="ladino"] .zcard::after, :root[data-tema="ladino"] .sec p.lead::after, :root[data-tema="ladino"] .prog-table tr::after, :root[data-tema="ladino"] .tl-card::after {
+    content: ""; position: absolute; top: 50%; width: 8px; height: 8px; margin-top: -4px; transform: rotate(45deg); background: linear-gradient(135deg, #ffd27a, #e8a33a 55%, #9a5a12);
+    box-shadow: 0 0 0 2px #3a3b41; pointer-events: none; z-index: 2;
+  }
+  :root[data-tema="ladino"] .profile-strip::before, :root[data-tema="ladino"] .card::before, :root[data-tema="ladino"] .duo-grid .field::before, :root[data-tema="ladino"] .equip-dl > div::before, :root[data-tema="ladino"] .resource-note::before, :root[data-tema="ladino"] .rel-row::before, :root[data-tema="ladino"] .ent-card::before, :root[data-tema="ladino"] .arma-row::before, :root[data-tema="ladino"] .zcard::before, :root[data-tema="ladino"] .sec p.lead::before, :root[data-tema="ladino"] .prog-table tr::before, :root[data-tema="ladino"] .tl-card::before { left: 0; }
+  :root[data-tema="ladino"] .profile-strip::after, :root[data-tema="ladino"] .card::after, :root[data-tema="ladino"] .duo-grid .field::after, :root[data-tema="ladino"] .equip-dl > div::after, :root[data-tema="ladino"] .resource-note::after, :root[data-tema="ladino"] .rel-row::after, :root[data-tema="ladino"] .ent-card::after, :root[data-tema="ladino"] .arma-row::after, :root[data-tema="ladino"] .zcard::after, :root[data-tema="ladino"] .sec p.lead::after, :root[data-tema="ladino"] .prog-table tr::after, :root[data-tema="ladino"] .tl-card::after { right: 0; }
+  /* títulos: placa de metal com pontas afiladas, moldura de prata e espinhos de bronze */
+  :root[data-tema="ladino"] .sec .sec-head h2, :root[data-tema="ladino"] .view-head h2, :root[data-tema="ladino"] .inv-bar .inv-title {
+    position: relative; border: 0; border-radius: 0; clip-path: var(--points); color: #F4EDE0; text-shadow: 0 2px 0 rgba(0,0,0,.7); padding-left: 52px; padding-right: 52px;
+    background: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'40'%20height%3D'44'%20viewBox%3D'0%200%2040%2044'%3E%3Cg%20fill%3D'none'%20stroke%3D'%239a7442'%20stroke-width%3D'2.2'%20stroke-linecap%3D'round'%3E%3Cpath%20d%3D'M40%2022C28%2020%2022%2013%206%203C16%2011%2024%2017%2040%2018'%2F%3E%3Cpath%20d%3D'M40%2022C28%2024%2022%2031%206%2041C16%2033%2024%2027%2040%2026'%2F%3E%3Cpath%20d%3D'M40%2022C26%2022%2014%2022%202%2022'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") left 6px center / 34px 38px no-repeat, url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'40'%20height%3D'44'%20viewBox%3D'0%200%2040%2044'%3E%3Cg%20fill%3D'none'%20stroke%3D'%239a7442'%20stroke-width%3D'2.2'%20stroke-linecap%3D'round'%3E%3Cpath%20d%3D'M0%2022C12%2020%2018%2013%2034%203C24%2011%2016%2017%200%2018'%2F%3E%3Cpath%20d%3D'M0%2022C12%2024%2018%2031%2034%2041C24%2033%2016%2027%200%2026'%2F%3E%3Cpath%20d%3D'M0%2022C14%2022%2026%2022%2038%2022'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") right 6px center / 34px 38px no-repeat, var(--pewter);
+    box-shadow: inset 0 0 0 2px #cfd2d8, inset 0 0 0 4px #25262b, inset 0 0 0 5px #8a8d95;
+  }
+  :root[data-tema="ladino"] .sec .sec-head h2::before, :root[data-tema="ladino"] .view-head h2::before, :root[data-tema="ladino"] .inv-bar .inv-title::before, :root[data-tema="ladino"] .sec .sec-head h2::after, :root[data-tema="ladino"] .view-head h2::after, :root[data-tema="ladino"] .inv-bar .inv-title::after {
+    content: ""; display: block; position: absolute; top: 50%; width: 10px; height: 10px; margin-top: -5px; transform: rotate(45deg); background: linear-gradient(135deg, #ffd27a, #e8a33a 55%, #9a5a12); box-shadow: 0 0 0 2px #25262b;
+  }
+  :root[data-tema="ladino"] .sec .sec-head h2::before, :root[data-tema="ladino"] .view-head h2::before, :root[data-tema="ladino"] .inv-bar .inv-title::before { left: 22px; right: auto; }
+  :root[data-tema="ladino"] .sec .sec-head h2::after, :root[data-tema="ladino"] .view-head h2::after, :root[data-tema="ladino"] .inv-bar .inv-title::after { right: 22px; left: auto; }
+  :root[data-tema="ladino"] .inv-frame, :root[data-tema="ladino"] .zmap-wrap { border: 5px solid transparent; border-radius: 0; clip-path: var(--chamfer); box-shadow: none;
+    background: linear-gradient(180deg, #2c2d33, #1b1c20) padding-box, linear-gradient(135deg, #e9ebee, #7c7f87 30%, #d3d5da 52%, #5b5e66 76%, #aeb1b8) border-box; }
+  /* menu e botões: placas de metal com pontas */
+  :root[data-tema="ladino"] .app-nav button { border-radius: 0; clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 10px 100%, 0 50%); border: 0; color: #E9C9C9; background: transparent; box-shadow: none; padding-left: 22px; }
+  :root[data-tema="ladino"] .app-nav button:hover { background: rgba(255,255,255,.07); color: #fff; }
+  :root[data-tema="ladino"] .app-nav button.active { color: #F4EDE0; background: var(--pewter); box-shadow: inset 0 0 0 2px #cfd2d8, inset 0 0 0 4px #25262b; }
+  :root[data-tema="ladino"] .app-nav .brand { border-radius: 0; clip-path: var(--points); background: var(--pewter); color: #F4EDE0; box-shadow: inset 0 0 0 2px #cfd2d8, inset 0 0 0 4px #25262b; }
+  :root[data-tema="ladino"] #print-btn, :root[data-tema="ladino"] .zbtn-sel, :root[data-tema="ladino"] .ctx-actions .ctx-save, :root[data-tema="ladino"] .zcard-actions button, :root[data-tema="ladino"] .ctx-actions button, :root[data-tema="ladino"] .zmap-arrow, :root[data-tema="ladino"] .ctx-x {
+    border: 0; border-radius: 0; clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 10px 100%, 0 50%); color: #F4EDE0; text-shadow: 0 1px 0 rgba(0,0,0,.7);
+    background: var(--pewter); box-shadow: inset 0 0 0 2px #cfd2d8, inset 0 0 0 4px #25262b;
+  }
+  :root[data-tema="ladino"] #print-btn, :root[data-tema="ladino"] .zbtn-sel, :root[data-tema="ladino"] .ctx-actions .ctx-save { background: linear-gradient(180deg, #c4172c, #7a0f1a); }
+  :root[data-tema="ladino"] .zmap-arrow, :root[data-tema="ladino"] .ctx-x { clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+  /* inventário: placas de metal chanfradas */
+  :root[data-tema="ladino"] .inv-slot { border: 4px solid transparent; border-radius: 0; clip-path: var(--chamfer); box-shadow: none;
+    background: var(--pewter) padding-box, linear-gradient(135deg, #e9ebee, #7c7f87 30%, #d3d5da 52%, #5b5e66 76%, #aeb1b8) border-box; }
+  :root[data-tema="ladino"] .inv-slot:hover { border-color: transparent; transform: translateY(-3px); }
+  :root[data-tema="ladino"] .inv-name { background: rgba(14,10,12,.88); color: #F4EDE0; border-radius: 0; }
+  :root[data-tema="ladino"] .inv-slot.empty { clip-path: var(--chamfer); background: linear-gradient(180deg, #1d1e22, #121316) padding-box, linear-gradient(135deg, #8b8e96, #3d3e44) border-box; }
+  :root[data-tema="ladino"] .inv-slot.empty::after { display: none; }
+
   /* ================= RESPONSIVO ================= */
   @media (max-width: 900px) {
     :root { --nav-w: 0px; }
