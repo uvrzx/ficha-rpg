@@ -1282,6 +1282,45 @@
   :root[data-tema="barbaro"] .builder-card h2 { background: var(--board-dark); border: 3px solid #1d120a; border-radius: 4px 8px 3px 7px; }
   :root[data-tema="druida"] .builder-card h2 { background: var(--wood-tex); border: 2px solid #25E970; border-radius: 12px; }
 
+  /* ---- PADRÃO DO HERÓI E DAS ABAS (todas as fichas): nada se sobrepõe ---- */
+  :root { --vh: calc(1vh / 1.1); }
+  @media (min-width: 901px) {
+    .hero-inner { height: calc(var(--vh) * 100); grid-template-columns: minmax(340px, 400px) minmax(0, 1fr); }
+    .stage { min-width: 0; }
+    .stage { --hn: clamp(40px, 4.6vw, 76px); --band: calc(var(--vh) * 12 + var(--hn) * 2.05 + 16px); }
+    .hero-name { top: calc(var(--vh) * 12); font-size: var(--hn); -webkit-text-stroke-width: 6px; }
+    .name-rule { top: 0; }
+    /* retrato começa abaixo do nome; palavra da classe e emblema ficam atrás do retrato, na mesma faixa */
+    .hero-img { height: calc(100% - var(--band)); }
+    .word-back, :root[data-tema] .word-back { top: var(--band); left: 0; right: 0; font-size: clamp(64px, 9vw, 140px); line-height: 1; scale: 1 1; text-align: right; }
+    :root[data-tema="barbaro"] .word-back { font-size: clamp(100px, 14vw, 210px); scale: 1 1.5; text-align: center; }
+    :root[data-tema="ladino"] .word-back { font-size: clamp(100px, 15vw, 230px); scale: 1 1.35; text-align: center; }
+    .hero-emblem, :root[data-tema] .hero-emblem { top: var(--band); }
+  }
+  /* abas de personagem: um só modelo (placa da matéria + barra de destaque no topo), sem sobras */
+  .class-select button::after { display: none; }
+  .class-select button { min-height: 0; }
+  .class-select button.active { box-shadow: inset 0 4px 0 var(--k); }
+  .class-select button .idx { color: inherit; opacity: .6; }
+  .class-select button.active .idx { opacity: 1; color: var(--k-dark); }
+  :root[data-tema="guerreiro"] .class-select button.active, :root[data-tema="ladino"] .class-select button.active { color: #fff; }
+  :root[data-tema="guerreiro"] .class-select button.active .idx, :root[data-tema="ladino"] .class-select button.active .idx { color: var(--k); }
+  :root[data-tema="barbaro"] .class-select button.active { color: #2A1203; box-shadow: inset 0 4px 0 #1d120a; }
+  :root[data-tema="barbaro"] .class-select button.active .idx { color: #7F2F01; }
+  :root[data-tema="druida"] .class-select button.active { color: #022509; }
+  :root[data-tema="druida"] .class-select button.active .idx { color: #1c7a2c; }
+
+  /* Zonas: faixa de título e contagem na matéria de cada ficha */
+  :root[data-tema="guerreiro"] .zmap-title { background: var(--wood-plaque); color: #F4F4F0; border: 3px solid #9aa0a8; border-bottom-width: 3px; border-radius: 6px; }
+  :root[data-tema="barbaro"] .zmap-title { background: var(--board-dark); color: #FBF4BD; border: 3px solid #1d120a; border-radius: 4px 8px 3px 7px; }
+  :root[data-tema="druida"] .zmap-title { background: var(--wood-tex); color: #E9FFCA; border: 2px solid #25E970; border-radius: 10px; }
+  :root[data-tema="ladino"] .zmap-title { background: var(--face-lit); color: #ECE8E2; border: 2px solid #596170; border-radius: 10px; }
+  :root[data-tema="guerreiro"] .view-stat, :root[data-tema="barbaro"] .view-stat { background: var(--k); color: var(--wood-dark); border: 0; border-radius: 8px; }
+  :root[data-tema="ladino"] .zmap { background: var(--face); border-radius: 12px; box-shadow: inset 0 0 0 3px #4c5360, inset 0 8px 18px rgba(0,0,0,.6); }
+  :root[data-tema="ladino"] .zn-hex svg { stroke: #ECE8E2; }
+  :root[data-tema="ladino"] .zn::before { border-top-color: #596170; }
+  :root[data-tema="druida"] .zn-hex svg { stroke: #25E970; }
+
   /* ---- LADINO v3: pedra entalhada. Um material (relevo iluminado), um raio (chanfro), um acento (carmesim) ---- */
   :root[data-tema="ladino"] {
     --card-radius: 0;
@@ -1677,7 +1716,7 @@
         <h2>Relações</h2>
         <span class="view-stat" id="stat-relacoes">—</span>
       </div>
-      <p>Como os cinco se cruzam no caso. Clique num nó pra abrir a ficha daquele personagem.</p>
+      <p>Como os quatro se cruzam no caso. Clique num nó pra abrir a ficha daquele personagem.</p>
     </div>
     <div class="graph-wrap"><svg id="graph" viewBox="0 0 640 600" role="img"></svg></div>
     <div class="rel-list" id="rel-list"></div>
@@ -2298,7 +2337,7 @@
       adaga: '<svg viewBox="0 0 24 24"><path d="M12 3l3 9-3 3-3-3z"/><path d="M8 15h8M12 15v6"/></svg>',
       armadura: '<svg viewBox="0 0 24 24"><path d="M7 4l-4 4 3 3v9h12v-9l3-3-4-4-2 2h-6z"/></svg>',
       escudo: '<svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 5-3 8-7 9-4-1-7-4-7-9V6z"/></svg>',
-      pacote: '<svg viewBox="0 0 24 24"><rect x="6" y="8" width="12" height="13" rx="3"/><path d="M9 8V6a3 3 0 016 0v2M9 14h6"/></svg>',
+      pacote: '<svg viewBox="0 0 24 24"><path d="M5 10a3 3 0 013-3h8a3 3 0 013 3v9a2 2 0 01-2 2H7a2 2 0 01-2-2z"/><path d="M9.5 7V5.5A1.5 1.5 0 0111 4h2a1.5 1.5 0 011.5 1.5V7"/><path d="M5 12.5h14"/><rect x="9.5" y="11" width="5" height="3.4" rx="1"/></svg>',
       foco: '<svg viewBox="0 0 24 24"><path d="M5 19c0-8 6-14 15-14 0 9-6 15-14 15z"/><path d="M5 19L14 10"/></svg>',
       ferramentas: '<svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><path d="M10 10l9 9M16 16l2-2M18 18l2-2"/></svg>',
       municao: '<svg viewBox="0 0 24 24"><path d="M8 3h3l1 5v10H7V8z"/><path d="M14 6h3v9h-3z"/></svg>',
@@ -2886,7 +2925,17 @@
     }
 
     // encaixa o painel de Atributos na altura da janela (desktop), sem barra de rolagem
+    // palavra gigante da classe: sempre inteira dentro da área do herói (nada cortado nas laterais)
+    function fitWord() {
+      var w = document.getElementById('char-cursive-name');
+      if (!w) return;
+      w.style.fontSize = '';
+      if (window.innerWidth <= 900 || !w.parentElement) return;
+      var box = w.parentElement.clientWidth, tw = w.scrollWidth;
+      if (tw > box && tw > 0) w.style.fontSize = (parseFloat(getComputedStyle(w).fontSize) * box / tw * 0.96) + 'px';
+    }
     function fitBuilder() {
+      fitWord();
       var card = document.querySelector('.builder-card');
       if (!card) return;
       card.style.zoom = '';
