@@ -168,16 +168,6 @@
     padding-bottom: .06em;
   }
   .hero-name .line:nth-child(2) { padding-left: .8em; }
-  .name-rule {
-    position: absolute;
-    top: calc(13vh - 18px); left: 4.2%;
-    z-index: 2;
-    display: flex; align-items: center; gap: 10px;
-    font-size: 15px; font-weight: 700; letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--c-accent);
-  }
-  .name-rule::before { content: ""; width: 42px; height: 2px; background: var(--c-accent); }
 
   .hero-img {
     position: absolute;
@@ -734,8 +724,6 @@
   .word-back { -webkit-text-stroke: 2px color-mix(in srgb, var(--wood-light) 70%, transparent); }
   .hero-name { color: var(--paper); -webkit-text-stroke: 9px var(--wood-dark); paint-order: stroke fill; text-shadow: 0 7px 0 rgba(0,0,0,.35); }
   /* faixa pendurada (fita) com o nível */
-  .name-rule { top: 0; left: 4%; gap: 0; background: var(--k); color: var(--wood-dark); padding: 14px 20px 30px; border-top: 7px solid var(--wood-dark); clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%); letter-spacing: 0.12em; }
-  .name-rule::before { display: none; }
   .hero-meta .meta-k { color: var(--paper-2); }
   .hero-meta .meta-v { color: var(--ink); background: var(--paper-tex); border: 0; border-radius: 8px; padding: 6px 14px; box-shadow: 0 4px 0 var(--wood-dark); }
 
@@ -1052,7 +1040,6 @@
   /* o "sol" do pôster atrás do cavaleiro, com a torre; retrato em tons de cinza */
   :root[data-tema="guerreiro"] .hero-img img { filter: grayscale(.92) contrast(1.2) drop-shadow(0 16px 30px rgba(0,0,0,.55)); }
   :root[data-tema="guerreiro"] .word-back { -webkit-text-stroke: 2px color-mix(in srgb, #F4F4F0 55%, transparent); }
-  :root[data-tema="guerreiro"] .name-rule { clip-path: none; border-top-width: 0; box-shadow: 4px 4px 0 #141416; }
 
   /* ---- BÁRBARO: pôster preto granulado, palavra gigante, auréola dourada, riscos ---- */
   :root[data-tema="barbaro"] {
@@ -1069,7 +1056,6 @@
   :root[data-tema="barbaro"] .sec .sec-head h2, :root[data-tema="barbaro"] .view-head h2, :root[data-tema="barbaro"] .inv-bar .inv-title { border-radius: 0; background: #050403; color: #FBF4BD; border-bottom: 0; box-shadow: 6px 6px 0 var(--k); }
   :root[data-tema="barbaro"] .sec .sec-head h2::before, :root[data-tema="barbaro"] .sec .sec-head h2::after, :root[data-tema="barbaro"] .view-head h2::before, :root[data-tema="barbaro"] .view-head h2::after { display: none; }
   :root[data-tema="barbaro"] .inv-frame, :root[data-tema="barbaro"] .zmap-wrap { border-radius: 0; box-shadow: 8px 8px 0 var(--k); }
-  :root[data-tema="barbaro"] .name-rule { clip-path: none; border-top-width: 0; box-shadow: 4px 4px 0 #050403; }
   /* palavra gigante esticada atrás do personagem (como o DOMINION do pôster) */
   :root[data-tema="barbaro"] .word-back { left: 0; right: 0; top: 2vh; text-align: center; font-size: clamp(120px, 21vw, 320px); line-height: .95; letter-spacing: .03em; color: transparent; -webkit-text-stroke: 3px #F4EFE0; opacity: .95; scale: 1 2.3; transform-origin: 50% 0; }
   :root[data-tema="barbaro"] .hero-emblem { display: none; }
@@ -1099,7 +1085,6 @@
     background: linear-gradient(0deg, #892325, #6d181a); }
   :root[data-tema="ladino"] .hero-meta { bottom: calc(6vh + 14px); }
   :root[data-tema="ladino"] .scroll-hint { display: none; }
-  :root[data-tema="ladino"] .name-rule { clip-path: none; border-top-width: 0; background: #892325; color: #F4EDE0; box-shadow: none; }
   :root[data-tema="ladino"] .profile-strip, :root[data-tema="ladino"] .card, :root[data-tema="ladino"] .duo-grid .field, :root[data-tema="ladino"] .equip-dl > div, :root[data-tema="ladino"] .resource-note, :root[data-tema="ladino"] .rel-row,
   :root[data-tema="ladino"] .ent-card, :root[data-tema="ladino"] .arma-row, :root[data-tema="ladino"] .zcard, :root[data-tema="ladino"] .sec p.lead, :root[data-tema="ladino"] .prog-table tr, :root[data-tema="ladino"] .tl-card {
     border-radius: 0; border: 2px solid #250202; box-shadow: 6px 6px 0 #892325;
@@ -1288,8 +1273,7 @@
     .hero-inner { height: calc(var(--vh) * 100); grid-template-columns: minmax(340px, 400px) minmax(0, 1fr); }
     .stage { min-width: 0; --hn: clamp(40px, 4.6vw, 76px); --band: calc(var(--vh) * 12 + var(--hn) * 2.05 + 16px); }
     .hero-name { top: calc(var(--vh) * 12); font-size: var(--hn); -webkit-text-stroke-width: 6px; }
-    .name-rule { top: 0; }
-    /* retrato inteiro, à direita: nome à esquerda, palavra da classe no meio atrás dele, nada sobreposto ao nome */
+      /* retrato inteiro, à direita: nome à esquerda, palavra da classe no meio atrás dele, nada sobreposto ao nome */
     .hero-img { left: auto; right: 2%; transform: none; width: min(520px, 46%); height: calc(100% - var(--vh) * 9); }
     .word-back, :root[data-tema] .word-back { top: var(--band); left: 0; right: 0; font-size: clamp(100px, 15vw, 230px); line-height: 1; scale: none; text-align: center; letter-spacing: .02em; -webkit-text-stroke-width: 3px; }
     .hero-emblem, :root[data-tema] .hero-emblem { top: var(--band); }
@@ -1410,7 +1394,7 @@
   :root[data-tema="ladino"] .inv-slot.empty::after { display: none; }
   :root[data-tema="ladino"] .inv-grid { background: transparent; box-shadow: none; }
 
-  :root[data-tema="ladino"] body, :root[data-tema="ladino"] .sections-wrap, :root[data-tema="ladino"] .hero-glow, :root[data-tema="ladino"] .attr-score-value, :root[data-tema="ladino"] .builder-card h2 .lvl, :root[data-tema="ladino"] .prog-table .lvl, :root[data-tema="ladino"] .aw-chip, :root[data-tema="ladino"] .inv-qty, :root[data-tema="ladino"] .view-stat, :root[data-tema="ladino"] .name-rule, :root[data-tema="ladino"] .stat-hex .sh, :root[data-tema="ladino"] .app-nav, :root[data-tema="ladino"] .topbar, :root[data-tema="ladino"] .builder-card, :root[data-tema="ladino"] .class-select button.active, :root[data-tema="ladino"] .attr-row, :root[data-tema="ladino"] .statline > span, :root[data-tema="ladino"] #points-locked-note, :root[data-tema="ladino"] .zn-name, :root[data-tema="ladino"] .hero-meta .meta-v, :root[data-tema="ladino"] .hero-inner::after, :root[data-tema="ladino"] .stat-hex .sh::after, :root[data-tema="ladino"] .zn-hex::after, :root[data-tema="ladino"] .inv-slot::before, :root[data-tema="ladino"] .profile-strip::before, :root[data-tema="ladino"] .card::before, :root[data-tema="ladino"] .duo-grid .field::before, :root[data-tema="ladino"] .equip-dl > div::before, :root[data-tema="ladino"] .resource-note::before, :root[data-tema="ladino"] .rel-row::before, :root[data-tema="ladino"] .ent-card::before, :root[data-tema="ladino"] .arma-row::before, :root[data-tema="ladino"] .zcard::before, :root[data-tema="ladino"] .sec p.lead::before, :root[data-tema="ladino"] .prog-table tr::before, :root[data-tema="ladino"] .tl-card::before, :root[data-tema="ladino"] .inv-frame::before, :root[data-tema="ladino"] .zmap-wrap::before, :root[data-tema="ladino"] .graph-wrap::before, :root[data-tema="ladino"] .builder-card::before, :root[data-tema="ladino"] .sec .sec-head h2::before, :root[data-tema="ladino"] .view-head h2::before, :root[data-tema="ladino"] .inv-bar .inv-title::before, :root[data-tema="ladino"] .app-nav .brand::before, :root[data-tema="ladino"] #print-btn::before, :root[data-tema="ladino"] .zbtn-sel::before, :root[data-tema="ladino"] .zbtn-del::before, :root[data-tema="ladino"] .zcard-actions button::before, :root[data-tema="ladino"] .ctx-actions button::before, :root[data-tema="ladino"] .zmap-arrow::before, :root[data-tema="ladino"] .ctx-x::before, :root[data-tema="ladino"] .app-nav button.active::before { background-blend-mode: multiply; }
+  :root[data-tema="ladino"] body, :root[data-tema="ladino"] .sections-wrap, :root[data-tema="ladino"] .hero-glow, :root[data-tema="ladino"] .attr-score-value, :root[data-tema="ladino"] .builder-card h2 .lvl, :root[data-tema="ladino"] .prog-table .lvl, :root[data-tema="ladino"] .aw-chip, :root[data-tema="ladino"] .inv-qty, :root[data-tema="ladino"] .view-stat, :root[data-tema="ladino"] .stat-hex .sh, :root[data-tema="ladino"] .app-nav, :root[data-tema="ladino"] .topbar, :root[data-tema="ladino"] .builder-card, :root[data-tema="ladino"] .class-select button.active, :root[data-tema="ladino"] .attr-row, :root[data-tema="ladino"] .statline > span, :root[data-tema="ladino"] #points-locked-note, :root[data-tema="ladino"] .zn-name, :root[data-tema="ladino"] .hero-meta .meta-v, :root[data-tema="ladino"] .hero-inner::after, :root[data-tema="ladino"] .stat-hex .sh::after, :root[data-tema="ladino"] .zn-hex::after, :root[data-tema="ladino"] .inv-slot::before, :root[data-tema="ladino"] .profile-strip::before, :root[data-tema="ladino"] .card::before, :root[data-tema="ladino"] .duo-grid .field::before, :root[data-tema="ladino"] .equip-dl > div::before, :root[data-tema="ladino"] .resource-note::before, :root[data-tema="ladino"] .rel-row::before, :root[data-tema="ladino"] .ent-card::before, :root[data-tema="ladino"] .arma-row::before, :root[data-tema="ladino"] .zcard::before, :root[data-tema="ladino"] .sec p.lead::before, :root[data-tema="ladino"] .prog-table tr::before, :root[data-tema="ladino"] .tl-card::before, :root[data-tema="ladino"] .inv-frame::before, :root[data-tema="ladino"] .zmap-wrap::before, :root[data-tema="ladino"] .graph-wrap::before, :root[data-tema="ladino"] .builder-card::before, :root[data-tema="ladino"] .sec .sec-head h2::before, :root[data-tema="ladino"] .view-head h2::before, :root[data-tema="ladino"] .inv-bar .inv-title::before, :root[data-tema="ladino"] .app-nav .brand::before, :root[data-tema="ladino"] #print-btn::before, :root[data-tema="ladino"] .zbtn-sel::before, :root[data-tema="ladino"] .zbtn-del::before, :root[data-tema="ladino"] .zcard-actions button::before, :root[data-tema="ladino"] .ctx-actions button::before, :root[data-tema="ladino"] .zmap-arrow::before, :root[data-tema="ladino"] .ctx-x::before, :root[data-tema="ladino"] .app-nav button.active::before { background-blend-mode: multiply; }
 
   :root[data-tema="ladino"] .hero-name, :root[data-tema="ladino"] .plank-emblem, :root[data-tema="ladino"] .zn-hex b, :root[data-tema="ladino"] .hero-meta .meta-k { color: #F4EDE0; }
 
@@ -1426,13 +1410,12 @@
   :root[data-tema="ladino"] .inv-slot { border-radius: 12px; }
   :root[data-tema="ladino"] .inv-slot::before { border-radius: 9px; }
   :root[data-tema="ladino"] .builder-card h2, :root[data-tema="ladino"] .class-select button, :root[data-tema="ladino"] .app-nav button, :root[data-tema="ladino"] .app-nav .brand { border-radius: 12px; }
-  :root[data-tema="ladino"] .stat-hex .sh, :root[data-tema="ladino"] .zn-hex, :root[data-tema="ladino"] .prog-table .lvl, :root[data-tema="ladino"] .attr-score-value, :root[data-tema="ladino"] .sec .sec-head .num, :root[data-tema="ladino"] .builder-card h2 .lvl, :root[data-tema="ladino"] .name-rule { clip-path: none; border-radius: 12px; }
+  :root[data-tema="ladino"] .stat-hex .sh, :root[data-tema="ladino"] .zn-hex, :root[data-tema="ladino"] .prog-table .lvl, :root[data-tema="ladino"] .attr-score-value, :root[data-tema="ladino"] .sec .sec-head .num, :root[data-tema="ladino"] .builder-card h2 .lvl { clip-path: none; border-radius: 12px; }
   :root[data-tema="ladino"] .stat-hex .sh::after, :root[data-tema="ladino"] .zn-hex::after { clip-path: none; border-radius: 8px; }
   :root[data-tema="ladino"] .hero-inner::after { box-shadow: inset 0 2px 0 rgba(255,255,255,.07), inset 0 6px 0 #0b0c0f; }
 
   /* herói: degrau de pedra no lugar da faixa lisa */
   :root[data-tema="ladino"] .hero-inner::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 6vh; z-index: 4; pointer-events: none; background: var(--face-lit); box-shadow: inset 0 3px 0 rgba(255,255,255,.07), inset 0 6px 0 #0b0c0f; }
-  :root[data-tema="ladino"] .name-rule { background: var(--inlay); color: #fff; clip-path: var(--oct8); box-shadow: none; border: 0; }
   :root[data-tema="ladino"] .hero-meta .meta-v { background: var(--face-lit); color: #ECE8E2; border-radius: 0; box-shadow: inset 0 2px 0 rgba(255,255,255,.07); }
   :root[data-tema="ladino"] .hero-meta .meta-k { color: #C9C4BE; }
 
@@ -1462,8 +1445,7 @@
     .stage { position: relative; min-height: 74vh; }
     .word-back { top: 0; font-size: clamp(60px, 19vw, 118px); }
     .hero-name { top: 6vh; left: 0; font-size: clamp(42px, 12vw, 78px); }
-    .name-rule { top: calc(6vh - 16px); left: 0; }
-    .hero-img { width: min(340px, 82vw); height: 62vh; }
+      .hero-img { width: min(340px, 82vw); height: 62vh; }
     .hero-meta { right: 0; bottom: 8px; }
     .rail { align-self: stretch; margin: 18px 0 26px; }
     .builder-card { max-height: none; }
@@ -1506,19 +1488,18 @@
     .prog-table .chips { max-width: none; justify-content: flex-start; }
   }
 
-  /* celular: faixas empilhadas (nome, palavra, retrato, classe) — nada sobreposto, nada sob a barra de baixo */
+  /* celular: cena única — nome em cima, palavra da classe ATRÁS do retrato (profundidade), classe embaixo */
   @media (max-width: 900px) {
     #calculator-section { padding-bottom: 130px; }
     .hero-inner { padding-bottom: 9vh; }
-    .stage { min-height: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; padding-bottom: 18px; }
-    :root[data-tema] .name-rule, :root[data-tema] .hero-name, :root[data-tema] .word-back, :root[data-tema] .hero-img, :root[data-tema] .hero-meta { position: relative; top: auto; left: auto; right: auto; bottom: auto; transform: none; }
-    :root[data-tema] .name-rule { order: 1; align-self: flex-start; }
-    :root[data-tema] .hero-name { order: 2; align-self: flex-start; }
-    :root[data-tema] .word-back { order: 3; width: 100%; font-size: clamp(56px, 17vw, 110px); line-height: 1; scale: none; text-align: center; margin: 4px 0; }
-    :root[data-tema] .hero-img { order: 4; width: min(300px, 78vw); height: 50vh; }
-    :root[data-tema] .hero-meta { order: 5; align-self: stretch; align-items: flex-end; text-align: right; }
+    .stage { min-height: 0; height: calc(var(--vh) * 76); display: grid; grid-template-rows: auto minmax(0, 1fr) auto; grid-template-columns: minmax(0, 1fr); }
+    :root[data-tema] .hero-name, :root[data-tema] .word-back, :root[data-tema] .hero-img, :root[data-tema] .hero-meta { position: relative; top: auto; left: auto; right: auto; bottom: auto; transform: none; }
+    :root[data-tema] .hero-name { grid-row: 1; justify-self: start; }
+    :root[data-tema] .word-back { grid-row: 2; grid-column: 1; align-self: start; margin-top: 4%; width: 100%; font-size: clamp(64px, 25vw, 132px); line-height: 1; scale: none; text-align: center; }
+    :root[data-tema] .hero-img { grid-row: 2; grid-column: 1; align-self: end; justify-self: center; width: min(330px, 86vw); height: 100%; }
+    :root[data-tema] .hero-meta { grid-row: 3; justify-self: end; align-items: flex-end; text-align: right; max-width: 100%; }
     :root[data-tema] .hero-meta .meta-v { white-space: normal; }
-    :root[data-tema] .hero-emblem { top: 34%; right: 0; width: 56%; }
+    :root[data-tema] .hero-emblem { top: 30%; right: 0; width: 56%; }
   }
 
   @media print {
@@ -1572,7 +1553,6 @@
       <div class="stage" id="character-panel">
         <div class="hero-emblem" id="hero-emblem" aria-hidden="true"></div>
         <div class="word-back" id="char-cursive-name" aria-hidden="true">—</div>
-        <div class="name-rule" id="name-rule">Nível —</div>
         <h1 class="hero-name" id="char-player-name"><span class="line">—</span></h1>
         <div class="hero-img" id="hero-img">
           <img id="hero-portrait" alt="" hidden>
@@ -3023,9 +3003,6 @@
       intro.fromTo('.builder-card',
         { autoAlpha: 0, x: -28 },
         { autoAlpha: 1, x: 0, duration: 0.7 }, 0.08);
-      intro.fromTo('.name-rule',
-        { autoAlpha: 0, x: -20 },
-        { autoAlpha: 1, x: 0, duration: 0.6 }, 0.35);
       intro.fromTo('.hero-meta',
         { autoAlpha: 0, y: 16 },
         { autoAlpha: 1, y: 0, duration: 0.6 }, 0.45);
@@ -3090,6 +3067,12 @@
           y: 60, autoAlpha: 0, duration: 0.7, ease: 'power2.out',
           scrollTrigger: { trigger: sec, start: 'top 82%', toggleActions: 'play none none reverse' }
         });
+      });
+
+      gsap.matchMedia().add('(max-width: 900px)', function () {
+        var st = { trigger: '.stage', start: 'top top', end: 'bottom top', scrub: true };
+        gsap.to('#char-cursive-name', { yPercent: -60, ease: 'none', scrollTrigger: st });
+        gsap.to('#hero-img', { yPercent: 8, ease: 'none', scrollTrigger: st });
       });
 
       playIntro();
