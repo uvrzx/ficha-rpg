@@ -524,7 +524,7 @@
   .inv-slot.empty { opacity: .3; }
   /* área da arte: ícone hoje, <img>/objeto 3D quando o usuário subir (it.img) */
   .inv-art {
-    width: 78%; height: 78%;
+    width: 68%; height: 68%; margin-bottom: 20%;
     display: flex; align-items: center; justify-content: center;
   }
   .inv-art img { max-width: 100%; max-height: 100%; object-fit: contain; }
@@ -1500,6 +1500,15 @@
     :root[data-tema] .hero-meta { grid-row: 3; justify-self: end; align-items: flex-end; text-align: right; max-width: 100%; }
     :root[data-tema] .hero-meta .meta-v { white-space: normal; }
     :root[data-tema] .hero-emblem { top: 30%; right: 0; width: 56%; }
+    /* inventário: peça mais alta, ícone acima do nome */
+    .inv-slot { aspect-ratio: 1 / 1.15; }
+    .inv-art { width: 62%; height: 50%; margin-bottom: 40%; }
+    /* relações: rótulos legíveis */
+    .graph-wrap { padding: 14px 6px; }
+    .graph-node text { font-size: 25px; }
+    .graph-node .gn-role { font-size: 19px; }
+    /* barra de baixo: retângulos arredondados, rótulos em até 2 linhas */
+    :root[data-tema] .app-nav button { border-radius: 14px; font-size: 12px; letter-spacing: .02em; padding: 8px 2px; }
   }
 
   @media print {
@@ -2422,6 +2431,7 @@
       var svgns = 'http://www.w3.org/2000/svg';
       var RAD = 40, RAD_NPC = 24;
       svg.innerHTML = '';
+      svg.setAttribute('viewBox', '30 30 580 540');
       // arestas primeiro (ficam atrás dos rostos); os textos vão pra lista abaixo
       REL_EDGES.forEach(function (e) {
         var a = pos[e[0]], b = pos[e[1]];
@@ -2469,13 +2479,13 @@
         g.appendChild(ring);
 
         var t = document.createElementNS(svgns, 'text');
-        t.setAttribute('x', p.x); t.setAttribute('y', p.y + RAD + 20);
+        t.setAttribute('x', p.x); t.setAttribute('y', p.y + RAD + 22);
         t.setAttribute('text-anchor', 'middle');
         t.textContent = stateByClass[id].name || c.nome;
         g.appendChild(t);
         var role = document.createElementNS(svgns, 'text');
         role.setAttribute('class', 'gn-role');
-        role.setAttribute('x', p.x); role.setAttribute('y', p.y + RAD + 34);
+        role.setAttribute('x', p.x); role.setAttribute('y', p.y + RAD + 46);
         role.setAttribute('text-anchor', 'middle');
         role.setAttribute('fill', c.palette.accent);
         role.textContent = c.nome;
