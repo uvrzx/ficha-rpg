@@ -1286,16 +1286,16 @@
   :root { --vh: calc(1vh / 1.1); }
   @media (min-width: 901px) {
     .hero-inner { height: calc(var(--vh) * 100); grid-template-columns: minmax(340px, 400px) minmax(0, 1fr); }
-    .stage { min-width: 0; }
-    .stage { --hn: clamp(40px, 4.6vw, 76px); --band: calc(var(--vh) * 12 + var(--hn) * 2.05 + 16px); }
+    .stage { min-width: 0; --hn: clamp(40px, 4.6vw, 76px); --band: calc(var(--vh) * 12 + var(--hn) * 2.05 + 16px); }
     .hero-name { top: calc(var(--vh) * 12); font-size: var(--hn); -webkit-text-stroke-width: 6px; }
     .name-rule { top: 0; }
-    /* retrato começa abaixo do nome; palavra da classe e emblema ficam atrás do retrato, na mesma faixa */
-    .hero-img { height: calc(100% - var(--band)); }
-    .word-back, :root[data-tema] .word-back { top: var(--band); left: 0; right: 0; font-size: clamp(64px, 9vw, 140px); line-height: 1; scale: 1 1; text-align: right; }
-    :root[data-tema="barbaro"] .word-back { font-size: clamp(100px, 14vw, 210px); scale: 1 1.5; text-align: center; }
-    :root[data-tema="ladino"] .word-back { font-size: clamp(100px, 15vw, 230px); scale: 1 1.35; text-align: center; }
+    /* retrato inteiro, à direita: nome à esquerda, palavra da classe no meio atrás dele, nada sobreposto ao nome */
+    .hero-img { left: auto; right: 2%; transform: none; width: min(520px, 46%); height: calc(100% - var(--vh) * 9); }
+    .word-back, :root[data-tema] .word-back { top: var(--band); left: 0; right: 0; font-size: clamp(100px, 15vw, 230px); line-height: 1; scale: none; text-align: center; letter-spacing: .02em; -webkit-text-stroke-width: 3px; }
     .hero-emblem, :root[data-tema] .hero-emblem { top: var(--band); }
+    .hero-meta, :root[data-tema] .hero-meta { right: auto; left: 4%; max-width: 42%; align-items: flex-start; text-align: left; }
+    .hero-meta .meta-v { white-space: normal; }
+    .scroll-hint { display: none; }
   }
   /* abas de personagem: um só modelo (placa da matéria + barra de destaque no topo), sem sobras */
   .class-select button::after { display: none; }
@@ -1504,6 +1504,21 @@
     .aw-n, .aw-p { grid-column: 1 / -1; }
     .stat-hex { width: 30%; min-width: 104px; }
     .prog-table .chips { max-width: none; justify-content: flex-start; }
+  }
+
+  /* celular: faixas empilhadas (nome, palavra, retrato, classe) — nada sobreposto, nada sob a barra de baixo */
+  @media (max-width: 900px) {
+    #calculator-section { padding-bottom: 130px; }
+    .hero-inner { padding-bottom: 9vh; }
+    .stage { min-height: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; padding-bottom: 18px; }
+    :root[data-tema] .name-rule, :root[data-tema] .hero-name, :root[data-tema] .word-back, :root[data-tema] .hero-img, :root[data-tema] .hero-meta { position: relative; top: auto; left: auto; right: auto; bottom: auto; transform: none; }
+    :root[data-tema] .name-rule { order: 1; align-self: flex-start; }
+    :root[data-tema] .hero-name { order: 2; align-self: flex-start; }
+    :root[data-tema] .word-back { order: 3; width: 100%; font-size: clamp(56px, 17vw, 110px); line-height: 1; scale: none; text-align: center; margin: 4px 0; }
+    :root[data-tema] .hero-img { order: 4; width: min(300px, 78vw); height: 50vh; }
+    :root[data-tema] .hero-meta { order: 5; align-self: stretch; align-items: flex-end; text-align: right; }
+    :root[data-tema] .hero-meta .meta-v { white-space: normal; }
+    :root[data-tema] .hero-emblem { top: 34%; right: 0; width: 56%; }
   }
 
   @media print {
@@ -2930,7 +2945,7 @@
       var w = document.getElementById('char-cursive-name');
       if (!w) return;
       w.style.fontSize = '';
-      if (window.innerWidth <= 900 || !w.parentElement) return;
+      if (!w.parentElement) return;
       var box = w.parentElement.clientWidth, tw = w.scrollWidth;
       if (tw > box && tw > 0) w.style.fontSize = (parseFloat(getComputedStyle(w).fontSize) * box / tw * 0.96) + 'px';
     }
@@ -2940,9 +2955,10 @@
       if (!card) return;
       card.style.zoom = '';
       if (window.innerWidth <= 900) return;
-      var r = card.getBoundingClientRect(), h = r.height;
-      var avail = window.innerHeight - 24 - r.top; // o card começa logo abaixo da barra do topo
-      if (h > avail && h > 0 && avail > 0) card.style.zoom = String(Math.max(0.55, avail / h));
+      // medido contra o herói (não contra a janela): não muda com a rolagem da página
+      var hero = document.querySelector('.hero-inner').getBoundingClientRect(), r = card.getBoundingClientRect();
+      var avail = hero.height - (r.top - hero.top) - 36;
+      if (r.height > avail && avail > 0) card.style.zoom = String(Math.max(0.55, avail / r.height));
     }
     function render() {
       applyPalette();
@@ -3066,31 +3082,9 @@
     }
 
     render();
+    if (window.ResizeObserver) new ResizeObserver(function () { requestAnimationFrame(fitBuilder); }).observe(document.querySelector('.builder-card'));
 
     if (gsapReady) {
-      var mm = gsap.matchMedia();
-
-      // hero pinado só faz sentido no desktop; o reveal das seções vale em qualquer largura
-      mm.add('(min-width: 901px)', function () {
-        // o personagem sobe do rodapé e atravessa o nome, que afunda
-        gsap.set('#hero-img', { yPercent: 62 });
-
-        var tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: '#hero',
-            start: 'top top',
-            end: '+=140%',
-            scrub: 1,
-            pin: true
-          }
-        });
-        tl.to('#hero-img', { yPercent: 0, ease: 'none' }, 0)
-          .to('#char-player-name', { yPercent: -14, scale: 0.86, autoAlpha: 0.3, transformOrigin: 'left top', ease: 'none' }, 0)
-          .to('#char-cursive-name', { yPercent: -26, autoAlpha: 0.25, ease: 'none' }, 0)
-          .to('.name-rule', { autoAlpha: 0, ease: 'none' }, 0)
-          .to('.scroll-hint', { autoAlpha: 0, duration: 0.15 }, 0.05);
-      });
-
       gsap.utils.toArray('.sec').forEach(function (sec) {
         gsap.from(sec, {
           y: 60, autoAlpha: 0, duration: 0.7, ease: 'power2.out',
