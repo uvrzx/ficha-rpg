@@ -1510,6 +1510,14 @@
     /* inventário: peça mais alta, ícone acima do nome */
     .inv-slot { aspect-ratio: 1 / 1.15; }
     .inv-art { width: 62%; height: 50%; margin-bottom: 40%; }
+    /* atributos: − número + e modificador cabem na linha */
+    :root[data-tema] .builder-card { padding-left: 16px; padding-right: 16px; }
+    :root[data-tema] .attr-row { gap: 6px; padding-left: 12px; padding-right: 8px; }
+    :root[data-tema] .attr-label { min-width: 0; flex: 0 0 88px; font-size: 14px; letter-spacing: .04em; }
+    :root[data-tema] .attr-controls { gap: 3px; }
+    :root[data-tema] .attr-score-value { width: 32px; min-width: 32px; }
+    :root[data-tema] .attr-mod-value { min-width: 22px; font-size: 14px; }
+    :root[data-tema] .attr-step { width: 26px; height: 26px; }
     /* zonas: lista vertical não leva as faixas de azulejo do mapa horizontal */
     .zmap { background: var(--paper-tex); }
     /* relações: rótulos legíveis */
@@ -1518,6 +1526,24 @@
     .graph-node .gn-role { font-size: 19px; }
     /* barra de baixo: retângulos arredondados, rótulos em até 2 linhas */
     :root[data-tema] .app-nav button { border-radius: 14px; font-size: 12px; letter-spacing: .02em; padding: 8px 2px; }
+  }
+
+  /* telas bem estreitas (360 e menos): rótulos menores pra CONSTITUIÇÃO e INTELIGÊNCIA não cortarem */
+  @media (max-width: 380px) {
+    :root[data-tema] .attr-label { flex-basis: 82px; font-size: 12px; letter-spacing: 0; }
+    :root[data-tema] .attr-bar { min-width: 26px; }
+    :root[data-tema] .attr-score-value { width: 30px; min-width: 30px; }
+    :root[data-tema] .attr-step { width: 24px; height: 24px; }
+  }
+
+  @media (max-width: 340px) {
+    :root[data-tema] .builder-card { padding-left: 10px; padding-right: 10px; }
+    :root[data-tema] .attr-row { gap: 4px; padding-left: 8px; padding-right: 6px; }
+    :root[data-tema] .attr-label { flex-basis: 74px; font-size: 11px; }
+    :root[data-tema] .attr-controls { gap: 2px; }
+    :root[data-tema] .attr-score-value { width: 26px; min-width: 26px; font-size: 15px; }
+    :root[data-tema] .attr-step { width: 22px; height: 22px; font-size: 16px; }
+    :root[data-tema] .attr-mod-value { min-width: 18px; font-size: 12px; }
   }
 
   @media print {
