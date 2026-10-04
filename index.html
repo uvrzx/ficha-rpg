@@ -312,6 +312,13 @@
     box-shadow: inset 0 0 0 2px var(--c-deep), inset 0 0 0 10px var(--c-accent);
   }
   .builder-actions { display: flex; gap: 8px; margin-top: 14px; }
+  .point-actions { display: flex; gap: 8px; margin-top: 10px; }
+  .point-actions .pt-btn { padding: 10px 8px; font-size: 14px; letter-spacing: .08em; }
+  .pt-btn:disabled { opacity: .5; cursor: default; filter: saturate(.6); }
+  .attr-controls { align-items: center; }
+  .attr-step { width: 26px; height: 26px; padding: 0; border-radius: 50%; border: 2px solid currentColor; background: transparent; color: inherit; font: inherit; font-size: 18px; line-height: 1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+  .attr-step:hover:not(:disabled) { background: color-mix(in srgb, currentColor 18%, transparent); }
+  .attr-step:disabled { opacity: .25; cursor: default; }
   .statline {
     display: flex; align-items: stretch;
     border: 1px solid var(--c-deep);
@@ -327,7 +334,7 @@
     font-variant-numeric: tabular-nums;
   }
   .statline > span:last-child { border-right: none; }
-  #print-btn {
+  #print-btn, .pt-btn {
     flex: 1;
     background: var(--c-deep); color: var(--c-accent);
     border: 1px solid var(--c-deep);
@@ -335,7 +342,7 @@
     text-transform: uppercase;
     transition: background .2s ease, color .2s ease;
   }
-  #print-btn:hover { background: transparent; color: var(--c-deep); }
+  #print-btn:hover, .pt-btn:hover { background: transparent; color: var(--c-deep); }
 
   .scroll-hint {
     position: absolute;
@@ -753,8 +760,8 @@
   .statline { border: 0; gap: 6px; }
   .statline > span { border: 3px solid var(--wood); border-radius: 10px; background: var(--paper-2); color: var(--ink); }
   .statline > span:last-child { border-right: 3px solid var(--wood); }
-  #print-btn { background: var(--red); color: #fff4e0; border: 0; border-bottom: 5px solid var(--red-dark); border-radius: 10px; text-shadow: 0 2px 0 rgba(0,0,0,.25); }
-  #print-btn:hover { background: #e4655b; color: #fff; }
+  #print-btn, .pt-btn { background: var(--red); color: #fff4e0; border: 0; border-bottom: 5px solid var(--red-dark); border-radius: 10px; text-shadow: 0 2px 0 rgba(0,0,0,.25); }
+  #print-btn:hover, .pt-btn:hover { background: #e4655b; color: #fff; }
   .scroll-hint { color: var(--paper-2); }
 
   /* ---- seções: placa de madeira + selo de cera ---- */
@@ -991,7 +998,7 @@
   :root[data-tema="druida"] .ztoggle button.on { background: var(--k); color: var(--c-deep); }
   :root[data-tema="druida"] .ctx-actions .ctx-save, :root[data-tema="druida"] .view-stat, :root[data-tema="druida"] .zbtn-sel { color: var(--c-deep); }
   :root[data-tema="druida"] .zbtn-sel { background: var(--k); border-color: var(--teal-dark); }
-  :root[data-tema="druida"] #print-btn { background: var(--k); color: var(--c-deep); border-bottom-color: var(--teal-dark); }
+  :root[data-tema="druida"] #print-btn, :root[data-tema="druida"] .pt-btn { background: var(--k); color: var(--c-deep); border-bottom-color: var(--teal-dark); }
   :root[data-tema="druida"] .ctx-x { background: var(--wood-dark); color: var(--k); border: 2px solid var(--k); }
   /* barra de carga em neon com trilho de pedra */
   :root[data-tema="druida"] .attr-bar { background: #011705; border: 2px solid var(--paper-edge); }
@@ -1014,8 +1021,8 @@
   .stat-hex small { font-size: 15px; color: var(--c-light); opacity: 1; text-shadow: 0 1px 0 rgba(0,0,0,.6); }
   .view-head p { color: var(--c-light); text-shadow: 0 1px 0 rgba(0,0,0,.5); }
 
-  #print-btn { background: var(--k); color: var(--wood-dark); border-bottom-color: var(--k-dark); text-shadow: none; }
-  #print-btn:hover { background: color-mix(in srgb, var(--k) 85%, #fff); color: var(--wood-dark); }
+  #print-btn, .pt-btn { background: var(--k); color: var(--wood-dark); border-bottom-color: var(--k-dark); text-shadow: none; }
+  #print-btn:hover, .pt-btn:hover { background: color-mix(in srgb, var(--k) 85%, #fff); color: var(--wood-dark); }
 
   /* ---- GUERREIRO: pôster cinza granulado + destaque único, sombras duras, torre ---- */
   :root[data-tema="guerreiro"] {
@@ -1127,7 +1134,7 @@
   /* botões: placa de aço; Imprimir é a pílula vinho */
   :root[data-tema="guerreiro"] .zmap-arrow, :root[data-tema="guerreiro"] .zcard-actions button, :root[data-tema="guerreiro"] .ctx-actions button, :root[data-tema="guerreiro"] .zbtn-del { border: 3px solid transparent; border-radius: 8px; color: #F4F4F0; background: linear-gradient(180deg, #4b4f57, #2b2e34) padding-box, var(--steel) border-box; text-shadow: 0 1px 0 rgba(0,0,0,.6); box-shadow: 0 4px 0 rgba(0,0,0,.45); }
   :root[data-tema="guerreiro"] .ctx-actions .ctx-save, :root[data-tema="guerreiro"] .zbtn-sel { color: #fff; border: 2px solid #d9a0a6; background: linear-gradient(180deg, #8f1527, #5a0a15); }
-  :root[data-tema="guerreiro"] #print-btn { color: #fff; border: 2px solid #d9a0a6; border-radius: 999px; background: linear-gradient(180deg, #8f1527, #5a0a15); box-shadow: 0 4px 0 rgba(0,0,0,.45); text-shadow: 0 1px 0 rgba(0,0,0,.5); }
+  :root[data-tema="guerreiro"] #print-btn, :root[data-tema="guerreiro"] .pt-btn { color: #fff; border: 2px solid #d9a0a6; border-radius: 999px; background: linear-gradient(180deg, #8f1527, #5a0a15); box-shadow: 0 4px 0 rgba(0,0,0,.45); text-shadow: 0 1px 0 rgba(0,0,0,.5); }
   :root[data-tema="guerreiro"] .ctx-x { background: linear-gradient(180deg, #8f1527, #5a0a15); border: 2px solid #d9a0a6; }
   /* inventário: cartões de item com moldura de aço; casas vazias são cadeados */
   :root[data-tema="guerreiro"] .inv-slot { border: 4px solid transparent; border-radius: 12px; background: radial-gradient(circle at 50% 35%, #f5f6f4, #cfd2d0) padding-box, var(--steel) border-box; box-shadow: 0 4px 0 rgba(0,0,0,.45); }
@@ -1171,7 +1178,7 @@
     background: radial-gradient(circle at 35% 30%, #e8973a, #a8531a 72%); box-shadow: 0 4px 0 #2b1604; }
   :root[data-tema="barbaro"] .ctx-x { top: 8px; margin: 0; }
   :root[data-tema="barbaro"] .zmap-arrow { margin-top: -23px; }
-  :root[data-tema="barbaro"] #print-btn, :root[data-tema="barbaro"] .zbtn-sel, :root[data-tema="barbaro"] .ctx-actions .ctx-save { border: 3px solid #4a250a; border-radius: 999px; color: #FFF4C2; text-shadow: 0 2px 0 #4a1808;
+  :root[data-tema="barbaro"] #print-btn, :root[data-tema="barbaro"] .pt-btn, :root[data-tema="barbaro"] .zbtn-sel, :root[data-tema="barbaro"] .ctx-actions .ctx-save { border: 3px solid #4a250a; border-radius: 999px; color: #FFF4C2; text-shadow: 0 2px 0 #4a1808;
     background: radial-gradient(120% 140% at 50% 0%, #e8973a, #a8531a); box-shadow: 0 4px 0 #2b1604; }
   :root[data-tema="barbaro"] .zcard-actions button, :root[data-tema="barbaro"] .ctx-actions button { border: 3px solid #1d120a; border-radius: 999px; color: #FBF4BD; background: var(--board-dark); box-shadow: 0 4px 0 rgba(0,0,0,.5); text-shadow: 0 2px 0 rgba(0,0,0,.6); }
   :root[data-tema="barbaro"] .ctx-actions .ctx-save { color: #FFF4C2; }
@@ -1334,18 +1341,18 @@
   :root[data-tema="ladino"] .class-select button::after { display: none; }
 
   /* caixas: moldura de pedra (bisel) + face entalhada (::before) + cantoneiras maciças (::after) */
-  :root[data-tema="ladino"] .profile-strip, :root[data-tema="ladino"] .card, :root[data-tema="ladino"] .duo-grid .field, :root[data-tema="ladino"] .equip-dl > div, :root[data-tema="ladino"] .resource-note, :root[data-tema="ladino"] .rel-row, :root[data-tema="ladino"] .ent-card, :root[data-tema="ladino"] .arma-row, :root[data-tema="ladino"] .zcard, :root[data-tema="ladino"] .sec p.lead, :root[data-tema="ladino"] .prog-table tr, :root[data-tema="ladino"] .tl-card, :root[data-tema="ladino"] .inv-frame, :root[data-tema="ladino"] .zmap-wrap, :root[data-tema="ladino"] .graph-wrap, :root[data-tema="ladino"] .builder-card, :root[data-tema="ladino"] .sec .sec-head h2, :root[data-tema="ladino"] .view-head h2, :root[data-tema="ladino"] .inv-bar .inv-title, :root[data-tema="ladino"] .app-nav .brand, :root[data-tema="ladino"] #print-btn, :root[data-tema="ladino"] .zbtn-sel, :root[data-tema="ladino"] .zbtn-del, :root[data-tema="ladino"] .zcard-actions button, :root[data-tema="ladino"] .ctx-actions button, :root[data-tema="ladino"] .zmap-arrow, :root[data-tema="ladino"] .ctx-x, :root[data-tema="ladino"] .app-nav button.active { position: relative; isolation: isolate; border: 0; border-radius: 0; box-shadow: none; background: var(--frame); }
+  :root[data-tema="ladino"] .profile-strip, :root[data-tema="ladino"] .card, :root[data-tema="ladino"] .duo-grid .field, :root[data-tema="ladino"] .equip-dl > div, :root[data-tema="ladino"] .resource-note, :root[data-tema="ladino"] .rel-row, :root[data-tema="ladino"] .ent-card, :root[data-tema="ladino"] .arma-row, :root[data-tema="ladino"] .zcard, :root[data-tema="ladino"] .sec p.lead, :root[data-tema="ladino"] .prog-table tr, :root[data-tema="ladino"] .tl-card, :root[data-tema="ladino"] .inv-frame, :root[data-tema="ladino"] .zmap-wrap, :root[data-tema="ladino"] .graph-wrap, :root[data-tema="ladino"] .builder-card, :root[data-tema="ladino"] .sec .sec-head h2, :root[data-tema="ladino"] .view-head h2, :root[data-tema="ladino"] .inv-bar .inv-title, :root[data-tema="ladino"] .app-nav .brand, :root[data-tema="ladino"] #print-btn, :root[data-tema="ladino"] .pt-btn, :root[data-tema="ladino"] .zbtn-sel, :root[data-tema="ladino"] .zbtn-del, :root[data-tema="ladino"] .zcard-actions button, :root[data-tema="ladino"] .ctx-actions button, :root[data-tema="ladino"] .zmap-arrow, :root[data-tema="ladino"] .ctx-x, :root[data-tema="ladino"] .app-nav button.active { position: relative; isolation: isolate; border: 0; border-radius: 0; box-shadow: none; background: var(--frame); }
   :root[data-tema="ladino"] .profile-strip, :root[data-tema="ladino"] .card, :root[data-tema="ladino"] .duo-grid .field, :root[data-tema="ladino"] .equip-dl > div, :root[data-tema="ladino"] .resource-note, :root[data-tema="ladino"] .rel-row, :root[data-tema="ladino"] .ent-card, :root[data-tema="ladino"] .arma-row, :root[data-tema="ladino"] .zcard, :root[data-tema="ladino"] .sec p.lead, :root[data-tema="ladino"] .prog-table tr, :root[data-tema="ladino"] .tl-card, :root[data-tema="ladino"] .inv-frame, :root[data-tema="ladino"] .zmap-wrap, :root[data-tema="ladino"] .graph-wrap, :root[data-tema="ladino"] .builder-card { clip-path: var(--oct16); color: var(--ink); }
   :root[data-tema="ladino"] .profile-strip::before, :root[data-tema="ladino"] .card::before, :root[data-tema="ladino"] .duo-grid .field::before, :root[data-tema="ladino"] .equip-dl > div::before, :root[data-tema="ladino"] .resource-note::before, :root[data-tema="ladino"] .rel-row::before, :root[data-tema="ladino"] .ent-card::before, :root[data-tema="ladino"] .arma-row::before, :root[data-tema="ladino"] .zcard::before, :root[data-tema="ladino"] .sec p.lead::before, :root[data-tema="ladino"] .prog-table tr::before, :root[data-tema="ladino"] .tl-card::before, :root[data-tema="ladino"] .inv-frame::before, :root[data-tema="ladino"] .zmap-wrap::before, :root[data-tema="ladino"] .graph-wrap::before, :root[data-tema="ladino"] .builder-card::before { content: ""; position: absolute; inset: 5px; z-index: -1; clip-path: var(--oct11); background: var(--paper-tex); box-shadow: var(--rim); transform: none; margin: 0; width: auto; height: auto; }
   :root[data-tema="ladino"] .profile-strip::after, :root[data-tema="ladino"] .card::after, :root[data-tema="ladino"] .duo-grid .field::after, :root[data-tema="ladino"] .equip-dl > div::after, :root[data-tema="ladino"] .resource-note::after, :root[data-tema="ladino"] .rel-row::after, :root[data-tema="ladino"] .ent-card::after, :root[data-tema="ladino"] .arma-row::after, :root[data-tema="ladino"] .zcard::after, :root[data-tema="ladino"] .sec p.lead::after, :root[data-tema="ladino"] .prog-table tr::after, :root[data-tema="ladino"] .tl-card::after, :root[data-tema="ladino"] .inv-frame::after, :root[data-tema="ladino"] .zmap-wrap::after, :root[data-tema="ladino"] .graph-wrap::after, :root[data-tema="ladino"] .builder-card::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; transform: none; margin: 0; width: auto; height: auto; background: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2028%2028'%3E%3Cg%20transform%3D''%3E%3Cpath%20d%3D'M0%200H28V8H8V28H0Z'%20fill%3D'%235b6372'%2F%3E%3Cpath%20d%3D'M0%200H28V2.4H2.4V28H0Z'%20fill%3D'%239aa4b4'%2F%3E%3Cpath%20d%3D'M8%208H28V10.2H10.2V28H8Z'%20fill%3D'%231c2026'%2F%3E%3Ccircle%20cx%3D'4'%20cy%3D'4'%20r%3D'1.7'%20fill%3D'%23232830'%2F%3E%3Ccircle%20cx%3D'3.6'%20cy%3D'3.5'%20r%3D'.7'%20fill%3D'%238791a1'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") left 4px top 4px / 24px 24px no-repeat, url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2028%2028'%3E%3Cg%20transform%3D'translate(28%200)%20scale(-1%201)'%3E%3Cpath%20d%3D'M0%200H28V8H8V28H0Z'%20fill%3D'%235b6372'%2F%3E%3Cpath%20d%3D'M0%200H28V2.4H2.4V28H0Z'%20fill%3D'%239aa4b4'%2F%3E%3Cpath%20d%3D'M8%208H28V10.2H10.2V28H8Z'%20fill%3D'%231c2026'%2F%3E%3Ccircle%20cx%3D'4'%20cy%3D'4'%20r%3D'1.7'%20fill%3D'%23232830'%2F%3E%3Ccircle%20cx%3D'3.6'%20cy%3D'3.5'%20r%3D'.7'%20fill%3D'%238791a1'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") right 4px top 4px / 24px 24px no-repeat, url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2028%2028'%3E%3Cg%20transform%3D'translate(0%2028)%20scale(1%20-1)'%3E%3Cpath%20d%3D'M0%200H28V8H8V28H0Z'%20fill%3D'%235b6372'%2F%3E%3Cpath%20d%3D'M0%200H28V2.4H2.4V28H0Z'%20fill%3D'%239aa4b4'%2F%3E%3Cpath%20d%3D'M8%208H28V10.2H10.2V28H8Z'%20fill%3D'%231c2026'%2F%3E%3Ccircle%20cx%3D'4'%20cy%3D'4'%20r%3D'1.7'%20fill%3D'%23232830'%2F%3E%3Ccircle%20cx%3D'3.6'%20cy%3D'3.5'%20r%3D'.7'%20fill%3D'%238791a1'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") left 4px bottom 4px / 24px 24px no-repeat, url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2028%2028'%3E%3Cg%20transform%3D'translate(28%2028)%20scale(-1%20-1)'%3E%3Cpath%20d%3D'M0%200H28V8H8V28H0Z'%20fill%3D'%235b6372'%2F%3E%3Cpath%20d%3D'M0%200H28V2.4H2.4V28H0Z'%20fill%3D'%239aa4b4'%2F%3E%3Cpath%20d%3D'M8%208H28V10.2H10.2V28H8Z'%20fill%3D'%231c2026'%2F%3E%3Ccircle%20cx%3D'4'%20cy%3D'4'%20r%3D'1.7'%20fill%3D'%23232830'%2F%3E%3Ccircle%20cx%3D'3.6'%20cy%3D'3.5'%20r%3D'.7'%20fill%3D'%238791a1'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") right 4px bottom 4px / 24px 24px no-repeat; }
   /* títulos e botões: mesma pedra, menor */
   :root[data-tema="ladino"] .sec .sec-head h2, :root[data-tema="ladino"] .view-head h2, :root[data-tema="ladino"] .inv-bar .inv-title, :root[data-tema="ladino"] .app-nav .brand { clip-path: var(--oct11); color: #ECE8E2; text-shadow: 0 2px 0 #0b0c0f; padding: 11px 32px 9px; }
-  :root[data-tema="ladino"] #print-btn, :root[data-tema="ladino"] .zbtn-sel, :root[data-tema="ladino"] .zbtn-del, :root[data-tema="ladino"] .zcard-actions button, :root[data-tema="ladino"] .ctx-actions button, :root[data-tema="ladino"] .zmap-arrow, :root[data-tema="ladino"] .ctx-x, :root[data-tema="ladino"] .app-nav button.active { clip-path: var(--oct8); color: #ECE8E2; text-shadow: 0 2px 0 #0b0c0f; transition: transform .12s ease, filter .12s ease; }
-  :root[data-tema="ladino"] .sec .sec-head h2::before, :root[data-tema="ladino"] .view-head h2::before, :root[data-tema="ladino"] .inv-bar .inv-title::before, :root[data-tema="ladino"] .app-nav .brand::before, :root[data-tema="ladino"] #print-btn::before, :root[data-tema="ladino"] .zbtn-sel::before, :root[data-tema="ladino"] .zbtn-del::before, :root[data-tema="ladino"] .zcard-actions button::before, :root[data-tema="ladino"] .ctx-actions button::before, :root[data-tema="ladino"] .zmap-arrow::before, :root[data-tema="ladino"] .ctx-x::before, :root[data-tema="ladino"] .app-nav button.active::before { content: ""; position: absolute; inset: 4px; z-index: -1; clip-path: var(--oct8); background: var(--face-lit); box-shadow: inset 0 2px 0 rgba(255,255,255,.07), inset 0 -2px 0 rgba(0,0,0,.5); transform: none; margin: 0; width: auto; height: auto; }
-  :root[data-tema="ladino"] .sec .sec-head h2::after, :root[data-tema="ladino"] .view-head h2::after, :root[data-tema="ladino"] .inv-bar .inv-title::after, :root[data-tema="ladino"] .app-nav .brand::after, :root[data-tema="ladino"] #print-btn::after, :root[data-tema="ladino"] .zbtn-sel::after, :root[data-tema="ladino"] .zbtn-del::after, :root[data-tema="ladino"] .zcard-actions button::after, :root[data-tema="ladino"] .ctx-actions button::after, :root[data-tema="ladino"] .zmap-arrow::after, :root[data-tema="ladino"] .ctx-x::after, :root[data-tema="ladino"] .app-nav button.active::after { display: none; }
-  :root[data-tema="ladino"] #print-btn, :root[data-tema="ladino"] .zbtn-sel, :root[data-tema="ladino"] .zbtn-del, :root[data-tema="ladino"] .zcard-actions button, :root[data-tema="ladino"] .ctx-actions button, :root[data-tema="ladino"] .zmap-arrow, :root[data-tema="ladino"] .ctx-x, :root[data-tema="ladino"] .app-nav button.active:hover { filter: brightness(1.14); }
-  :root[data-tema="ladino"] #print-btn, :root[data-tema="ladino"] .zbtn-sel, :root[data-tema="ladino"] .zbtn-del, :root[data-tema="ladino"] .zcard-actions button, :root[data-tema="ladino"] .ctx-actions button, :root[data-tema="ladino"] .zmap-arrow, :root[data-tema="ladino"] .ctx-x, :root[data-tema="ladino"] .app-nav button.active:active { transform: translateY(2px); filter: brightness(.92); }
-  :root[data-tema="ladino"] #print-btn::before, :root[data-tema="ladino"] .zbtn-sel::before, :root[data-tema="ladino"] .ctx-actions .ctx-save::before, :root[data-tema="ladino"] .app-nav button.active::before { background: var(--inlay); box-shadow: inset 0 2px 0 rgba(255,150,160,.45), inset 0 -2px 0 rgba(0,0,0,.45); }
+  :root[data-tema="ladino"] #print-btn, :root[data-tema="ladino"] .pt-btn, :root[data-tema="ladino"] .zbtn-sel, :root[data-tema="ladino"] .zbtn-del, :root[data-tema="ladino"] .zcard-actions button, :root[data-tema="ladino"] .ctx-actions button, :root[data-tema="ladino"] .zmap-arrow, :root[data-tema="ladino"] .ctx-x, :root[data-tema="ladino"] .app-nav button.active { clip-path: var(--oct8); color: #ECE8E2; text-shadow: 0 2px 0 #0b0c0f; transition: transform .12s ease, filter .12s ease; }
+  :root[data-tema="ladino"] .sec .sec-head h2::before, :root[data-tema="ladino"] .view-head h2::before, :root[data-tema="ladino"] .inv-bar .inv-title::before, :root[data-tema="ladino"] .app-nav .brand::before, :root[data-tema="ladino"] #print-btn::before, :root[data-tema="ladino"] .pt-btn::before, :root[data-tema="ladino"] .zbtn-sel::before, :root[data-tema="ladino"] .zbtn-del::before, :root[data-tema="ladino"] .zcard-actions button::before, :root[data-tema="ladino"] .ctx-actions button::before, :root[data-tema="ladino"] .zmap-arrow::before, :root[data-tema="ladino"] .ctx-x::before, :root[data-tema="ladino"] .app-nav button.active::before { content: ""; position: absolute; inset: 4px; z-index: -1; clip-path: var(--oct8); background: var(--face-lit); box-shadow: inset 0 2px 0 rgba(255,255,255,.07), inset 0 -2px 0 rgba(0,0,0,.5); transform: none; margin: 0; width: auto; height: auto; }
+  :root[data-tema="ladino"] .sec .sec-head h2::after, :root[data-tema="ladino"] .view-head h2::after, :root[data-tema="ladino"] .inv-bar .inv-title::after, :root[data-tema="ladino"] .app-nav .brand::after, :root[data-tema="ladino"] #print-btn::after, :root[data-tema="ladino"] .pt-btn::after, :root[data-tema="ladino"] .zbtn-sel::after, :root[data-tema="ladino"] .zbtn-del::after, :root[data-tema="ladino"] .zcard-actions button::after, :root[data-tema="ladino"] .ctx-actions button::after, :root[data-tema="ladino"] .zmap-arrow::after, :root[data-tema="ladino"] .ctx-x::after, :root[data-tema="ladino"] .app-nav button.active::after { display: none; }
+  :root[data-tema="ladino"] #print-btn, :root[data-tema="ladino"] .pt-btn, :root[data-tema="ladino"] .zbtn-sel, :root[data-tema="ladino"] .zbtn-del, :root[data-tema="ladino"] .zcard-actions button, :root[data-tema="ladino"] .ctx-actions button, :root[data-tema="ladino"] .zmap-arrow, :root[data-tema="ladino"] .ctx-x, :root[data-tema="ladino"] .app-nav button.active:hover { filter: brightness(1.14); }
+  :root[data-tema="ladino"] #print-btn, :root[data-tema="ladino"] .pt-btn, :root[data-tema="ladino"] .zbtn-sel, :root[data-tema="ladino"] .zbtn-del, :root[data-tema="ladino"] .zcard-actions button, :root[data-tema="ladino"] .ctx-actions button, :root[data-tema="ladino"] .zmap-arrow, :root[data-tema="ladino"] .ctx-x, :root[data-tema="ladino"] .app-nav button.active:active { transform: translateY(2px); filter: brightness(.92); }
+  :root[data-tema="ladino"] #print-btn::before, :root[data-tema="ladino"] .pt-btn::before, :root[data-tema="ladino"] .zbtn-sel::before, :root[data-tema="ladino"] .ctx-actions .ctx-save::before, :root[data-tema="ladino"] .app-nav button.active::before { background: var(--inlay); box-shadow: inset 0 2px 0 rgba(255,150,160,.45), inset 0 -2px 0 rgba(0,0,0,.45); }
   :root[data-tema="ladino"] .app-nav button { border: 0; border-radius: 0; background: transparent; color: #C9C4BE; box-shadow: none; clip-path: var(--oct8); }
   :root[data-tema="ladino"] .app-nav button:hover { background: rgba(255,255,255,.06); color: #fff; }
   :root[data-tema="ladino"] .app-nav button.active { background: var(--frame); color: #fff; }
@@ -1394,7 +1401,7 @@
   :root[data-tema="ladino"] .inv-slot.empty::after { display: none; }
   :root[data-tema="ladino"] .inv-grid { background: transparent; box-shadow: none; }
 
-  :root[data-tema="ladino"] body, :root[data-tema="ladino"] .sections-wrap, :root[data-tema="ladino"] .hero-glow, :root[data-tema="ladino"] .attr-score-value, :root[data-tema="ladino"] .builder-card h2 .lvl, :root[data-tema="ladino"] .prog-table .lvl, :root[data-tema="ladino"] .aw-chip, :root[data-tema="ladino"] .inv-qty, :root[data-tema="ladino"] .view-stat, :root[data-tema="ladino"] .stat-hex .sh, :root[data-tema="ladino"] .app-nav, :root[data-tema="ladino"] .topbar, :root[data-tema="ladino"] .builder-card, :root[data-tema="ladino"] .class-select button.active, :root[data-tema="ladino"] .attr-row, :root[data-tema="ladino"] .statline > span, :root[data-tema="ladino"] #points-locked-note, :root[data-tema="ladino"] .zn-name, :root[data-tema="ladino"] .hero-meta .meta-v, :root[data-tema="ladino"] .hero-inner::after, :root[data-tema="ladino"] .stat-hex .sh::after, :root[data-tema="ladino"] .zn-hex::after, :root[data-tema="ladino"] .inv-slot::before, :root[data-tema="ladino"] .profile-strip::before, :root[data-tema="ladino"] .card::before, :root[data-tema="ladino"] .duo-grid .field::before, :root[data-tema="ladino"] .equip-dl > div::before, :root[data-tema="ladino"] .resource-note::before, :root[data-tema="ladino"] .rel-row::before, :root[data-tema="ladino"] .ent-card::before, :root[data-tema="ladino"] .arma-row::before, :root[data-tema="ladino"] .zcard::before, :root[data-tema="ladino"] .sec p.lead::before, :root[data-tema="ladino"] .prog-table tr::before, :root[data-tema="ladino"] .tl-card::before, :root[data-tema="ladino"] .inv-frame::before, :root[data-tema="ladino"] .zmap-wrap::before, :root[data-tema="ladino"] .graph-wrap::before, :root[data-tema="ladino"] .builder-card::before, :root[data-tema="ladino"] .sec .sec-head h2::before, :root[data-tema="ladino"] .view-head h2::before, :root[data-tema="ladino"] .inv-bar .inv-title::before, :root[data-tema="ladino"] .app-nav .brand::before, :root[data-tema="ladino"] #print-btn::before, :root[data-tema="ladino"] .zbtn-sel::before, :root[data-tema="ladino"] .zbtn-del::before, :root[data-tema="ladino"] .zcard-actions button::before, :root[data-tema="ladino"] .ctx-actions button::before, :root[data-tema="ladino"] .zmap-arrow::before, :root[data-tema="ladino"] .ctx-x::before, :root[data-tema="ladino"] .app-nav button.active::before { background-blend-mode: multiply; }
+  :root[data-tema="ladino"] body, :root[data-tema="ladino"] .sections-wrap, :root[data-tema="ladino"] .hero-glow, :root[data-tema="ladino"] .attr-score-value, :root[data-tema="ladino"] .builder-card h2 .lvl, :root[data-tema="ladino"] .prog-table .lvl, :root[data-tema="ladino"] .aw-chip, :root[data-tema="ladino"] .inv-qty, :root[data-tema="ladino"] .view-stat, :root[data-tema="ladino"] .stat-hex .sh, :root[data-tema="ladino"] .app-nav, :root[data-tema="ladino"] .topbar, :root[data-tema="ladino"] .builder-card, :root[data-tema="ladino"] .class-select button.active, :root[data-tema="ladino"] .attr-row, :root[data-tema="ladino"] .statline > span, :root[data-tema="ladino"] #points-locked-note, :root[data-tema="ladino"] .zn-name, :root[data-tema="ladino"] .hero-meta .meta-v, :root[data-tema="ladino"] .hero-inner::after, :root[data-tema="ladino"] .stat-hex .sh::after, :root[data-tema="ladino"] .zn-hex::after, :root[data-tema="ladino"] .inv-slot::before, :root[data-tema="ladino"] .profile-strip::before, :root[data-tema="ladino"] .card::before, :root[data-tema="ladino"] .duo-grid .field::before, :root[data-tema="ladino"] .equip-dl > div::before, :root[data-tema="ladino"] .resource-note::before, :root[data-tema="ladino"] .rel-row::before, :root[data-tema="ladino"] .ent-card::before, :root[data-tema="ladino"] .arma-row::before, :root[data-tema="ladino"] .zcard::before, :root[data-tema="ladino"] .sec p.lead::before, :root[data-tema="ladino"] .prog-table tr::before, :root[data-tema="ladino"] .tl-card::before, :root[data-tema="ladino"] .inv-frame::before, :root[data-tema="ladino"] .zmap-wrap::before, :root[data-tema="ladino"] .graph-wrap::before, :root[data-tema="ladino"] .builder-card::before, :root[data-tema="ladino"] .sec .sec-head h2::before, :root[data-tema="ladino"] .view-head h2::before, :root[data-tema="ladino"] .inv-bar .inv-title::before, :root[data-tema="ladino"] .app-nav .brand::before, :root[data-tema="ladino"] #print-btn::before, :root[data-tema="ladino"] .pt-btn::before, :root[data-tema="ladino"] .zbtn-sel::before, :root[data-tema="ladino"] .zbtn-del::before, :root[data-tema="ladino"] .zcard-actions button::before, :root[data-tema="ladino"] .ctx-actions button::before, :root[data-tema="ladino"] .zmap-arrow::before, :root[data-tema="ladino"] .ctx-x::before, :root[data-tema="ladino"] .app-nav button.active::before { background-blend-mode: multiply; }
 
   :root[data-tema="ladino"] .hero-name, :root[data-tema="ladino"] .plank-emblem, :root[data-tema="ladino"] .zn-hex b, :root[data-tema="ladino"] .hero-meta .meta-k { color: #F4EDE0; }
 
@@ -1404,8 +1411,8 @@
   :root[data-tema="ladino"] .profile-strip::after, :root[data-tema="ladino"] .card::after, :root[data-tema="ladino"] .duo-grid .field::after, :root[data-tema="ladino"] .equip-dl > div::after, :root[data-tema="ladino"] .resource-note::after, :root[data-tema="ladino"] .rel-row::after, :root[data-tema="ladino"] .ent-card::after, :root[data-tema="ladino"] .arma-row::after, :root[data-tema="ladino"] .zcard::after, :root[data-tema="ladino"] .sec p.lead::after, :root[data-tema="ladino"] .prog-table tr::after, :root[data-tema="ladino"] .tl-card::after, :root[data-tema="ladino"] .inv-frame::after, :root[data-tema="ladino"] .zmap-wrap::after, :root[data-tema="ladino"] .graph-wrap::after, :root[data-tema="ladino"] .builder-card::after { display: none; }
   :root[data-tema="ladino"] .sec .sec-head h2, :root[data-tema="ladino"] .view-head h2, :root[data-tema="ladino"] .inv-bar .inv-title, :root[data-tema="ladino"] .app-nav .brand { border-radius: 12px; box-shadow: 0 5px 12px -4px rgba(0,0,0,.6); }
   :root[data-tema="ladino"] .sec .sec-head h2::before, :root[data-tema="ladino"] .view-head h2::before, :root[data-tema="ladino"] .inv-bar .inv-title::before, :root[data-tema="ladino"] .app-nav .brand::before { border-radius: 8px; }
-  :root[data-tema="ladino"] #print-btn, :root[data-tema="ladino"] .zbtn-sel, :root[data-tema="ladino"] .zbtn-del, :root[data-tema="ladino"] .zcard-actions button, :root[data-tema="ladino"] .ctx-actions button, :root[data-tema="ladino"] .zmap-arrow, :root[data-tema="ladino"] .ctx-x, :root[data-tema="ladino"] .app-nav button.active { border-radius: 10px; box-shadow: 0 4px 10px -3px rgba(0,0,0,.6); }
-  :root[data-tema="ladino"] #print-btn::before, :root[data-tema="ladino"] .zbtn-sel::before, :root[data-tema="ladino"] .zbtn-del::before, :root[data-tema="ladino"] .zcard-actions button::before, :root[data-tema="ladino"] .ctx-actions button::before, :root[data-tema="ladino"] .zmap-arrow::before, :root[data-tema="ladino"] .ctx-x::before, :root[data-tema="ladino"] .app-nav button.active::before { border-radius: 7px; }
+  :root[data-tema="ladino"] #print-btn, :root[data-tema="ladino"] .pt-btn, :root[data-tema="ladino"] .zbtn-sel, :root[data-tema="ladino"] .zbtn-del, :root[data-tema="ladino"] .zcard-actions button, :root[data-tema="ladino"] .ctx-actions button, :root[data-tema="ladino"] .zmap-arrow, :root[data-tema="ladino"] .ctx-x, :root[data-tema="ladino"] .app-nav button.active { border-radius: 10px; box-shadow: 0 4px 10px -3px rgba(0,0,0,.6); }
+  :root[data-tema="ladino"] #print-btn::before, :root[data-tema="ladino"] .pt-btn::before, :root[data-tema="ladino"] .zbtn-sel::before, :root[data-tema="ladino"] .zbtn-del::before, :root[data-tema="ladino"] .zcard-actions button::before, :root[data-tema="ladino"] .ctx-actions button::before, :root[data-tema="ladino"] .zmap-arrow::before, :root[data-tema="ladino"] .ctx-x::before, :root[data-tema="ladino"] .app-nav button.active::before { border-radius: 7px; }
   :root[data-tema="ladino"] .attr-row, :root[data-tema="ladino"] .statline > span, :root[data-tema="ladino"] #points-locked-note, :root[data-tema="ladino"] .view-stat, :root[data-tema="ladino"] .ztoggle, :root[data-tema="ladino"] .zn-name, :root[data-tema="ladino"] .prog-table .chips span, :root[data-tema="ladino"] .aw-chip, :root[data-tema="ladino"] .inv-qty { border-radius: 8px; }
   :root[data-tema="ladino"] .inv-slot { border-radius: 12px; }
   :root[data-tema="ladino"] .inv-slot::before { border-radius: 9px; }
@@ -1514,7 +1521,7 @@
   }
 
   @media print {
-    #print-btn,
+    #print-btn, .pt-btn,
     #points-locked-note,
     .topbar, .hero, .sec, .sections-wrap, footer {
       display: none !important;
@@ -1588,7 +1595,10 @@
           <label for="char-name-input">Nome do personagem</label>
           <input id="char-name-input" type="text" placeholder="Digite o nome" autocomplete="off">
           <div id="attr-rows"></div>
-          <p id="points-locked-note">Distribuição travada na ficha. Pontos novos liberam ao subir de nível.</p>
+          <p id="points-locked-note">Pontos para distribuir: 10</p>
+          <div class="point-actions">
+            <button id="lock-btn" class="pt-btn" type="button">Travar distribuição</button>
+          </div>
           <div class="statline">
             <span id="char-hp-value">—</span>
             <span id="char-saves-value">—</span>
@@ -1846,6 +1856,33 @@
   window.RPGCalc.canDecrease = function (scores, attr) {
     return scores[attr] > window.RPGCalc.MIN_SCORE;
   };
+
+  // Distribuição da mesa: tudo começa em 8, 10 pontos pra gastar (1 ponto = +1), travar congela o que já foi gasto.
+  // Depois de travar só dá pra subir (com pontos novos); nunca baixar abaixo do que foi travado.
+  window.RPGCalc.START_SCORE = 8;
+  window.RPGCalc.START_POINTS = 10;
+  window.RPGCalc.SCORE_CAP = 20;
+  window.RPGCalc.newBuild = function () {
+    const scores = {};
+    window.RPGCalc.ATTRS.forEach((a) => { scores[a] = window.RPGCalc.START_SCORE; });
+    return { scores, points: window.RPGCalc.START_POINTS, floor: null };
+  };
+  window.RPGCalc.canRaise = function (b, attr) {
+    return b.points > 0 && b.scores[attr] < window.RPGCalc.SCORE_CAP;
+  };
+  window.RPGCalc.canLower = function (b, attr) {
+    return b.scores[attr] > (b.floor ? b.floor[attr] : window.RPGCalc.START_SCORE);
+  };
+  window.RPGCalc.raise = function (b, attr) {
+    if (!window.RPGCalc.canRaise(b, attr)) return false;
+    b.scores[attr] += 1; b.points -= 1; return true;
+  };
+  window.RPGCalc.lower = function (b, attr) {
+    if (!window.RPGCalc.canLower(b, attr)) return false;
+    b.scores[attr] -= 1; b.points += 1; return true;
+  };
+  window.RPGCalc.lock = function (b) { b.floor = Object.assign({}, b.scores); };
+  window.RPGCalc.grant = function (b, n) { b.points += n; };
 
   // ANCHOR: PURE_FUNCTIONS
 
@@ -2130,14 +2167,20 @@
     var RC = window.RPGCalc;
     var ORDER = Object.keys(RC.CLASSES);
 
-    // estado independente por classe — começa nos atributos finais da ficha padrão D&D 5e (array padrão + racial)
+    // estado independente por classe — tudo em 8 + 10 pontos pra distribuir; a distribuição é salva no navegador
+    var BUILD_KEY = 'ficha-build-v1';
     var stateByClass = {};
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem(BUILD_KEY)) || {}; } catch (e) {}
     ORDER.forEach(function (id) {
-      stateByClass[id] = {
-        name: RC.CLASSES[id].personagem || '',
-        scores: Object.assign({}, RC.CLASSES[id].atributos)
-      };
+      var b = saved[id], ok = b && b.scores && typeof b.points === 'number' && RC.ATTRS.every(function (a) { return Number.isInteger(b.scores[a]); });
+      stateByClass[id] = Object.assign({ name: RC.CLASSES[id].personagem || '' }, ok ? { scores: b.scores, points: b.points, floor: b.floor || null } : RC.newBuild());
     });
+    function saveBuilds() {
+      var o = {};
+      ORDER.forEach(function (id) { var s = stateByClass[id]; o[id] = { scores: s.scores, points: s.points, floor: s.floor }; });
+      try { localStorage.setItem(BUILD_KEY, JSON.stringify(o)); } catch (e) {}
+    }
     var activeId = 'guerreiro';
     var splitInstance = null;
 
@@ -2263,9 +2306,15 @@
       }
     }
 
-    // Nível 1: a distribuição é a da ficha e não se mexe. Os steppers voltam quando
-    // o mestre liberar pontos no level-up — a lógica de point-buy (canIncrease etc.)
-    // continua em RPGCalc esperando esse momento.
+    // − / + gastam e devolvem pontos; depois de travar, − só até o valor travado
+    function stepAttr(attr, dir) {
+      var s = st();
+      if (!(dir > 0 ? RC.raise(s, attr) : RC.lower(s, attr))) return;
+      saveBuilds();
+      render();
+      var again = document.querySelector('.attr-row[data-attr="' + attr + '"] .attr-step[data-dir="' + dir + '"]');
+      if (again && !again.disabled) again.focus();
+    }
     function renderAttrRows() {
       var container = document.getElementById('attr-rows');
       container.innerHTML = '';
@@ -2306,7 +2355,17 @@
         modEl.className = 'attr-mod-value';
         modEl.textContent = (mod >= 0 ? '+' : '') + mod;
 
-        controls.appendChild(scoreEl);
+        [-1, 1].forEach(function (dir) {
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'attr-step';
+          b.dataset.dir = dir;
+          b.textContent = dir > 0 ? '+' : '−';
+          b.setAttribute('aria-label', (dir > 0 ? 'Aumentar ' : 'Diminuir ') + RC.ATTR_LABELS[attr]);
+          b.disabled = !(dir > 0 ? RC.canRaise(s, attr) : RC.canLower(s, attr));
+          b.addEventListener('click', function () { stepAttr(attr, dir); });
+          if (dir < 0) controls.appendChild(b); else { controls.appendChild(scoreEl); controls.appendChild(b); }
+        });
         controls.appendChild(modEl);
         row.appendChild(controls);
         container.appendChild(row);
@@ -2324,8 +2383,18 @@
         c.primarios.map(function (a) { return a + ' ' + s.scores[a]; }).join(' · ');
     }
 
+    function renderPoints() {
+      var s = st(), locked = !!s.floor;
+      document.getElementById('points-locked-note').textContent = locked
+        ? (s.points > 0 ? 'Travada · pontos livres: ' + s.points : 'Distribuição travada')
+        : 'Pontos para distribuir: ' + s.points;
+      var lock = document.getElementById('lock-btn');
+      lock.disabled = locked;
+      lock.textContent = locked ? 'Travada' : 'Travar distribuição';
+    }
     function renderBuilder() {
       var s = st();
+      renderPoints();
       var input = document.getElementById('char-name-input');
       if (document.activeElement !== input) input.value = s.name;
       document.getElementById('builder-title').textContent = 'Atributos — ' + cls().nome;
@@ -3042,6 +3111,7 @@
     });
 
     document.getElementById('print-btn').addEventListener('click', function () { window.print(); });
+    document.getElementById('lock-btn').addEventListener('click', function () { RC.lock(st()); saveBuilds(); render(); });
 
     document.querySelectorAll('.app-nav button').forEach(function (b) {
       b.addEventListener('click', function () { setView(b.dataset.view); });

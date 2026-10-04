@@ -79,3 +79,26 @@ test('ATTRS and ATTR_LABELS cover the six sheet attributes in order', () => {
     ['Força', 'Destreza', 'Constituição', 'Inteligência', 'Sabedoria', 'Carisma']
   );
 });
+
+test('distribuicao da mesa: tudo em 8, 10 pontos, travar impede baixar', () => {
+  const { RPGCalc } = loadSandbox().window;
+  const b = RPGCalc.newBuild();
+  assert.deepEqual(b.scores, ZERO);
+  assert.equal(b.points, 10);
+  assert.equal(RPGCalc.canLower(b, 'FOR'), false, 'nao baixa abaixo de 8');
+
+  for (let i = 0; i < 10; i++) assert.equal(RPGCalc.raise(b, 'FOR'), true);
+  assert.equal(b.scores.FOR, 18);
+  assert.equal(b.points, 0);
+  assert.equal(RPGCalc.raise(b, 'DES'), false, 'sem pontos nao sobe');
+
+  assert.equal(RPGCalc.lower(b, 'FOR'), true, 'antes de travar redistribui');
+  assert.equal(b.points, 1);
+  RPGCalc.lock(b);
+  assert.equal(RPGCalc.canLower(b, 'FOR'), false, 'travado: nao baixa do valor travado');
+  assert.equal(RPGCalc.raise(b, 'DES'), true, 'ponto livre ainda pode ser gasto');
+  RPGCalc.grant(b, 2);
+  assert.equal(RPGCalc.raise(b, 'CON'), true, 'pontos novos sobem');
+  assert.equal(RPGCalc.canLower(b, 'CON'), true, 'o que subiu depois do lock pode voltar ao travado');
+  assert.equal(RPGCalc.lower(b, 'FOR'), false);
+});

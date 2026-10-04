@@ -8,11 +8,11 @@ test('attribute panel has a character name input and the attribute rows slot', (
   assert.match(html, /id="attr-rows"/);
 });
 
-test('nivel 1 nao expoe steppers nem contador de pontos — a ficha esta travada', () => {
+test('painel tem nota de pontos e botao de travar', () => {
   const html = readHtml();
-  assert.doesNotMatch(html, /id="points-remaining"/, 'contador de pontos deve sumir enquanto travado');
-  assert.doesNotMatch(html, /attr-stepper-btn/, 'steppers so voltam no level-up');
-  assert.match(html, /id="points-locked-note"/, 'o painel avisa que a distribuicao esta travada');
+  assert.doesNotMatch(html, /id="points-remaining"/);
+  assert.match(html, /id="points-locked-note"/, 'nota com os pontos livres');
+  assert.match(html, /id="lock-btn"/, 'botao de travar a distribuicao');
 });
 
 test('a logica de point-buy continua disponivel pro level-up', () => {
