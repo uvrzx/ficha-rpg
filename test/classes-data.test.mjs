@@ -51,10 +51,6 @@ test('every class has the required shape and non-empty fields', () => {
       assert.ok(typeof cls[field] === 'string' && cls[field].length > 0,
         `${id} ${field} must be a non-empty string`);
     }
-    for (const field of ['temperamento', 'marca', 'contradicao', 'tique']) {
-      assert.ok(typeof cls.historia[field] === 'string' && cls.historia[field].length > 0,
-        `${id} historia.${field} must be a non-empty string`);
-    }
 
     assert.ok(cls.img === '' || /^img\/.+-cut\.png$/.test(cls.img), `${id} img must be empty (placeholder) or point at a cutout`);
   }

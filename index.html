@@ -1680,13 +1680,6 @@
 
       <p class="lead" id="char-como-chegou"></p>
       <p class="lead" id="char-historico"></p>
-
-      <dl class="duo-grid" id="historia-body">
-        <div class="field"><dt>Temperamento</dt><dd id="historia-temperamento">—</dd></div>
-        <div class="field"><dt>Marca</dt><dd id="historia-marca">—</dd></div>
-        <div class="field"><dt>Contradição</dt><dd id="historia-contradicao">—</dd></div>
-        <div class="field"><dt>Tique</dt><dd id="historia-tique">—</dd></div>
-      </dl>
     </section>
 
     <section class="sec" id="proficiencias-section">
@@ -1931,12 +1924,6 @@
       perfilFisico: 'A definir.',
       comoChegou: 'Minha mãe morreu no parto do nascimento de gêmeos, meu e do meu irmão. Fui criado pela minha bisavó e não sei o paradeiro do meu irmão gêmeo; pra mim ele morreu junto no parto. Meu pai é um bêbado, e não sei quem é. Sou do reino de Baldur’s Gate, região perigosa e pobre. Entrei para a guarda e me tornei um guerreiro.',
       historico: 'A definir.',
-      historia: {
-        temperamento: 'A definir.',
-        marca: 'A definir.',
-        contradicao: 'A definir.',
-        tique: 'A definir.'
-      },
       primarios: ['FOR'],
       secundario: 'CON',
       saves: ['FOR','CON'],
@@ -2001,12 +1988,6 @@
       perfilFisico: 'Pênis: 77 mole, 88 rígido.',
       comoChegou: 'Família dizimada pela injustiça que sombra a humanidade, vivo minha vida à beira da morte, sem seguir regras ou código, dono do meu próprio destino, e recreação com garotas com grande experiência sexual.',
       historico: 'A definir.',
-      historia: {
-        temperamento: 'A definir.',
-        marca: 'A definir.',
-        contradicao: 'A definir.',
-        tique: 'A definir.'
-      },
       primarios: ['FOR'],
       secundario: 'CON',
       saves: ['FOR','CON'],
@@ -2071,12 +2052,6 @@
       perfilFisico: 'A definir.',
       comoChegou: 'A definir.',
       historico: 'A definir.',
-      historia: {
-        temperamento: 'Quieto e calmo.',
-        marca: 'A definir.',
-        contradicao: 'Com raiva eu posso ser impulsivo.',
-        tique: 'Malabarismo com adaga quando entediado.'
-      },
       primarios: ['DES'],
       secundario: 'CON',
       saves: ['DES','INT'],
@@ -2141,12 +2116,6 @@
       perfilFisico: 'A definir.',
       comoChegou: 'Bram nasceu em uma pequena comunidade élfica escondida entre antigas florestas. Desde criança, demonstrou uma curiosidade incomum pelo mundo além das árvores. Enquanto os outros jovens aprendiam sobre as tradições de seu povo, Bram preferia ouvir histórias de viajantes, mercadores e aventureiros.',
       historico: 'Aos 20 anos, deixou sua terra natal para conhecer o mundo. Durante suas viagens, aprendeu a lutar, negociar e sobreviver por conta própria. Porém, uma experiência mudou sua maneira de enxergar as pessoas: certa vez, confiou em um grupo de aventureiros que acabou abandonando Bram durante uma missão perigosa. Desde então, ele viaja sozinho — embora secretamente deseje encontrar pessoas em quem possa confiar novamente.',
-      historia: {
-        temperamento: 'A definir.',
-        marca: 'A definir.',
-        contradicao: 'A definir.',
-        tique: 'A definir.'
-      },
       primarios: ['SAB'],
       secundario: 'CON',
       saves: ['INT','SAB'],
@@ -2855,10 +2824,6 @@
       document.getElementById('char-como-chegou').textContent = c.comoChegou;
       document.getElementById('char-historico').textContent = c.historico;
 
-      document.getElementById('historia-temperamento').textContent = c.historia.temperamento;
-      document.getElementById('historia-marca').textContent = c.historia.marca;
-      document.getElementById('historia-contradicao').textContent = c.historia.contradicao;
-      document.getElementById('historia-tique').textContent = c.historia.tique;
 
       var sc = st().scores;
       var hp = RC.calcHP(c.dadoVida, sc.CON);
