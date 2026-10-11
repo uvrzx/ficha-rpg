@@ -316,6 +316,7 @@
   .point-actions .pt-btn { padding: 10px 8px; font-size: 14px; letter-spacing: .08em; }
   .pt-btn:disabled { opacity: .5; cursor: default; filter: saturate(.6); }
   .attr-controls { align-items: center; }
+  #char-name-input[readonly] { cursor: default; }
   .attr-step { width: 26px; height: 26px; padding: 0; border-radius: 50%; border: 2px solid currentColor; background: transparent; color: inherit; font: inherit; font-size: 18px; line-height: 1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
   .attr-step:hover:not(:disabled) { background: color-mix(in srgb, currentColor 18%, transparent); }
   .attr-step:disabled { opacity: .25; cursor: default; }
@@ -1926,9 +1927,9 @@
       ca: 19,
       caNota: 'cota de malha 16 + escudo 2 + Estilo Defesa 1',
       deslocamento: '9 m',
-      perfil: { idade: '—', altura: '~1,70 m', peso: '—' },
+      perfil: { idade: '21 anos', altura: '1,88 m', peso: '90 kg' },
       perfilFisico: 'A definir.',
-      comoChegou: 'A definir.',
+      comoChegou: 'Minha mãe morreu no parto do nascimento de gêmeos, meu e do meu irmão. Fui criado pela minha bisavó e não sei o paradeiro do meu irmão gêmeo; pra mim ele morreu junto no parto. Meu pai é um bêbado, e não sei quem é. Sou do reino de Baldur’s Gate, região perigosa e pobre. Entrei para a guarda e me tornei um guerreiro.',
       historico: 'A definir.',
       historia: {
         temperamento: 'A definir.',
@@ -1941,11 +1942,13 @@
       saves: ['FOR','CON'],
       sugestao: { FOR: 15, DES: 13, CON: 14, INT: 10, SAB: 12, CAR: 8 },
       atributos: { FOR: 16, DES: 14, CON: 15, INT: 11, SAB: 13, CAR: 9 },
+      // Baltazar: nome e distribuição já definidos e travados (não editáveis na ficha)
+      fixo: { nome: 'Baltazar', scores: { FOR: 12, DES: 10, CON: 10, INT: 8, SAB: 10, CAR: 8 } },
       pericias: ['Atletismo','Percepção'],
       periciaLivre: 'Lista da classe: Acrobacia, Adestrar Animais, Atletismo, História, Intuição, Intimidação, Percepção, Sobrevivência.',
       proficiencias: {
-        categoria: 'Todas as armaduras, escudos, armas simples e marciais.',
-        loadout: ''
+        categoria: 'Armaduras: todas as armaduras e escudos básicos.',
+        loadout: 'Armas: machado de duas lâminas e uma besta.'
       },
       equipamento: {
         armaLabel: 'Arma assinatura',
@@ -1954,7 +1957,7 @@
         gadget: ''
       },
       equipInicial: ['Cota de malha','Espada longa','Escudo','Besta leve + 20 virotes','Pacote de aventureiro'],
-      subclasse: {'nivel':3,'titulo':'Arquétipo Marcial','opcoes':['Campeão','Mestre de Batalha','Cavaleiro Arcano']},
+      subclasse: {'nivel':3,'titulo':'Arquétipo Marcial','opcoes':['Cavaleiro Arcano']},
       armas: [['Espada longa','+5','1d8+3 cortante','Versátil (1d10)'],['Besta leve (20 virotes)','+4','1d8+2 perfurante','Munição, 24/96 m, recarga, duas mãos'],['Machadinha (alternativa)','+5','1d6+3 cortante','Leve, arremesso 6/18 m']],
       featureNivel1: 'Estilo de Luta (Defesa), Retomar o Fôlego',
       progressao: [
@@ -1994,9 +1997,9 @@
       ca: 13,
       caNota: 'Defesa sem Armadura: 10 + DES + CON',
       deslocamento: '9 m',
-      perfil: { idade: '—', altura: '~1,75 m', peso: '—' },
-      perfilFisico: 'A definir.',
-      comoChegou: 'A definir.',
+      perfil: { idade: '—', altura: '2,50 m', peso: '190 kg' },
+      perfilFisico: 'Pênis: 77 mole, 88 rígido.',
+      comoChegou: 'Família dizimada pela injustiça que sombra a humanidade, vivo minha vida à beira da morte, sem seguir regras ou código, dono do meu próprio destino, e recreação com garotas com grande experiência sexual.',
       historico: 'A definir.',
       historia: {
         temperamento: 'A definir.',
@@ -2009,11 +2012,13 @@
       saves: ['FOR','CON'],
       sugestao: { FOR: 15, DES: 13, CON: 14, INT: 8, SAB: 12, CAR: 10 },
       atributos: { FOR: 17, DES: 13, CON: 15, INT: 8, SAB: 12, CAR: 10 },
+      // Tião: nome e distribuição já definidos e travados (não editáveis na ficha)
+      fixo: { nome: 'Tião', scores: { FOR: 13, DES: 9, CON: 12, INT: 8, SAB: 8, CAR: 8 } },
       pericias: ['Atletismo','Percepção','Intimidação (Meio-Orc)'],
       periciaLivre: 'Lista da classe: Adestrar Animais, Atletismo, Intimidação, Natureza, Percepção, Sobrevivência.',
       proficiencias: {
         categoria: 'Armaduras leves e médias, escudos, armas simples e marciais.',
-        loadout: 'Meio-Orc dá a perícia Intimidação. Em Fúria: +2 no dano corpo a corpo com FOR.'
+        loadout: 'Bom em combate corpo a corpo, especialista em armas variadas.'
       },
       equipamento: {
         armaLabel: 'Arma assinatura',
@@ -2022,7 +2027,7 @@
         gadget: ''
       },
       equipInicial: ['Machado grande','2 machadinhas','4 azagaias','Pacote de explorador'],
-      subclasse: {'nivel':3,'titulo':'Caminho Primitivo','opcoes':['Caminho do Furioso','Caminho do Guerreiro Totêmico']},
+      subclasse: {'nivel':3,'titulo':'Caminho Primitivo','opcoes':['Bestial (Caminho da Besta)']},
       armas: [['Machado grande','+5','1d12+3 cortante','Pesada, duas mãos'],['Machadinha (×2)','+5','1d6+3 cortante','Leve, arremesso 6/18 m'],['Azagaia (×4)','+5','1d6+3 perfurante','Arremesso 9/36 m']],
       featureNivel1: 'Fúria (2 usos, +2 de dano), Defesa sem Armadura',
       progressao: [
@@ -2062,21 +2067,23 @@
       ca: 14,
       caNota: 'armadura de couro 11 + DES',
       deslocamento: '7,5 m',
-      perfil: { idade: '—', altura: '~0,91 m', peso: '—' },
+      perfil: { idade: '21 anos', altura: '1,77 m', peso: '75 kg' },
       perfilFisico: 'A definir.',
       comoChegou: 'A definir.',
       historico: 'A definir.',
       historia: {
-        temperamento: 'A definir.',
+        temperamento: 'Quieto e calmo.',
         marca: 'A definir.',
-        contradicao: 'A definir.',
-        tique: 'A definir.'
+        contradicao: 'Com raiva eu posso ser impulsivo.',
+        tique: 'Malabarismo com adaga quando entediado.'
       },
       primarios: ['DES'],
       secundario: 'CON',
       saves: ['DES','INT'],
       sugestao: { FOR: 8, DES: 15, CON: 14, INT: 10, SAB: 13, CAR: 12 },
       atributos: { FOR: 8, DES: 17, CON: 14, INT: 10, SAB: 13, CAR: 13 },
+      // Reed: nome e distribuição já definidos e travados (não editáveis na ficha)
+      fixo: { nome: 'Reed', scores: { FOR: 9, DES: 12, CON: 8, INT: 11, SAB: 10, CAR: 8 } },
       pericias: ['Furtividade','Acrobacia','Percepção','Enganação'],
       periciaLivre: 'Lista da classe: Acrobacia, Atletismo, Atuação, Enganação, Furtividade, Intimidação, Intuição, Investigação, Percepção, Persuasão, Prestidigitação.',
       proficiencias: {
@@ -2124,16 +2131,16 @@
       personagem: 'Personagem 4',
       palette: { bg: '#022509', deep: '#011705', surface: '#238926', light: '#FBFFF2', muted: '#D3EBD3', accent: '#25E970', accent2: '#238926', paper: '#FBFFF2', paper2: '#E9FFCA', edge: '#7FBF63', ink: '#022509', inksoft: '#2B6B31' },
       img: 'img/druida-cut.png',
-      raca: 'Elfo da Floresta',
-      racaTxt: 'Elfo da Floresta (+2 DES, +1 SAB)',
+      raca: 'Elfo',
+      racaTxt: 'Elfo',
       dadoVida: 8,
       ca: 15,
       caNota: 'couro 11 + DES 2 + escudo de madeira 2',
       deslocamento: '10,5 m',
-      perfil: { idade: '—', altura: '~1,65 m', peso: '—' },
+      perfil: { idade: '29 anos', altura: '1,85 m', peso: '85 kg' },
       perfilFisico: 'A definir.',
-      comoChegou: 'A definir.',
-      historico: 'A definir.',
+      comoChegou: 'Bram nasceu em uma pequena comunidade élfica escondida entre antigas florestas. Desde criança, demonstrou uma curiosidade incomum pelo mundo além das árvores. Enquanto os outros jovens aprendiam sobre as tradições de seu povo, Bram preferia ouvir histórias de viajantes, mercadores e aventureiros.',
+      historico: 'Aos 20 anos, deixou sua terra natal para conhecer o mundo. Durante suas viagens, aprendeu a lutar, negociar e sobreviver por conta própria. Porém, uma experiência mudou sua maneira de enxergar as pessoas: certa vez, confiou em um grupo de aventureiros que acabou abandonando Bram durante uma missão perigosa. Desde então, ele viaja sozinho — embora secretamente deseje encontrar pessoas em quem possa confiar novamente.',
       historia: {
         temperamento: 'A definir.',
         marca: 'A definir.',
@@ -2145,11 +2152,13 @@
       saves: ['INT','SAB'],
       sugestao: { FOR: 8, DES: 13, CON: 14, INT: 12, SAB: 15, CAR: 10 },
       atributos: { FOR: 8, DES: 15, CON: 14, INT: 12, SAB: 16, CAR: 10 },
-      pericias: ['Natureza','Medicina','Percepção (Elfo)'],
-      periciaLivre: 'Lista da classe: Arcanismo, Adestrar Animais, Intuição, Medicina, Natureza, Percepção, Religião, Sobrevivência.',
+      // Bram: nome e distribuição já definidos e travados (não editáveis na ficha)
+      fixo: { nome: 'Bram', scores: { FOR: 9, DES: 10, CON: 9, INT: 11, SAB: 11, CAR: 8 } },
+      pericias: ['Furtividade','Percepção'],
+      periciaLivre: '',
       proficiencias: {
         categoria: 'Armaduras leves e médias, escudos (nada de metal), clava, adaga, dardo, azagaia, maça, bordão, cimitarra, foice, funda, lança.',
-        loadout: 'Kit de herbalismo. Elfo da Floresta soma espada longa, espada curta, arco curto e arco longo, e dá Percepção.'
+        loadout: 'Kit de herbalismo. Elfo soma espada longa, espada curta, arco curto e arco longo, e dá Percepção.'
       },
       equipamento: {
         armaLabel: 'Arma assinatura',
@@ -2158,7 +2167,7 @@
         gadget: ''
       },
       equipInicial: ['Escudo de madeira','Cimitarra','Armadura de couro','Foco druídico','Pacote de explorador'],
-      subclasse: {'nivel':2,'titulo':'Círculo Druídico','opcoes':['Círculo da Terra','Círculo da Lua'],'nota':'Círculo da Lua altera os limites de Forma Selvagem (ND 1 no nível 2, nível ÷ 3 a partir do 6).'},
+      subclasse: {'nivel':3,'titulo':'Patrulheiro','opcoes':['Andarilho das Trevas (Gloom Stalker)'],'nota':''},
       armas: [['Cimitarra','+4','1d6+2 cortante','Acuidade, leve'],['Bordão com Bordão Místico','+5','1d8+3 concussão','Usa SAB, ação bônus'],['Produzir Chama (truque)','+5','1d8 fogo','Truque, 9 m']],
       magias: {'cd':13,'ataque':'+5','preparadas':'4 (SAB + nível)','truquesQtd':2,'truques':['Produzir Chama'],'nivel1':['Curar Ferimentos','Constrição','Fogo das Fadas','Onda Trovejante','Bom Fruto'],'espacos1':2},
       featureNivel1: 'Druídico, Conjuração (2 truques, 2 espaços de 1º nível)',
@@ -2200,6 +2209,11 @@
     try { saved = JSON.parse(localStorage.getItem(BUILD_KEY)) || {}; } catch (e) {}
     ORDER.forEach(function (id) {
       var b = saved[id], ok = b && b.scores && typeof b.points === 'number' && RC.ATTRS.every(function (a) { return Number.isInteger(b.scores[a]); });
+      var fx = RC.CLASSES[id].fixo;
+      if (fx) {
+        stateByClass[id] = { name: fx.nome, scores: Object.assign({}, fx.scores), points: 0, floor: Object.assign({}, fx.scores) };
+        return;
+      }
       stateByClass[id] = Object.assign({ name: RC.CLASSES[id].personagem || '' }, ok ? { scores: b.scores, points: b.points, floor: b.floor || null } : RC.newBuild());
     });
     function saveBuilds() {
@@ -2422,6 +2436,7 @@
       var s = st();
       renderPoints();
       var input = document.getElementById('char-name-input');
+      input.readOnly = !!cls().fixo;
       if (document.activeElement !== input) input.value = s.name;
       document.getElementById('builder-title').textContent = 'Atributos — ' + cls().nome;
       renderAttrRows();
@@ -3127,6 +3142,7 @@
     }
 
     document.getElementById('char-name-input').addEventListener('input', function (e) {
+      if (cls().fixo) return; // nome travado
       st().name = e.target.value;
       setHeroName(st().name || cls().nome);
       renderPrintSheet();
